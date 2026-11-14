@@ -18,11 +18,22 @@ Same bytes found in ROM at 0x1EB423.
 | 0x20 | space (8 px advance; other glyphs advance 12 px) | verified |
 | 0x21-0x3A / 0x3B-0x54 | A-Z / a-z (full font already has Latin) | read off the font sheet |
 | 0x56-0x5F | 0-9 | font sheet |
-| 0x60-0xAF | hiragana ぁ..ん in Shift-JIS order (code = SJIS low byte - 0x3F; ゎゐゑ absent so わ=AD? を=AE ん=AF) | か/く/た/っ/つ/ふ/ら/を verified; rest guess |
-| 0xB0-0x10A | katakana ァ.. in Shift-JIS order (SJIS 0x8340 + n -> 0xB0 + n, minus 1 after the 0x837F gap: ラ=F8) | ス/デ/ハ/ド/ク/タ/ゾ/ラ verified |
-| 0x10B ー, 0x110 ・, 0x111 … | punctuation block 0x10B-0x13F | verified (ー ・ …) |
-| 0x140-0x15F | kanji numerals 一二三四五六七八九十百千万 (+ a small set at 0x150) | font sheet |
-| 0x200-0x6FF | kanji (lead bytes 02-06 are used in the script) | to read in phase 4 |
+| 0x60-0xAF | hiragana ぁ..ん in Unicode/SJIS order without ゎゐゑ (わ=AD を=AE ん=AF) | verified: font sheet + whole-script decode reads as Japanese |
+| 0xB0-0xFF | katakana ァ..ン in order without ヮヰヱ (ラ=F8 ワ=FD ヲ=FE ン=FF) | verified (same) |
+| 0x100-0x10A | extra signs; used: 0x105 ヴ, 0x10A 々 (我々) | context |
+| 0x10B-0x13F | punctuation: ー！？、。・…：”「」『』〜―‼⁉−／＆“ (see `tbl/jp.tbl`) | font sheet + context |
+| 0x140-0x14C | kanji numerals 一二三四五六七八九十百千万 | font sheet |
+| 0x1ED-0x1FF | blank spacer cells: 6/4/2 px spaces, then 204..12 px padding (name-list columns) | width table |
+| 0x200-0x6FF | kanji, in no standard order; the script uses 61, all read (`tbl/jp.tbl`) | zoomed cell sheet + context |
+
+**Table: `tbl/jp.tbl`** (phase 4). Every glyph the script uses is named; `tools/script.py` adds a `{cXXX}` fallback
+for any unnamed 2-byte cell so an unread cell never splits into a lead byte + a control code.
+
+**Width table (verified, disassembly of 0x080080D8): ROM 0x8C00FA, one byte per code 0x000-0x1FF** (normal font,
+window attr bit 7 clear). Codes > 0x1FF are a fixed 12 px. Latin 0x21-0x54 and space are 8 px, kana 12 px, a few
+punctuation cells 8 or 4 px. So the engine already draws proportionally from this table: for English (phase 5) a
+narrow Latin font + new widths here may be all the VWF needed. The renderer also **wraps by itself** when the next
+glyph would pass the box's right edge (0x080078DE).
 
 Font: ROM **0x2CBC34** (uncompressed, resource id 0x4600 via `bl 0x080202E8`), 16x16 1bpp, 2 bytes per row
 big-endian (MSB = left pixel), 32 bytes per glyph, codes up to 0xBFF. A second (small?) font is selected when the
@@ -33,20 +44,33 @@ Sheet: `python -X utf8 tools/fontsheet.py work/orig.gba OUT.png --first 200 --co
 Rendering: glyphs go into an EWRAM canvas at 0x02015C00 + line*0x400 (two lines per box) and are DMA'd to BG VRAM
 0x06001000 a column at a time (typewriter); the message itself is copied from ROM into EWRAM 0x0201B100 first.
 
-## Control codes (guess from byte statistics, `tools/recon_msgs.py`; verify against the interpreter in phase 4)
+## Control codes (verified by disassembly, phase 4)
 
-| Code | Args | Meaning (guess) |
-|---|---|---|
-| 0x1F | 0 | end of message (verified: every table target follows a 0x1F) |
-| 0x1D | 0 | newline; first byte pair of a dialogue message is `20 1D` (blank speaker/name line?) |
-| 0x1E | 0 | wait for button / new page |
-| 0x19 | 0 | appears in runs `20 19 20 19` (pause/delay?) |
-| 0x13 | 2 | e.g. `13 0B 00`, `13 05 00..02` (portrait/face?) |
-| 0x14 | 3 | `14 FF FF FF` |
-| 0x18 | 2 | `18 FF FF`, `18 7F 80`, `18 7F 00` |
-| 0x00 | ? | 82 left over in one table that looks like binary data; see below |
+Two passes. **Preprocessor 0x08007568** (r0 = message) copies the message into EWRAM 0x0201B100, expanding
+includes and branches (jump table 0x080075B8 for codes 0x10-0x1F). **Renderer 0x08007830** draws the expanded
+buffer (jump table 0x0800796C). Bytes 0x01-0x0F are lead bytes of 2-byte glyphs in both passes; 0x00 ends the
+buffer (only ever seen as an argument byte).
 
-Text interpreter reads the message at PCs 0x08007594-0x080077FC (read-watch on the ROM text).
+| Code | Args | tbl name | Meaning |
+|---|---|---|---|
+| 0x13 | 2 | `{se:LLHH}` | sound: id = HH<<8 \| LL; HH bit 7 set = store id at 0x03002000 instead (music?); flag 0x411 overrides with 0xC014 |
+| 0x14 | 3 | `{msg:GGIIII}` | include message II (u16) of sub-table group 0x8200+GG through the resource loader; FF / FFFF = from a variable (0x0800A2E0 / 0x08009244). The script only uses `14 FF FF FF` and `14 02 FF FF` |
+| 0x15 | var | - | random branch over a u16 offset list (+ var); **unused by the script** |
+| 0x16 | var | - | random branch; **unused** |
+| 0x17 | 4 | - | flag test + relative skip; **unused**. No jump offsets in the text: messages can grow freely |
+| 0x18 | 2 | `{style:AAOO}` | window attr = (attr & AA) \| OO; FF FF = random. Attr bit 7 = small font (cell = (code & 0x1FF) + 0xC00) |
+| 0x19 | 0 | `{var}` | insert a dynamic string (bytes from 0x0800A2E0 up to its 0x1F) when 0x03002DB8 != 0 |
+| 0x1A | 0 | `{flush}` | flush the line and return from the draw step (unused) |
+| 0x1B | 0 | `{1B}` | calls 0x080081D4 (unused) |
+| 0x1C | 0 | `{cr}` | x = left margin (unused) |
+| 0x1D | 0 | `{n}` | newline (y += 16, or 8 in small font) |
+| 0x1E | 0 | `{p}` | newline, and the caller gets the code back (page / button wait) |
+| 0x1F | 0 | `{end}` | end; inside an include, return to the caller |
+| 0x10-0x12 | 0 | - | dropped by the preprocessor (unused) |
+
+**Message split is token-aware** (`textblock.msg_end`): `13 1F 00` (sound 0x001F, sub-table 35) and glyph 0x11F
+(`01 1F`) contain a 0x1F that is not an end code. Splitting at every 0x1F gave 794 "messages"; the real count is
+**791**.
 
 ## Pointers (verified: every target lands on a message start)
 
@@ -62,10 +86,19 @@ Text interpreter reads the message at PCs 0x08007594-0x080077FC (read-watch on t
 - 795 distinct message starts in total. Text + tables span **0x1E90C0-0x1FE9F0** (~88 KB; most of it is tables).
 - **Unpacker/packer `tools/textblock.py`** (verified: phase 3 identity build, `build.py --verify`): 40 real
   sub-tables chained from 0x1E91B8 (master entry 0 points 7 bytes into the first; entries 51-61 = end of block),
-  **794 messages** (0x1F-terminated segments). Sub-table 0x1E9843's entries 305-383 point at the end of its own
+  **791 messages** (0x1F-terminated, split token-aware; no orphans: every one is reached by a slot or as a tail). Sub-table 0x1E9843's entries 305-383 point at the end of its own
   text (= the next table's start): unused slots, kept as "end" entries. pack() takes any 4-aligned base, so the
   block can move to free space; only the resource-table word for group 2 (0xD226B4 = master + 4) would need
-  repointing then (check code for other references to 0x081E90C0/0x081E90C4 before relocating).
+  repointing then. Checked (phase 4): of the 75 aligned words in the ROM whose value falls in 0x081E90C0-0x081FE9F0,
+  only 0xD226B4 (= 0x081E90C4) hits a table or message start; the rest are graphics data.
+
+## Script dump (phase 4)
+
+`python -X utf8 tools/script.py dump ROM` -> `script/sNN_ADDR.tsv` (one file per sub-table; columns id = original
+ROM offset, slots, jp, en, notes). `check` = roundtrip + coverage (0 errors on all 791), tested by
+`tests/test_script.py`. A scan of the whole ROM for kana-heavy runs ending in 0x1F outside the block found only
+noise in graphics data: all game text in this encoding is in the block. Debug-only messages sit in sub-table 3
+(ASSERT, map/BG/anim number readouts, 「開発中」 placeholders): flag them as non-text in the marker build (phase 5).
 
 ## Free space (candidates, not yet trap-tested)
 

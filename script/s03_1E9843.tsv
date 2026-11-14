@@ -1,0 +1,47 @@
+id	slots	jp	en	notes
+1E9B43	0			
+1E9B44	1	{style:FFFF}{msg:FFFFFF}		
+1E9B4C	2	{sp4}{style:FFFF}{msg:FFFFFF}		
+1E9B56	3	{msg:FFFFFF}{style:F800}{var}		
+1E9B5F	4	{pad12}{style:FFFF}{msg:FFFFFF}		
+1E9B69	5-7	 {sp6}はい{n} いいえ		
+1E9B74	8-15,19	{sp8}{style:FFFF}{msg:FFFFFF}{n}{tail}{sp8}{style:FFFF}{msg:FFFFFF}{n}{tail}{sp8}{style:FFFF}{msg:FFFFFF}{n}{tail}{sp8}{style:FFFF}{msg:FFFFFF}		
+1E9B98	20-64	{style:FFFF}{msg:02FFFF}{n}{pad60}{var}／{var}		
+1E9BA7	65	{style:FFFF}{msg:02FFFF}{n}{pad72}−／−{pad12}		
+1E9BBA	66-128	ＡＳＳＥＲＴ{n}ＦＩＬＥ：{var}{n}ＬＩＮＥ：{var}		
+1E9BD1	129-130	{sp8}マップ番号：{var}{n}{sp8}ユニットＸ：{var}{n}{sp8}ユニットＹ：{var}		
+1E9BF1	131-132	{sp8}ＢＧ番号：{var}		
+1E9BFC	133	{sp8}キャラ番号：{var}		
+1E9C08	134	{sp8}ＢＧデバッガ{n}{sp8}サウンドデバッガ{n}{sp8}マップデバッガ{n}{sp8}アニメデバッガ		
+1E9C2C	135	{sp8}キャラ番号：{var}{n}{sp8}アニメ番号：{var}{n}{sp8}アニメ再生：{var}{n}{sp8}くりかえし{n}{sp8}コマおくり{n}{sp8}連続再生{n}{sp8}連続１：{var}{n}{sp8}連続２：{var}{n}{sp8}連続３：{var}{n}{sp8}連続４：{var}		
+1E9C90	136	 自Ｌ１{n} 自Ｌ２{n} 自Ｌ３{n} 自Ｌ４{n} 敵Ｌ１{n} 敵Ｌ２{n} 敵Ｌ３{n} 敵Ｌ４		
+1E9CC0	137-144	   {sp8}０１２３４５６７８９ＡＢＣＤＥＦ{n}{var}{sp8}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}		
+1E9CE8	145	{var}：		
+1E9CEC	146	{sp8}{sp8}アニメ番号：{var}		
+1E9CF9	147	{sp8}{sp8}ＳＥ{sp8}{sp8}{sp8}：{var}{n}{sp8}{sp8}ＢＧＭ{sp8}{sp8}：{var}{n}{sp8}{sp8}ＶＯＩＣＥ：{var}		
+1E9D1A	148-152	ユニット：{var} {var} {var} フォーカス：{var}{n}イベント：{var}{n}{n}ＮＯ Ｐ Ｒ Ｗ Ｘ   Ｙ  {n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}		
+1E9E0B	153-160	イベントポイント{var}のスクリプトにエラーがあります		
+1E9E25	161	イベント{var}のスクリプトにエラーがあります		
+1E9E3B	162-256	セーブできません		
+1E9E45	257	ロードできません		
+1E9E4F	258-260	セーブしています		
+1E9E59	261	セーブに しっぱいしました		
+1E9E68	262	セーブが おわりました		
+1E9E75	263	うわがき しても{n}よろしいですか？		
+1E9E88	264	ロードしています		
+1E9E92	265	ロードに しっぱい しました		
+1E9EA2	266	ロードが おわりました		
+1E9EAF	267	データをけしても{n}よろしいですか？		
+1E9EC3	268	データをけしています		
+1E9ECF	269	データをけせませんでした		
+1E9EDD	270	データをけしました		
+1E9EE8	271-272	２しゅうめをあそぶには{n}クリアデータをロードする{n}ひつよう が あります		
+1E9F0F	273	クリアデータを{n}セーブしますか？{n}		
+1E9F24	274	ここまでのプレイを{n}セーブしますか？{n}		
+1E9F3A	275	  つぎのステージへすすむ{n}  セーブする		
+1E9F52	276-288	リタイアしますか？		
+1E9F5D	289	ふつうの モードです		
+1E9F69	290	むずかしい モードです		
+1E9F76	291	やさしい モードです		
+1E9F82	292	？？？		
+1E9F89	293-304	Ｂボタンれんだ でエネルギーをためろ！{n}レベルをあげて Ａボタンで こうげきだ！		

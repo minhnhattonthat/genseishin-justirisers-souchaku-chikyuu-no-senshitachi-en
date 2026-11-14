@@ -23,6 +23,19 @@ MASTER, END, NMASTER = 0x1E90C0, 0x1FE9F0, 62
 GROUP_PTR = 0xD226AC + 4 * 2   # resource-table word for group 2 (= master + 4, as a 0x08xxxxxx pointer)
 
 
+ARGS = {0x13: 2, 0x14: 3, 0x18: 2}   # control codes with argument bytes (preprocessor 0x08007568, docs/re/text.md)
+
+
+def msg_end(b, p):
+    """Offset just past the 0x1F that ends the message at b[p], stepping over 2-byte glyphs (lead 0x01-0x0F) and
+    control-code arguments: `13 1F 00` (sound 0x001F, sub-table 35) holds a 0x1F that is not an end code."""
+    while True:
+        c = b[p]
+        if c == 0x1F:
+            return p + 1
+        p += 2 if 0 < c <= 0x0F else 1 + ARGS.get(c, 0)
+
+
 def _sub(d, s, nxt):
     entries_addr, targets = s, []
     while not targets or entries_addr < min(targets):
@@ -37,7 +50,7 @@ def _sub(d, s, nxt):
         raise ValueError("sub-table %X: text does not end with 1F before %X" % (s, nxt))
     starts, msgs, p = [], [], 0
     while p < len(region):
-        e = region.index(b"\x1f", p) + 1
+        e = msg_end(region, p)
         starts.append(entries_addr + p)
         msgs.append(bytes(region[p:e]))
         p = e

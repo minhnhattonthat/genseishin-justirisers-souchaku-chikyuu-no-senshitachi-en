@@ -30,7 +30,7 @@ class TestIdentity(unittest.TestCase):
         import textblock
         m = textblock.unpack(self.d)
         self.assertEqual(len(m["subs"]), 40)
-        self.assertEqual(sum(len(s["msgs"]) for s in m["subs"]), 794)
+        self.assertEqual(sum(len(s["msgs"]) for s in m["subs"]), 791)
         self.assertEqual(textblock.pack(m), self.d[textblock.MASTER:textblock.END])
 
     def test_textblock_relocates(self):
