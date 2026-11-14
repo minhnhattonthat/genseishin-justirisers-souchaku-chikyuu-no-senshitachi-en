@@ -23,6 +23,30 @@ def check(listing=ROOT / "rom.sha1"):
             sys.exit(f"{name.strip()}: SHA-1 {got}, expected {want}. Wrong revision, a header, or already patched?")
 
 
+def rom_path(listing=ROOT / "rom.sha1"):
+    """Path of the first dump listed in rom.sha1 (it may not exist on a clone)."""
+    line = next(x for x in listing.read_text(encoding="utf-8").splitlines()
+                if x.strip() and not x.startswith("#"))
+    return ROOT / line.split(None, 1)[1].strip().lstrip("*")
+
+
+def have_rom():
+    """True when the dump is present: ROM-dependent tests skip only when this is False."""
+    return rom_path().is_file()
+
+
+_ORIG = None
+
+
+def original():
+    """Bytes of the verified original dump (rom.sha1-checked once per process). Exits on a wrong or missing dump."""
+    global _ORIG
+    if _ORIG is None:
+        check()
+        _ORIG = rom_path().read_bytes()
+    return _ORIG
+
+
 if __name__ == "__main__":
     check()
     print("rom ok")

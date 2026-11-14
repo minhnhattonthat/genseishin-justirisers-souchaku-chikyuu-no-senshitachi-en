@@ -24,4 +24,4 @@ id	slots	jp	en	notes
 1EAAEC	143	{n}バグシーンをたおせ	{n}Defeat the Bugscenes	
 1EAAF8	144	二つのスイッチをうごかし{n}カクヘキをひらいて{n}バスをまもれ	Flip both switches,{n}open the bulkheads{n}and protect the bus	
 1EAB17	145	{style:7F80}{n}{style:7F00}バグシーンをたおせ{n}タンクをまもれ	{style:7F80}{n}{style:7F00}Defeat the Bugscenes{n}Protect the tanks	
-1EAB31	146-255	エラーコード		placeholder: 'error code', fills unused slots
+1EAB31	146-255	エラーコード	Error code	placeholder: 'error code', fills unused slots

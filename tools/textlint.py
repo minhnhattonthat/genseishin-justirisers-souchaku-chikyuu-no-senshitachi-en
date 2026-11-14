@@ -30,6 +30,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
+import check_rom  # noqa: E402
 import font  # noqa: E402
 import insert  # noqa: E402
 import script  # noqa: E402
@@ -52,6 +53,12 @@ def load_windows():
             for mid in ids:
                 by_id.setdefault(mid, set()).add(name)
     return data["variants"], by_id
+
+
+def load_line_caps():
+    """Per-id line limits that override the variant's (tbl/windows.json "lines")."""
+    data = json.loads((ROOT / "tbl" / "windows.json").read_text(encoding="utf-8"))
+    return {k: v for k, v in data.get("lines", {}).items() if not k.startswith("_")}
 
 
 def kind(char):
@@ -105,7 +112,7 @@ class Lint:
         fonts = font.load_all()
         self.et = insert.en_table(fonts["normal"])
         self.jt = script.table()
-        orig = (ROOT / "work" / "orig.gba").read_bytes()
+        orig = check_rom.original()
         rom = bytearray(orig)
         font.apply(rom, fonts)
         self.wt_jp = orig[font.WIDTHS:font.WIDTHS + 0x200]
@@ -114,11 +121,13 @@ class Lint:
         self.variants, self.by_id = load_windows()
         self.gloss = load_glossary()
         self.waive = load_waivers()
-        self.sub_width = {}   # widest Japanese line per sub-table: the budget of never-drawn rows
+        self.sub_width = {}   # widest Japanese line per sub-table: guessed budget of never-drawn rows (phase 8 measures)
         for f in sorted((ROOT / "script").glob("s*.tsv")):
             ws = [self.jp_width(ln) for r in script.read_tsv(f) if not r["notes"].startswith(("nontext", "debug"))
                   for ln in re.split(r"\{n\}|\{p\}", r["jp"])]
             self.sub_width[int(f.name[1:3])] = max(ws or [0])
+        self.line_caps = load_line_caps()
+        self.guessed = {}   # sub -> ids linted on a Japanese-width budget (no measured window yet)
 
     def width(self, text, small=False):
         text = text.replace("{fill}", "").replace(script.TAIL, "")
@@ -184,9 +193,10 @@ class Lint:
             v = self.variants[sorted(names - {"name_tag"})[0]] if names - {"name_tag"} else None
             if v:
                 lines = re.split(r"\{n\}|\{p\}", en)
-                lines = [ln for ln in lines]
-                if len([ln for ln in lines if ln.strip(" ")]) > (v["lines"] + (1 if mid == "1E9EE8" else 0)):
-                    err("lines", f"{len(lines)} lines > {v['lines']}")
+                used = len([ln for ln in lines if ln.strip(" ")])
+                cap = self.line_caps.get(mid, v["lines"])
+                if used > cap:
+                    err("lines", f"{used} lines > {cap}")
                 for ln in lines:
                     w = self.width(ln, v["font"] == "small")
                     if w > v["px"]:
@@ -196,14 +206,22 @@ class Lint:
         if len(jl) != len(el):
             err("lines", f"{len(el)} lines, Japanese has {len(jl)} (unplaced/column row keeps its lines)")
             return errs
+        # No measured window: the budget is a guess from the Japanese line's own width (pipeline.md §Width
+        # gate: never trust it). Counted per sub-table so the summary line shows what phase 8 must measure.
+        self.guessed.setdefault(sub, set()).add(mid)
         column = r["notes"].startswith("column")
         lim_sub = self.sub_width.get(sub, 0)
         for a, b in zip(jl, el):
             lim = self.jp_width(a) if column or "{fill}" in b else lim_sub
             w = self.width(b)
             if w > max(lim, 16):
-                err("width", f"{w} px > {'column' if column else 'widest Japanese line'} {lim} px: {b!r}")
+                err("width", f"{w} px > guessed {'column' if column else 'widest Japanese line'} {lim} px: {b!r}")
         return errs
+
+    def guessed_summary(self):
+        n = sum(len(v) for v in self.guessed.values())
+        parts = ", ".join(f"s{s:02d} {len(v)}" for s, v in sorted(self.guessed.items()))
+        return f"{n} rows on guessed (Japanese-width) budgets" + (f": {parts}" if parts else "")
 
     def check_dialogue(self, mid, jp, en, err):
         jtag, _, jbody = jp.partition("{n}")
@@ -258,11 +276,11 @@ def main(argv):
                 continue
             if not r["en"]:
                 missing += 1
-                continue
             n += 1
-            errs += lint.check(sub, r)
+            errs += lint.check(sub, r)   # an empty en fails the 'missing' rule
     for e in errs:
         print(e)
+    print(lint.guessed_summary())
     print(f"{n} rows checked, {len(errs)} errors, {missing} text rows without English")
     return 1 if errs else 0
 

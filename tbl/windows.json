@@ -55,7 +55,12 @@
     "_doc": "Ids the 75-scene tour never drew. Story sub-tables s07-s39 use the dialogue rules (first line = name tag when the Japanese has one). Pad-column lines (notes 'column: N px') keep N. s00 enemy names, s05 stage-clear list and s06 mission text were not drawn in any warp scene: budget = the Japanese line's pixel width until phase 8 text coverage places them.",
     "story": "dialogue",
     "column_note": "column",
-    "unplaced": "jp_width"
+    "unplaced": "jp_width",
+    "guess": true
+  },
+  "lines": {
+    "_doc": "Per-id line limits overriding the variant's 'lines' (tools/textlint.py load_line_caps).",
+    "1E9EE8": 3
   },
   "assigned": {
     "_doc": "Ids the tour did not log, given the variant of their logged siblings in the same menu (phase 6, tools/textlint.py). Other never-drawn rows: each line within the widest Japanese line of its sub-table (the box they share), and no more lines than the Japanese.",

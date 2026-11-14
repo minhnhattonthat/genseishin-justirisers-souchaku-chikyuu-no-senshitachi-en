@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tools"))
 
+import check_rom  # noqa: E402
 import insert  # noqa: E402
 
 MSG = re.compile(r"MSG f(\d+) addr=([0-9A-F]+)")
@@ -26,7 +27,7 @@ def main():
     ap.add_argument("prefixes", nargs="?", default="")
     ap.add_argument("--build", default="marker", choices=["marker", "en"])
     a = ap.parse_args()
-    orig = (ROOT / "work" / "orig.gba").read_bytes()
+    orig = check_rom.original()
     addrs = insert.build(orig, a.build)[2]["addresses"]
     inv = addrs  # ROM offset -> message id
     pref = tuple(p for p in a.prefixes.split(",") if p)

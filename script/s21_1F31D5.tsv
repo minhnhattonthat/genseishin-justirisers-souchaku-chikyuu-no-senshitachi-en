@@ -25,4 +25,4 @@ id	slots	jp	en	notes
 1F3C00	23	グレン{n}よし やったぜ‼	Glen{n}Alright, we did it!!	
 1F3C0E	24	ガント{n}いそいで トラックを{n}おいかけるんだ！	Gant{n}Quickly, we have to{n}go after that truck!	
 1F3C27	25	カゲリ{n}ええ！	Kageri{n}Right!	
-1F3C30	26-1024	開発中		placeholder: 'in development', fills an unused sub-table
+1F3C30	26-1024	開発中	In development	placeholder: 'in development', fills an unused sub-table

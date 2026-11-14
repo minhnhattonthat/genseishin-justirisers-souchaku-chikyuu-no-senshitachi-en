@@ -12,4 +12,4 @@ id	slots	jp	en	notes
 1F20FD	10	グレン{n}にがさないぜ…{n}ドクター・ゾラ！	Glen{n}You're not getting away...{n}Doctor Zora!	
 1F2116	11	カゲリ{n}にがさないわよ…{n}ドクター・ゾラ！	Kageri{n}You won't get away...{n}Doctor Zora!	
 1F2130	12	ガント{n}にがさんぞ…{n}ドクター・ゾラ！	Gant{n}You will not escape...{n}Doctor Zora!	
-1F2148	13-1024	開発中		placeholder: 'in development', fills an unused sub-table
+1F2148	13-1024	開発中	In development	placeholder: 'in development', fills an unused sub-table

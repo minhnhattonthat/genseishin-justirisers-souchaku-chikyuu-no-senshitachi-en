@@ -37,4 +37,4 @@ id	slots	jp	en	notes
 1EA72D	48	インポータント・ユー{pad24}	Important You{fill}	column: 144 px wide line (build refills the pads)
 1EA73D	49	アンサー・ウィズ・バトル	Answer with Battle	
 1EA74D	50	クリアデータ	Clear Data	
-1EA755	51-63	エラーコード		placeholder: 'error code', fills unused slots
+1EA755	51-63	エラーコード	Error code	placeholder: 'error code', fills unused slots

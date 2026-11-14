@@ -5,4 +5,4 @@ id	slots	jp	en	notes
 1E95A8	3	けんを ふりおろすと ほのおを はなち{n}まえに いる てきを こうげき する	Swing the sword down to unleash{n}flames on the enemies ahead.	
 1E95CF	4	こうエネルギーだん{sp6}と{sp6}なった{sp6}クナイが{n}まわりに{sp6}いる{sp6}てきを{sp6}こうげき{sp6}する	Kunai charged with high energy{n}strike the enemies all around.	
 1E9600	5	きょうりょくな{sp4}エネルギーの{sp4}かりょくで{n}まえと{sp4}うしろの{sp4}てきを{sp4}こうげき{sp4}する	Powerful energy fire strikes the{n}enemies both ahead and behind.	
-1E9631	6-15	エラーコード		placeholder: 'error code', fills unused slots
+1E9631	6-15	エラーコード	Error code	placeholder: 'error code', fills unused slots

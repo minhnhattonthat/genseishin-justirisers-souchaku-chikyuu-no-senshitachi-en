@@ -10,4 +10,4 @@ id	slots	jp	en	notes
 1EA405	296	{sp12}―	{sp12}-	
 1EA40A	297	？？	??	
 1EA40F	298	{g135}	{g135}	
-1EA412	299-511	エラーコード		placeholder: 'error code', fills unused slots
+1EA412	299-511	エラーコード	Error code	placeholder: 'error code', fills unused slots

@@ -35,4 +35,4 @@ id	slots	jp	en	notes
 1F4FE3	33	ガーディアス{n}チッ…{n}じゃま が はいったか…	Gardias{n}Tch...{n}Someone's butting in...	
 1F4FFE	34	グレン{n}直也！ しっかりしろ！	Glen{n}Naoya! Hang in there!	
 1F5012	35	ガント{n}だいじょうぶ だ…{n}さあ いくぞ！	Gant{n}I'm all right...{n}Come, let's go!	
-1F502A	36-1024	開発中		placeholder: 'in development', fills an unused sub-table
+1F502A	36-1024	開発中	In development	placeholder: 'in development', fills an unused sub-table

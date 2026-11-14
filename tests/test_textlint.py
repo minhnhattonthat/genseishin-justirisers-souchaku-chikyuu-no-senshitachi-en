@@ -6,10 +6,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-ORIG = ROOT / "work" / "orig.gba"
+import check_rom  # noqa: E402
 
 
-@unittest.skipUnless(ORIG.exists(), "needs work/orig.gba")
+@unittest.skipUnless(check_rom.have_rom(), "no ROM in rom/")
 class TextLintTest(unittest.TestCase):
     def test_script_clean(self):
         import script
@@ -21,6 +21,30 @@ class TextLintTest(unittest.TestCase):
                 if not r["notes"].startswith(("nontext", "placeholder", "debug")):
                     errs += lint.check(int(f.name[1:3]), r)
         self.assertEqual(errs, [])
+
+    def test_guessed_budgets_reported(self):
+        """Rows linted on a Japanese-width guess (no measured window) are counted per sub-table in the CLI summary."""
+        import io
+        import contextlib
+        import textlint
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            textlint.main([])
+        line = next((ln for ln in out.getvalue().splitlines() if "guessed (Japanese-width) budgets" in ln), "")
+        self.assertRegex(line, r"^\d+ rows on guessed")
+        lint = textlint.Lint()
+        lint.check(6, {"id": "TEST", "jp": "あいう", "en": "Abc", "notes": ""})
+        self.assertIn("s06 1", lint.guessed_summary())
+
+    def test_cli_fails_on_missing_english(self):
+        import textlint
+        lint = textlint.Lint()
+        errs = lint.check(6, {"id": "TEST", "jp": "あいう", "en": "", "notes": ""})
+        self.assertTrue(any("[missing]" in e for e in errs))
+
+    def test_line_cap_override(self):
+        import textlint
+        self.assertEqual(textlint.load_line_caps().get("1E9EE8"), 3)
 
     def test_lint_catches_overflow(self):
         import textlint
@@ -74,7 +98,7 @@ class TextLintTest(unittest.TestCase):
         import script
         fonts = font.load_all()
         et, jt = insert.en_table(fonts["normal"]), script.table()
-        orig = ORIG.read_bytes()
+        orig = check_rom.original()
         rom = bytearray(orig)
         font.apply(rom, fonts)
         wj, we = orig[font.WIDTHS:font.WIDTHS + 0x200], bytes(rom[font.WIDTHS:font.WIDTHS + 0x200])

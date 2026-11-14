@@ -51,4 +51,4 @@ id	slots	jp	en	notes
 1FA4D8	49	ゾラ{n}{se:010A}ハーッハッハッハッハ‼	Zora{n}{se:010A}Haaahahahahaha!!	
 1FA4EC	50	ゾラ{n}おのれ ジャスティライザーめ{n}こしゃくな…！	Zora{n}Curse you, Justirisers...{n}Insolent pests...!	
 1FA509	51	ゾラ{n}だが このままおわる{n}トロイドンでは ないぞッ‼	Zora{n}But Troidon will not{n}go down so easily!!	
-1FA526	52-1024	開発中		placeholder: 'in development', fills an unused sub-table
+1FA526	52-1024	開発中	In development	placeholder: 'in development', fills an unused sub-table

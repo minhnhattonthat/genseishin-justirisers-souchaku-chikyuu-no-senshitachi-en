@@ -1,2 +1,2 @@
 id	slots	jp	en	notes
-1E983A	0-255	エラーコード		placeholder: 'error code', fills unused slots
+1E983A	0-255	エラーコード	Error code	placeholder: 'error code', fills unused slots

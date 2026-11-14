@@ -30,9 +30,22 @@ MARKER = ROOT / "build" / "justirisers_marker.gba"
 
 
 def rom_path():
-    line = next(x for x in (ROOT / "rom.sha1").read_text(encoding="utf-8").splitlines()
-                if x.strip() and not x.startswith("#"))
-    return ROOT / line.split(None, 1)[1].strip().lstrip("*")
+    return check_rom.rom_path()
+
+
+def lint_script(skip_ids):
+    """The text lint (tools/textlint.py) gates every en build, so an overflowing TSV edit never reaches the
+    emulator. Ids overridden with --qa are stress tests and skipped."""
+    import script
+    import textlint
+    lint, errs = textlint.Lint(), []
+    for f in sorted((ROOT / "script").glob("s*.tsv")):
+        for r in script.read_tsv(f):
+            if r["id"] in skip_ids or r["notes"].startswith(("nontext", "placeholder", "debug")):
+                continue
+            errs += lint.check(int(f.name[1:3]), r)
+    if errs:
+        raise SystemExit("textlint failed:\n" + "\n".join(errs[:40]))
 
 
 def build(orig, mode="identity", qa=None):
@@ -41,6 +54,8 @@ def build(orig, mode="identity", qa=None):
     if mode != "identity":
         import insert
         import romcheck
+        if mode == "en":
+            lint_script({k.upper() for k in (qa or {})})
         rom, writes, errs = romcheck.run(orig, mode, qa)
         (ROOT / "build").mkdir(exist_ok=True)
         (ROOT / "build" / "writes.txt").write_text(insert.write_log(writes), encoding="utf-8")

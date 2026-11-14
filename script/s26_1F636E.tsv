@@ -74,4 +74,4 @@ id	slots	jp	en	notes
 1F71D9	72	カゲリ{n}…そんな⁉	Kageri{n}...No way!?	
 1F71E5	73	グレン{n}テイルスマッシャーも{n}つうよう しないのかよ…‼	Glen{n}Even the Tail Smasher{n}doesn't work on it...!!	
 1F7205	74	ガント{n}こうなったら しかたない…{n}ほかの わざを つかうんだ！	Gant{n}There's no helping it...{n}Use a different move!	
-1F7228	75-1024	開発中		placeholder: 'in development', fills an unused sub-table
+1F7228	75-1024	開発中	In development	placeholder: 'in development', fills an unused sub-table

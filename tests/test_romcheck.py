@@ -7,15 +7,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-ORIG = ROOT / "work" / "orig.gba"
+import check_rom  # noqa: E402
 
 
-@unittest.skipUnless(ORIG.exists(), "needs work/orig.gba")
+@unittest.skipUnless(check_rom.have_rom(), "no ROM in rom/")
 class RomCheckTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         import insert
-        cls.orig = ORIG.read_bytes()
+        cls.orig = check_rom.original()
         cls.new, cls.writes, cls.st = insert.build(cls.orig, "en")
 
     def test_en_build_clean(self):
@@ -72,6 +72,13 @@ class RomCheckTest(unittest.TestCase):
         errs = romcheck.check_readers(bytes(bad))
         self.assertTrue(any("0x000100" in e for e in errs), errs)
         self.assertEqual(insert.FREE % 4, 0)
+
+    def test_stale_reader_unaligned_flagged(self):
+        import romcheck
+        bad = bytearray(self.orig)
+        struct.pack_into("<I", bad, 0x102, 0xF8000000 + int(self.st["ids"][8][0], 16))   # 2-aligned, mirror + flags
+        errs = romcheck.check_readers(bytes(bad))
+        self.assertTrue(any("0x000102" in e for e in errs), errs)
 
     def test_branch_decoder(self):
         import asmpatch

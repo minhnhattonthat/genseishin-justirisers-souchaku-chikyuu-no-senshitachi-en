@@ -41,4 +41,4 @@ id	slots	jp	en	notes
 1FC978	39	 {n}{se:0B00}とどめだッ！{n}{se:1F00}ライザーバーン‼	 {n}{se:0B00}Time to finish this!{n}{se:1F00}Riser Burn!!	
 1FC994	40	 {n}{se:1E00}メガヒートスラッシュ‼	 {n}{se:1E00}Mega Heat Slash!!	
 1FC9A7	41	 {n}{se:0B00}とどめだッ！{n}{se:1E00}メガヒートスラッシュ‼	 {n}{se:0B00}Time to finish this!{n}{se:1E00}Mega Heat Slash!!	
-1FC9C5	42-1024	開発中		placeholder: 'in development', fills an unused sub-table
+1FC9C5	42-1024	開発中	In development	placeholder: 'in development', fills an unused sub-table

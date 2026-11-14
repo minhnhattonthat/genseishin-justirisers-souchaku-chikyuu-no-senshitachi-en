@@ -10,8 +10,9 @@ Checks (each returns error strings; [] = pass):
             (textblock.unpack at FREE) to exactly the model the build packed.
 - texts:    every message the build replaced decodes back from the built ROM to its encoded text.
 - jp left:  (en build) no kana/kanji in any message of the built block except rows whose notes start with
-            nontext/debug/placeholder (dev readouts and 「開発中」 placeholders, kept Japanese by design).
-- readers:  no aligned 0x08/0x09 word in the original ROM points at a structure of the old block (master,
+            nontext/debug (dev readouts, kept Japanese by design; placeholders are English since D10).
+- readers:  no 2-aligned word in the original ROM (bank 0x08 with flag bits masked, or a 0x0A-0x0D mirror; see
+            reader_hits) points at a structure of the old block (master,
             sub-table, message, shared tail) except the group 2 word, which the build rewrites. 0xD226B8 (group 3)
             points at the block's end = the next resource, unmoved: allowed.
 - branches: no Thumb B/Bcc/BL within +-4 KB of a multi-halfword code patch lands strictly inside it.
@@ -25,12 +26,19 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 import asmpatch  # noqa: E402
+import check_rom  # noqa: E402
 import insert  # noqa: E402
 import romdiff  # noqa: E402
 import script  # noqa: E402
 import textblock  # noqa: E402
 
 KNOWN_READERS = {textblock.GROUP_PTR + 4: "resource group 3 = the block's end (next resource, not moved)"}
+# Flagged / unaligned matches of the wide scan that sit inside compressed or graphics data (high-entropy bytes,
+# no code reference; phase 7 review item 9 found the same 10), plus 5 0x0A/0x0C-mirror matches in the resource
+# area past 0x800000. Any new hit fails the check.
+for _off in (0x03F70A, 0x27A810, 0x298D6A, 0x7C1C0E, 0x91BE4C, 0x9CE446, 0xAEDD86, 0xB8DCFE, 0xBBD7CC, 0xC5EC74,
+             0x8240A4, 0x83AEC2, 0x9ED39C, 0xA06028, 0xCBB93E):
+    KNOWN_READERS[_off] = "graphics/compressed data bytes, not a pointer"
 
 
 def allowed_ranges(path=ROOT / "tbl" / "allowed.txt"):
@@ -85,7 +93,7 @@ def check_texts(new, orig_ids, texts, table):
 
 
 JP = re.compile("[぀-ヿ一-鿿]")
-KEEP_JP = ("nontext", "debug", "placeholder")   # script notes of rows that stay Japanese (dev-only, never shown)
+KEEP_JP = ("nontext", "debug")   # script notes of rows that stay Japanese (dev-only, never shown; D10)
 
 
 def check_leftover_jp(new, orig_ids, table, rows=None):
@@ -113,14 +121,31 @@ def structure_starts(orig):
     return starts | {textblock.MASTER + 4 * i for i in range(textblock.NMASTER)} | {textblock.END}
 
 
+def reader_hits(orig):
+    """-> {offset: word} for every 2-aligned word outside the block whose flag nibble is masked off
+    (w & 0x0E000000 == 0x08000000: bank 0x08 with any flag bits above; or a clean 0x0A-0x0D wait-state mirror)
+    and whose offset (w & 0x01FFFFFF) is an old-block structure start
+    (pipeline.md §Checks: mask flag bits, don't assume alignment)."""
+    out = {}
+    for s in structure_starts(orig):
+        pat = struct.pack("<I", s)[:3]
+        i = orig.find(pat)
+        while i != -1:
+            if i % 2 == 0 and i + 3 < len(orig) and not textblock.MASTER <= i < textblock.END:
+                w = struct.unpack_from("<I", orig, i)[0]
+                top = w >> 24
+                if (top & 0x0E == 0x08 or 0x0A <= top <= 0x0D) and w & 0x01FFFFFF == s:   # flagged ROM / mirrors
+                    out[i] = w
+            i = orig.find(pat, i + 1)
+    return out
+
+
 def check_readers(orig, rewritten=(textblock.GROUP_PTR,)):
-    errs, starts = [], structure_starts(orig)
-    for i in range(0, len(orig) - 3, 4):
-        if textblock.MASTER <= i < textblock.END or i in rewritten or i in KNOWN_READERS:
+    errs = []
+    for i, w in sorted(reader_hits(orig).items()):
+        if i in rewritten or i in KNOWN_READERS:
             continue
-        w = struct.unpack_from("<I", orig, i)[0]
-        if w >> 24 in (0x08, 0x09) and w & 0x01FFFFFF in starts:
-            errs.append(f"0x{i:06X}: word {w:08X} points into the old script block and is not rewritten")
+        errs.append(f"0x{i:06X}: word {w:08X} points into the old script block and is not rewritten")
     return errs
 
 
@@ -167,7 +192,7 @@ def run(orig, mode="en", qa=None):
 
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "en"
-    orig = (ROOT / "work" / "orig.gba").read_bytes()
+    orig = check_rom.original()
     _, writes, errs = run(orig, mode)
     for e in errs:
         print(e)
