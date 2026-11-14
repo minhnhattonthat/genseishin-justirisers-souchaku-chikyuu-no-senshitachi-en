@@ -51,4 +51,4 @@ id	slots	jp	en	notes
 1F0FAF	49	グレン{n}すげえ！{n}さっすが 直也だ！		
 1F0FC6	50	カゲリ{n}翔太ったら こういうときだけ{n}ちょうし よく ほめるんだから…		
 1F0FED	51	グレン{n}と とにかく{n}ついせき かいし だ！		
-1F1005	52-1024	開発中		
+1F1005	52-1024	開発中		placeholder: 'in development', fills an unused sub-table

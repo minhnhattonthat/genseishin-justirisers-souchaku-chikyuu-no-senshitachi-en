@@ -13,4 +13,4 @@ id	slots	jp	en	notes
 1F8CB7	11	グレン{n}つぎ から つぎ へと…{n}いったい どうなってるんだ⁉		
 1F8CD9	12	カゲリ{n}つぎ から つぎ へと…{n}いったい どうなってるの⁉		
 1F8CFA	13	ガント{n}つぎ から つぎ へと…{n}どうなっているんだ⁉		
-1F8D18	14-1024	開発中		
+1F8D18	14-1024	開発中		placeholder: 'in development', fills an unused sub-table

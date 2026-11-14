@@ -25,4 +25,4 @@ id	slots	jp	en	notes
 1F3C00	23	グレン{n}よし やったぜ‼		
 1F3C0E	24	ガント{n}いそいで トラックを{n}おいかけるんだ！		
 1F3C27	25	カゲリ{n}ええ！		
-1F3C30	26-1024	開発中		
+1F3C30	26-1024	開発中		placeholder: 'in development', fills an unused sub-table

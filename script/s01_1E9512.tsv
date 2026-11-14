@@ -5,4 +5,4 @@ id	slots	jp	en	notes
 1E95A8	3	けんを ふりおろすと ほのおを はなち{n}まえに いる てきを こうげき する		
 1E95CF	4	こうエネルギーだん{sp6}と{sp6}なった{sp6}クナイが{n}まわりに{sp6}いる{sp6}てきを{sp6}こうげき{sp6}する		
 1E9600	5	きょうりょくな{sp4}エネルギーの{sp4}かりょくで{n}まえと{sp4}うしろの{sp4}てきを{sp4}こうげき{sp4}する		
-1E9631	6-15	エラーコード		
+1E9631	6-15	エラーコード		placeholder: 'error code', fills unused slots

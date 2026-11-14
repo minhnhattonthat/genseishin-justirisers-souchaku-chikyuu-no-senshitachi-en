@@ -31,13 +31,16 @@ COLS = ["id", "slots", "jp", "en", "notes"]
 TAIL = "{tail}"
 
 
-def table():
+def table_lines():
     """tbl/jp.tbl plus a `{cXXX}` name for every 2-byte glyph (lead 0x01-0x0B) it doesn't name, so an unread cell
     decodes as one token and never splits into a lead byte + a control code."""
     lines = TBL.read_text(encoding="utf-8-sig").splitlines()
     named = {ln.partition("=")[0].upper() for ln in lines if "=" in ln and not ln.startswith("#")}
-    extra = [f"{c:04X}={{c{c:03X}}}" for c in range(0x100, 0xC00) if f"{c:04X}" not in named]
-    return Table(lines + extra)
+    return lines + [f"{c:04X}={{c{c:03X}}}" for c in range(0x100, 0xC00) if f"{c:04X}" not in named]
+
+
+def table():
+    return Table(table_lines())
 
 
 def decode(t, msg, tails=()):

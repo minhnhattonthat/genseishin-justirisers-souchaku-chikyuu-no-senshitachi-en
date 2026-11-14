@@ -1,27 +1,27 @@
 id	slots	jp	en	notes
-1E9B43	0			
-1E9B44	1	{style:FFFF}{msg:FFFFFF}		
-1E9B4C	2	{sp4}{style:FFFF}{msg:FFFFFF}		
-1E9B56	3	{msg:FFFFFF}{style:F800}{var}		
-1E9B5F	4	{pad12}{style:FFFF}{msg:FFFFFF}		
+1E9B43	0			nontext: no text (include template or spacer row); kept as is
+1E9B44	1	{style:FFFF}{msg:FFFFFF}		nontext: no text (include template or spacer row); kept as is
+1E9B4C	2	{sp4}{style:FFFF}{msg:FFFFFF}		nontext: no text (include template or spacer row); kept as is
+1E9B56	3	{msg:FFFFFF}{style:F800}{var}		nontext: no text (include template or spacer row); kept as is
+1E9B5F	4	{pad12}{style:FFFF}{msg:FFFFFF}		nontext: no text (include template or spacer row); kept as is
 1E9B69	5-7	 {sp6}はい{n} いいえ		
-1E9B74	8-15,19	{sp8}{style:FFFF}{msg:FFFFFF}{n}{tail}{sp8}{style:FFFF}{msg:FFFFFF}{n}{tail}{sp8}{style:FFFF}{msg:FFFFFF}{n}{tail}{sp8}{style:FFFF}{msg:FFFFFF}		
-1E9B98	20-64	{style:FFFF}{msg:02FFFF}{n}{pad60}{var}／{var}		
-1E9BA7	65	{style:FFFF}{msg:02FFFF}{n}{pad72}−／−{pad12}		
-1E9BBA	66-128	ＡＳＳＥＲＴ{n}ＦＩＬＥ：{var}{n}ＬＩＮＥ：{var}		
-1E9BD1	129-130	{sp8}マップ番号：{var}{n}{sp8}ユニットＸ：{var}{n}{sp8}ユニットＹ：{var}		
-1E9BF1	131-132	{sp8}ＢＧ番号：{var}		
-1E9BFC	133	{sp8}キャラ番号：{var}		
-1E9C08	134	{sp8}ＢＧデバッガ{n}{sp8}サウンドデバッガ{n}{sp8}マップデバッガ{n}{sp8}アニメデバッガ		
-1E9C2C	135	{sp8}キャラ番号：{var}{n}{sp8}アニメ番号：{var}{n}{sp8}アニメ再生：{var}{n}{sp8}くりかえし{n}{sp8}コマおくり{n}{sp8}連続再生{n}{sp8}連続１：{var}{n}{sp8}連続２：{var}{n}{sp8}連続３：{var}{n}{sp8}連続４：{var}		
-1E9C90	136	 自Ｌ１{n} 自Ｌ２{n} 自Ｌ３{n} 自Ｌ４{n} 敵Ｌ１{n} 敵Ｌ２{n} 敵Ｌ３{n} 敵Ｌ４		
-1E9CC0	137-144	   {sp8}０１２３４５６７８９ＡＢＣＤＥＦ{n}{var}{sp8}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}		
-1E9CE8	145	{var}：		
-1E9CEC	146	{sp8}{sp8}アニメ番号：{var}		
-1E9CF9	147	{sp8}{sp8}ＳＥ{sp8}{sp8}{sp8}：{var}{n}{sp8}{sp8}ＢＧＭ{sp8}{sp8}：{var}{n}{sp8}{sp8}ＶＯＩＣＥ：{var}		
-1E9D1A	148-152	ユニット：{var} {var} {var} フォーカス：{var}{n}イベント：{var}{n}{n}ＮＯ Ｐ Ｒ Ｗ Ｘ   Ｙ  {n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}		
-1E9E0B	153-160	イベントポイント{var}のスクリプトにエラーがあります		
-1E9E25	161	イベント{var}のスクリプトにエラーがあります		
+1E9B74	8-15,19	{sp8}{style:FFFF}{msg:FFFFFF}{n}{tail}{sp8}{style:FFFF}{msg:FFFFFF}{n}{tail}{sp8}{style:FFFF}{msg:FFFFFF}{n}{tail}{sp8}{style:FFFF}{msg:FFFFFF}		nontext: no text (include template or spacer row); kept as is
+1E9B98	20-64	{style:FFFF}{msg:02FFFF}{n}{pad60}{var}／{var}		column: 68 px wide line (build refills the pads)
+1E9BA7	65	{style:FFFF}{msg:02FFFF}{n}{pad72}−／−{pad12}		column: 108 px wide line (build refills the pads)
+1E9BBA	66-128	ＡＳＳＥＲＴ{n}ＦＩＬＥ：{var}{n}ＬＩＮＥ：{var}		debug: development readout, not seen in normal play
+1E9BD1	129-130	{sp8}マップ番号：{var}{n}{sp8}ユニットＸ：{var}{n}{sp8}ユニットＹ：{var}		debug: development readout, not seen in normal play
+1E9BF1	131-132	{sp8}ＢＧ番号：{var}		debug: development readout, not seen in normal play
+1E9BFC	133	{sp8}キャラ番号：{var}		debug: development readout, not seen in normal play
+1E9C08	134	{sp8}ＢＧデバッガ{n}{sp8}サウンドデバッガ{n}{sp8}マップデバッガ{n}{sp8}アニメデバッガ		debug: development readout, not seen in normal play
+1E9C2C	135	{sp8}キャラ番号：{var}{n}{sp8}アニメ番号：{var}{n}{sp8}アニメ再生：{var}{n}{sp8}くりかえし{n}{sp8}コマおくり{n}{sp8}連続再生{n}{sp8}連続１：{var}{n}{sp8}連続２：{var}{n}{sp8}連続３：{var}{n}{sp8}連続４：{var}		debug: development readout, not seen in normal play
+1E9C90	136	 自Ｌ１{n} 自Ｌ２{n} 自Ｌ３{n} 自Ｌ４{n} 敵Ｌ１{n} 敵Ｌ２{n} 敵Ｌ３{n} 敵Ｌ４		debug: development readout, not seen in normal play
+1E9CC0	137-144	   {sp8}０１２３４５６７８９ＡＢＣＤＥＦ{n}{var}{sp8}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}{var}		debug: development readout, not seen in normal play
+1E9CE8	145	{var}：		debug: development readout, not seen in normal play
+1E9CEC	146	{sp8}{sp8}アニメ番号：{var}		debug: development readout, not seen in normal play
+1E9CF9	147	{sp8}{sp8}ＳＥ{sp8}{sp8}{sp8}：{var}{n}{sp8}{sp8}ＢＧＭ{sp8}{sp8}：{var}{n}{sp8}{sp8}ＶＯＩＣＥ：{var}		debug: development readout, not seen in normal play
+1E9D1A	148-152	ユニット：{var} {var} {var} フォーカス：{var}{n}イベント：{var}{n}{n}ＮＯ Ｐ Ｒ Ｗ Ｘ   Ｙ  {n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}{var} {var} {var} {var} {var} {var}{n}		debug: development readout, not seen in normal play
+1E9E0B	153-160	イベントポイント{var}のスクリプトにエラーがあります		debug: development readout, not seen in normal play
+1E9E25	161	イベント{var}のスクリプトにエラーがあります		debug: development readout, not seen in normal play
 1E9E3B	162-256	セーブできません		
 1E9E45	257	ロードできません		
 1E9E4F	258-260	セーブしています		

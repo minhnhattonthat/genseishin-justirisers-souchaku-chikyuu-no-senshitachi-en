@@ -7,4 +7,4 @@ id	slots	jp	en	notes
 1F44BC	5	ガント{n}幻星神ライゼロス 召喚ッ‼		
 1F44D4	6	カゲリ{n}見て！ あのトラック…{n}ザコールが 運転してるわ‼		
 1F44F9	7	グレン{n}よしッ 急いで追いかけるんだ！		
-1F4510	8-1024	開発中		
+1F4510	8-1024	開発中		placeholder: 'in development', fills an unused sub-table

@@ -1,13 +1,13 @@
 id	slots	jp	en	notes
-1EA3B5	0-288	{sp12}		
-1EA3B8	289	{sp12}{sp12}		
-1EA3BD	290	{sp12}{sp12}{sp12}		
-1EA3C4	291	{sp12}{sp12}{sp12}{sp12}		
-1EA3CD	292	{sp12}{sp12}{sp12}{sp12}{sp12}		
-1EA3D8	293	{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}		
-1EA3E5	294	{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}		
-1EA3F4	295	{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}		
+1EA3B5	0-288	{sp12}		nontext: no text (include template or spacer row); kept as is
+1EA3B8	289	{sp12}{sp12}		nontext: no text (include template or spacer row); kept as is
+1EA3BD	290	{sp12}{sp12}{sp12}		nontext: no text (include template or spacer row); kept as is
+1EA3C4	291	{sp12}{sp12}{sp12}{sp12}		nontext: no text (include template or spacer row); kept as is
+1EA3CD	292	{sp12}{sp12}{sp12}{sp12}{sp12}		nontext: no text (include template or spacer row); kept as is
+1EA3D8	293	{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}		nontext: no text (include template or spacer row); kept as is
+1EA3E5	294	{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}		nontext: no text (include template or spacer row); kept as is
+1EA3F4	295	{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}		nontext: no text (include template or spacer row); kept as is
 1EA405	296	{sp12}―		
 1EA40A	297	？？		
 1EA40F	298	{g135}		
-1EA412	299-511	エラーコード		
+1EA412	299-511	エラーコード		placeholder: 'error code', fills unused slots

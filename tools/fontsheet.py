@@ -1,4 +1,5 @@
-"""fontsheet.py: render the game's 16x16 1bpp font (2 bytes per row, MSB = left pixel, 32 bytes per glyph) as a
+"""fontsheet.py: render the game's 16x16 1bpp font (2 bytes per row, MSB-first with adjacent pixel pairs swapped,
+32 bytes per glyph) as a
 labelled PNG sheet, for building tbl/jp.tbl by eye.
 
     python -X utf8 tools/fontsheet.py ROM OUT.png [--base 2CBC34] [--first 0] [--count 256] [--zoom 2] [--cols 16]
@@ -18,6 +19,7 @@ def glyph(rom, base, code):
     rows = []
     for y in range(16):
         w = rom[off + 2 * y] << 8 | rom[off + 2 * y + 1]
+        w = ((w & 0xAAAA) >> 1) | ((w & 0x5555) << 1)   # adjacent pixel pairs are stored swapped (tools/font.py)
         rows.append([(w >> (15 - x)) & 1 for x in range(16)])
     return rows
 

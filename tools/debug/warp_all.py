@@ -2,6 +2,7 @@
 
     python -X utf8 tools/debug/warp_all.py [NAME|PREFIX* ..] [--rom build/justirisers_en.gba] [--out work/qa/warp]
                                            [--frames 900] [--jobs 3] [--states] [--every 60]
+                                           [--var NAME=LUA].. [--script probe.lua]..
 
 Each scene gets DIR/<name>/ with shots every --every frames, final.png and log.txt; --states also saves
 work/states/<name>.mss at the end of the run (regenerate them all after code, font or graphics changes).
@@ -47,6 +48,8 @@ def run(entry, a):
         cmd += ['--state-out', os.path.join(ROOT, 'work', 'states', entry['name'] + '.mss')]
     for v in a.var or []:
         cmd += ['--var', v]
+    for s in a.script or []:
+        cmd += ['--script', s]
     r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding='utf-8', errors='replace')
     log = ''
     try:
@@ -76,6 +79,7 @@ def main():
     ap.add_argument('--jobs', type=int, default=3)
     ap.add_argument('--states', action='store_true')
     ap.add_argument('--var', action='append', help='extra --var passed to emu.py (e.g. GOD=1)')
+    ap.add_argument('--script', action='append', help='extra Lua probe passed to emu.py (e.g. tools/lua/romtrap.lua)')
     a = ap.parse_args()
     if not os.path.exists(a.rom):
         sys.exit('no ROM at %s (build first, or pass --rom work/orig.gba)' % a.rom)

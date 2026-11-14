@@ -32,4 +32,4 @@ id	slots	jp	en	notes
 1EDF6A	30	 {n}{se:0207}たて ジャスティライザー！		
 1EDF7F	31	グレン{n}いけッ！ ライゼロス‼		
 1EDF91	32	グレン{n}いくぞ！ ケンライザー‼		
-1EDFA5	33-1024	開発中		
+1EDFA5	33-1024	開発中		placeholder: 'in development', fills an unused sub-table

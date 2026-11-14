@@ -12,4 +12,4 @@ id	slots	jp	en	notes
 1F20FD	10	グレン{n}にがさないぜ…{n}ドクター・ゾラ！		
 1F2116	11	カゲリ{n}にがさないわよ…{n}ドクター・ゾラ！		
 1F2130	12	ガント{n}にがさんぞ…{n}ドクター・ゾラ！		
-1F2148	13-1024	開発中		
+1F2148	13-1024	開発中		placeholder: 'in development', fills an unused sub-table

@@ -36,7 +36,9 @@ narrow Latin font + new widths here may be all the VWF needed. The renderer also
 glyph would pass the box's right edge (0x080078DE).
 
 Font: ROM **0x2CBC34** (uncompressed, resource id 0x4600 via `bl 0x080202E8`), 16x16 1bpp, 2 bytes per row
-big-endian (MSB = left pixel), 32 bytes per glyph, codes up to 0xBFF. A second (small?) font is selected when the
+big-endian, MSB-first **with each pair of adjacent pixels swapped** (bit 15 = pixel 1, bit 14 = pixel 0; verified
+phase 5: the plain MSB reading gives jagged glyphs, the swapped one clean Latin letters), 32 bytes per glyph,
+codes up to 0xBFF. A second (small?) font is selected when the
 window flag at [0x030028B0 + win*0x24 + 0x23] has bit 7 set: cell = (code & 0x1FF) + 0xC00. Glyph lookup:
 0x08008DFC (r0 = window, r1 = code). Width lookup: 0x080080D8 (fixed 12 px, space 8 px observed).
 Sheet: `python -X utf8 tools/fontsheet.py work/orig.gba OUT.png --first 200 --count 256`.
@@ -99,6 +101,34 @@ ROM offset, slots, jp, en, notes). `check` = roundtrip + coverage (0 errors on a
 `tests/test_script.py`. A scan of the whole ROM for kana-heavy runs ending in 0x1F outside the block found only
 noise in graphics data: all game text in this encoding is in the block. Debug-only messages sit in sub-table 3
 (ASSERT, map/BG/anim number readouts, 「開発中」 placeholders): flag them as non-text in the marker build (phase 5).
+
+## English text engine (phase 5)
+
+**Decision: a VWF through the game's own width tables, no new renderer.** The renderer already advances by a
+per-code width, so English = narrow glyphs + their widths + two fixes below. Tools: `tools/font.py` (fonts),
+`tools/insert.py` (encode, marker, pads, relocation), `tools/asmpatch.py` (code patch), `build.py --marker`.
+
+- **Fonts.** `font/en.txt` (normal font, cells = codes) and `font/en_small.txt` (small font, cells 0xC00 + code,
+  widths at **0x8C02FB**, fixed 8 px in the original; pads 0x1F0-0x1FF there are 128..8 px). Both keep the game's
+  own A-Z / a-z / 0-9 glyphs (ink moved to column 0, advance = ink + 1 px gap); punctuation `. , ! ? ' " - : ; ( )
+  / & … % + ~ * — = [ ]` is new, in the unused cells **0x160-0x176** (2-byte codes `01 60`..; 0x15D-0x1EC are
+  0xFF-filled, unused). The small font had no lowercase: drawn new (x-height 5, descender 1 row). Space 0x20 = 4 px.
+  The encoder table is built from the font files plus every `tbl/jp.tbl` entry (`insert.en_table()`).
+- **Even widths only.** The rasterizer 0x08007B40 writes 4bpp pixel pairs into the canvas and mis-draws a glyph
+  that starts at an odd x (verified: odd widths made most of a line vanish; the game's own widths are all even).
+  `font.py` rounds every advance up to even.
+- **Column-copy patch (verified in-game).** After each glyph the renderer calls 0x08008384(win, x_before, x_after,
+  line) to copy canvas tile columns to VRAM. The original returns early when the advance is <= 7 px and copies
+  ceil(advance/8) tiles from the tile holding x_before, so with narrow glyphs a tile column is sometimes never
+  copied (right half of 'k', 'x', 'M' missing). `asmpatch.py` hooks 0x080083C4 (`bl` to a 5-instruction routine at
+  0x081E90C0, the old block start) that aligns x_before down to its tile: every tile from floor(x_before/8) to
+  ceil(x_after/8) is copied, skipped only when nothing advanced.
+- **Relocation.** The block is packed at **0xD23570** (after the resource table) and resource group 2
+  (word 0xD226B4) repointed to it + 4. The old block 0x1E90C0-0x1FE9F0 is then free (hook code at its start).
+- **Name tag** = the first line of a dialogue message, drawn in the small font, right- or left-aligned by speaker
+  side.
+- **Pads.** Name/stage list lines are `{padNN}`-padded to a fixed width (`column: N px` in the notes);
+  `insert.fill()` refills the pads after the English text so the line keeps its width.
 
 ## Free space (candidates, not yet trap-tested)
 

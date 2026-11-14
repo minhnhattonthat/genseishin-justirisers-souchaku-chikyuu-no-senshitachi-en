@@ -24,4 +24,4 @@ id	slots	jp	en	notes
 1EAAEC	143	{n}バグシーンをたおせ		
 1EAAF8	144	二つのスイッチをうごかし{n}カクヘキをひらいて{n}バスをまもれ		
 1EAB17	145	{style:7F80}{n}{style:7F00}バグシーンをたおせ{n}タンクをまもれ		
-1EAB31	146-255	エラーコード		
+1EAB31	146-255	エラーコード		placeholder: 'error code', fills unused slots
