@@ -31,6 +31,9 @@ FIXED = [
     # mode select takes input only from sub 17 (~70 frames after the warp): press after 150
     ('mode_kids', 1, 16, '-', '150 -;6 left;60 -', 'mode select, cursor on キッズモード (its description line)', 700),
     ('mode_hard', 1, 16, '-', '150 -;6 right;60 -', 'mode select, cursor on ハードモード (its description line)', 700),
+    # 4-mode screen (BG 18[659] + overlay 20[660]): loaded when F4A > 1 (0x08027776), i.e. from the third round
+    ('mode_bonus', 1, 16, '%s=2' % F4A, '150 -;6 right;60 -;6 right;60 -',
+     'mode select with おまけモード unlocked (F4A=2), cursor moved right twice to the bonus button', 800),
     ('story_intro', 0, 4, '-', '150 -;6 start;150 -;6 a;250 -;6 a;60 -;mash60',
      'new game the game\'s way: title, はじめから, mode select (normal), intro story (event 3.0, stills), area 1 card, map', 4600),
     ('options', 9, 0, '-', '-', 'OPTION / config screen (BG s0620)', 600),

@@ -264,9 +264,17 @@ def redraw(d, rows):
         bank_pal = lambda b: [-1] + ts.pal[(b - base) * 16 + 1:(b - base) * 16 + 16]  # noqa: E731
         for cx, cy in cells:
             e = mp.e[cy * mp.w + cx]
-            if e & 0x3FF >= len(ts.tiles):   # slot past the tileset: blank VRAM, drawn transparent
+            if e & 0x3FF >= len(ts.tiles):
+                # Slot past the tileset: the game shows a leftover VRAM tile there that no resource holds (659:660's
+                # Bonus button corner) and that differs once the English loads. Pixels outside the rects copy the
+                # nearest real cell to the left in the same row (button edges and shades run horizontally).
+                src = next((x for x in range(cx - 1, -1, -1) if mp.e[cy * mp.w + x] & 0x3FF < len(ts.tiles)), None)
                 for k in range(64):
-                    canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] = -1
+                    if src is None:
+                        canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] = -1
+                        continue
+                    e0 = mp.e[cy * mp.w + src]
+                    canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] = bank_pal(ts.tpal[e0 & 0x3FF])[cell_pixels(ts, e0)[k]]
                 continue
             bp = bank_pal(ts.tpal[e & 0x3FF])
             for k, v in enumerate(cell_pixels(ts, e)):

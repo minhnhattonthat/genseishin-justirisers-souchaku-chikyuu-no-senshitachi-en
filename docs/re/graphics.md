@@ -105,6 +105,11 @@ no pixel changes outside the rects, other screens on the same tileset unchanged.
   BG0/BG1 char base 0, tiles 311-317 / 320-359 / 384-427 / 448-491 belong to other layers (text canvases),
   maps at screen blocks 27 and 31. On config the L-button pill sprites start at x 136: labels end by x 135.
   Measure a draft with `bgtext.py count ROM [TSV]` (tiles per changed tileset vs budget, the budget check off).
+- **Past-the-end map slots** show VRAM the tileset doesn't own. 653:654 slot 295 = VRAM 311 = tile 55 of 18[654]
+  (61 tiles, loaded at VRAM 256, its first 55 tiles equal 653's 240-294). 659:660 slot 335 (Bonus button corner)
+  = a leftover tile no group-18 resource holds, overwritten by other data in the English build (black hole /
+  garbage). `bgtext.redraw` therefore fills a past-the-end cell inside a rect from the nearest real cell to its
+  left (same row) and encodes it as a real tile. The 4-mode screen (F4A > 1, warp `mode_bonus`) is checked.
 - Pilot rows (mode select 653, 653:654, 659, 659:660; config 620) are in `gfx/bg.tsv`, cold-boot checked
   (`work/qa/gfx/budget_check.png`, `work/qa/smoke/final.png`). `bgtext.py ink ROM N rect IDX` prints the ink bands of a rect (where to place the English); bg `cN` clears each
   row to column N's colour (gradient banners). おまけモード = "Bonus Mode".
