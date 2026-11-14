@@ -230,12 +230,30 @@ def relocate(rom, model):
     return [(FREE, FREE + len(blob)), (textblock.GROUP_PTR, textblock.GROUP_PTR + 4)]
 
 
+def log_writes(orig, rom, ranges, by):
+    """Merge the ranges one build step just wrote -> write-log entries (offset, ORIG bytes, bytes now in rom, by).
+    Taken right after the step, so tools/romdiff.py --writes catches a later step overwriting it."""
+    out = []
+    for s, e in sorted(ranges):
+        if out and s <= out[-1][1]:
+            out[-1][1] = max(out[-1][1], e)
+        else:
+            out.append([s, e])
+    pad = lambda s, e: bytes(orig[s:e]).ljust(e - s, b"\xff")  # noqa: E731
+    return [(s, pad(s, e), bytes(rom[s:e]), by) for s, e in out]
+
+
+def write_log(writes):
+    """-> romdiff.py --writes text: `OFFSET ORIG_HEX NEW_HEX writer` per line."""
+    return "".join(f"{off:X} {o.hex()} {n.hex()} {by}\n" for off, o, n, by in writes)
+
+
 def build(orig, mode="en", qa=None):
     """mode 'en': English where the script has it; 'marker': marker text in every text message.
-    qa: {id: text} overrides (stress lines). -> (rom bytes, written ranges, stats dict)"""
+    qa: {id: text} overrides (stress lines). -> (rom bytes, write log [(off, orig, new, by)], stats dict)"""
     rom = bytearray(orig)
     fonts = font.load_all()
-    written = font.apply(rom, fonts)
+    writes = log_writes(orig, rom, font.apply(rom, fonts), "font")
     jt, et = script.table(), en_table(fonts["normal"])
     wt_jp, wt_en = orig[font.WIDTHS:font.WIDTHS + 0x200], bytes(rom[font.WIDTHS:font.WIDTHS + 0x200])
     rows = script.load_script()
@@ -252,6 +270,10 @@ def build(orig, mode="en", qa=None):
     model = textblock.unpack(orig)
     ids = message_ids(model)
     model = replace(model, texts, et)
-    written += relocate(rom, model)
-    written += asmpatch.apply(rom)   # its hooks go in the old block's place, so only after relocating
-    return bytes(rom), written, {"replaced": len(texts), "addresses": addresses(model, FREE, ids)}
+    block, ptr = relocate(rom, model)
+    writes += log_writes(orig, rom, [block], "script-block")
+    writes += log_writes(orig, rom, [ptr], "group2-pointer")
+    # its hooks go in the old block's place, so only after relocating; checked against the clean original
+    writes += log_writes(orig, rom, asmpatch.apply(rom, orig), "asmpatch")
+    return bytes(rom), writes, {"replaced": len(texts), "addresses": addresses(model, FREE, ids), "model": model,
+                                "ids": ids, "texts": texts, "table": et}

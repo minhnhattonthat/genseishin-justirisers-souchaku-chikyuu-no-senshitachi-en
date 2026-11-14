@@ -10,7 +10,9 @@
 
 Steps: check the dump against rom.sha1, unpack the script block (tools/textblock.py), write the English font
 (tools/font.py), swap in English/marker text (tools/insert.py), pack the block at 0xD23570 and repoint resource
-group 2. Every write must stay inside the allowed ranges (tools/romdiff.py, docs/re/text.md).
+group 2. tools/romcheck.py then checks the result: every write logged (build/writes.txt, tools/romdiff.py --writes)
+and inside tbl/allowed.txt, the group 2 word on the relocated block, every replaced text in it, no reader of the
+old block left, no branch into a code patch. Any error stops the build.
 """
 import argparse
 import hashlib
@@ -34,10 +36,17 @@ def rom_path():
 
 
 def build(orig, mode="identity", qa=None):
-    """mode 'identity': repack in place, no edits (== orig). 'en' / 'marker': see tools/insert.py."""
+    """mode 'identity': repack in place, no edits (== orig). 'en' / 'marker': see tools/insert.py, checked by
+    tools/romcheck.py (write log -> build/writes.txt; raises on any error)."""
     if mode != "identity":
         import insert
-        return insert.build(orig, mode, qa)[0]
+        import romcheck
+        rom, writes, errs = romcheck.run(orig, mode, qa)
+        (ROOT / "build").mkdir(exist_ok=True)
+        (ROOT / "build" / "writes.txt").write_text(insert.write_log(writes), encoding="utf-8")
+        if errs:
+            raise SystemExit("romcheck failed:\n" + "\n".join(errs[:40]))
+        return rom
     rom = bytearray(orig)
     blob = textblock.pack(textblock.unpack(orig), textblock.MASTER)
     rom[textblock.MASTER:textblock.MASTER + len(blob)] = blob

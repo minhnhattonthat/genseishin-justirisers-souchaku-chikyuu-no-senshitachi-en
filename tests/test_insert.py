@@ -81,14 +81,11 @@ class TestBuild(unittest.TestCase):
         out, written, _ = insert.build(self.d, "en")
         ptr = struct.unpack_from("<I", out, textblock.GROUP_PTR)[0]
         self.assertEqual(ptr, 0x08000000 + insert.FREE + 4)
-        # with no English in the script yet, the relocated block holds the original messages
-        rows = script.load_script()
-        if any(r["en"] for r in rows.values()):
-            self.skipTest("script has English; the block differs by design")
-        moved = bytearray(out)
-        moved[textblock.MASTER:textblock.END] = out[insert.FREE:insert.FREE + textblock.END - textblock.MASTER]
-        m0, m1 = textblock.unpack(self.d), textblock.unpack(bytes(moved))
-        self.assertEqual([s["msgs"] for s in m0["subs"]], [s["msgs"] for s in m1["subs"]])
+        # with no texts replaced, the relocated block holds the original messages (block content with English:
+        # tests/test_romcheck.py)
+        model = textblock.unpack(self.d)
+        moved = bytes(insert.FREE) + textblock.pack(model, insert.FREE)
+        self.assertEqual(textblock.unpack(moved, insert.FREE), model)
         self.assertEqual(out[0x83C4:0x83C8], insert.asmpatch.thumb_bl(0x83C4, insert.asmpatch.COPY_HOOK))
 
 

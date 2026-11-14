@@ -46,12 +46,14 @@ PATCHES = [
 ]
 
 
-def apply(rom):
-    """-> written ranges. Raises if the original bytes at a patch site are not the expected ones."""
+def apply(rom, clean=None):
+    """-> written ranges. Raises if the original bytes at a patch site (in `clean`, the unpatched original, else
+    in rom) are not the expected ones."""
     ranges = []
+    src = rom if clean is None else clean
     for addr, orig, new in PATCHES:
-        if orig is not None and bytes(rom[addr:addr + len(orig)]) != orig:
-            raise SystemExit(f"asmpatch: bytes at {addr:X} are {bytes(rom[addr:addr + len(orig)]).hex()}, "
+        if orig is not None and bytes(src[addr:addr + len(orig)]) != orig:
+            raise SystemExit(f"asmpatch: bytes at {addr:X} are {bytes(src[addr:addr + len(orig)]).hex()}, "
                              f"expected {orig.hex()}")
         rom[addr:addr + len(new)] = new
         ranges.append((addr, addr + len(new)))

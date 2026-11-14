@@ -69,9 +69,11 @@ def _sub(d, s, nxt):
     return {"entries": entries, "msgs": msgs}
 
 
-def unpack(d):
-    raw = [(MASTER + 4 * i + struct.unpack_from("<I", d, MASTER + 4 * i)[0]) & 0xFFFFFFFF for i in range(NMASTER)]
-    first = MASTER + 4 * NMASTER
+def unpack(d, base=MASTER):
+    """Block at ROM offset `base` (the original's, or a relocated one: its end = the master's end entries)."""
+    raw = [(base + 4 * i + struct.unpack_from("<I", d, base + 4 * i)[0]) & 0xFFFFFFFF for i in range(NMASTER)]
+    END = globals()["END"] if base == MASTER else max(raw)   # noqa: N806
+    first = base + 4 * NMASTER
     # sub-table starts: master targets that are not the end marker and not the odd entry 0
     starts = sorted({t for t in raw if t != END and t >= first})
     # entry 0 points inside the first table: keep only real table starts (those a chain walk reaches)

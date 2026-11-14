@@ -1,0 +1,15 @@
+# ROM ranges the build may write (inclusive hex START-END). tools/romcheck.py fails a write outside them.
+# docs/re/text.md §English text engine; tools/font.py, tools/insert.py, tools/asmpatch.py.
+2CBC34-2CFC33   normal font cells 0x000-0x1FF (font.BASE + 32 * code)
+2E3C34-2E7C33   small font cells 0xC00-0xDFF
+8C00FA-8C02F9   normal font width table (codes 0-0x1FF)
+8C02FB-8C04FA   small font width table
+D226B4-D226B7   resource group 2 word (-> relocated script block + 4)
+D23570-EFFFFF   free space (0xFF fill, trap-tested): relocated script block
+1E90C0-1E90FF   old script block start (unread once relocated): asmpatch hook code
+83C4-83CB       asmpatch: glyph column copy -> bl hook
+21140-21141     asmpatch: name-tag window w 8 -> 9 (right, y6)
+2114E-2114F     asmpatch: name-tag window x 20 -> 19 (right, y6)
+21168-21169     asmpatch: name-tag window w 8 -> 9 (left, y6)
+211C4-211C5     asmpatch: name-tag window w 8 -> 9 (right, y13)
+211D2-211D3     asmpatch: name-tag window x 20 -> 19 (right, y13)
