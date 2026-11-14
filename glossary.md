@@ -100,6 +100,7 @@ Matched on the JP start only (a particle may follow). Lint rule `honorific`.
 | メガヒートスラッシュ | Mega Heat Slash | | | |
 | そうちゃく | Souchaku | | transformation call, kept | |
 | ピープル | people | | civilians to rescue (mission goals) | |
+| おまけモード | Bonus Mode | 40 px button | unlockable 4th mode (mode select graphic, BG s0659); also Kids / Normal / Hard Mode | |
 
 ## Stage titles (game's own English titles in katakana)
 ファースト・トライ First Try, クライング・ピープル Crying People, リトル・ビリーバー Little Believer, カーゴ・イン・ホープ

@@ -79,6 +79,18 @@ Sprite and BG groups (complete: every tile-bearing group is now swept):
   (156 screens); verdicts `work/sweep/review_bg2/found.tsv`.
 - Reviews run with `sh tools/review_pages.sh DIR OUT PROMPT [N] [GLOB]` (Codex read-only, parallel chunks).
 
+## BG redraw pipeline (phase 8)
+
+`tools/bgtext.py` + `gfx/bg.tsv` (one row per label: screen, rect, English, font@bank, ink bands, outline/shadow,
+bg, align): the en build (`insert.build`) re-encodes each rect's cells, writes changed tilesets/maps to 0xE00000+
+and repoints group 18/20 entries (allowed in `tbl/allowed.txt`). `bgtext.py probe ROM N x,y,w,h` lists the
+(bank, index) colours of a rect; `preview ROM DIR` writes original | English per screen. `tests/test_bgtext.py`:
+no pixel changes outside the rects, other screens on the same tileset unchanged.
+- **Overlay maps use another screen's tileset** (`tools/lua/reslog.lua` shows the pairs): mode select loads
+  18[653] + 20[653] and 20[654] (highlighted buttons, tiles 230-295 of 18[653], 295 = past its end). Write such
+  layers as `T:M` rows; recycling a slot no listed map uses showed as garbage around the highlight.
+- Pilot done: mode select 653, 653:654, 659, 659:660 (`work/qa/gfx/mode_z.png`). おまけモード = "Bonus Mode".
+
 ## Graphics-text survey (tour)
 
 Routes: `tools/routes/boot.txt` + menu routes in `tools/routes/survey_*.txt`; mash-A tour

@@ -48,6 +48,14 @@ def lint_script(skip_ids):
         raise SystemExit("textlint failed:\n" + "\n".join(errs[:40]))
 
 
+def write_strings(addrs):
+    """build/strings.tsv for $SKILL/scripts/textcover.py: one 'id<TAB>CPU address' per message the game reads
+    (first byte, in the relocated block; shared tails are reached through their owner and left out)."""
+    rows = sorted((mid, a) for a, mid in addrs.items() if not mid.endswith("+tail"))
+    (ROOT / "build" / "strings.tsv").write_text(
+        "".join(f"{mid}\t{0x08000000 + a:X}\n" for mid, a in rows), encoding="utf-8")
+
+
 def build(orig, mode="identity", qa=None):
     """mode 'identity': repack in place, no edits (== orig). 'en' / 'marker': see tools/insert.py, checked by
     tools/romcheck.py (write log -> build/writes.txt; raises on any error)."""
@@ -56,9 +64,11 @@ def build(orig, mode="identity", qa=None):
         import romcheck
         if mode == "en":
             lint_script({k.upper() for k in (qa or {})})
-        rom, writes, errs = romcheck.run(orig, mode, qa)
+        st = {}
+        rom, writes, errs = romcheck.run(orig, mode, qa, st)
         (ROOT / "build").mkdir(exist_ok=True)
         (ROOT / "build" / "writes.txt").write_text(insert.write_log(writes), encoding="utf-8")
+        write_strings(st["addresses"])
         if errs:
             raise SystemExit("romcheck failed:\n" + "\n".join(errs[:40]))
         return rom

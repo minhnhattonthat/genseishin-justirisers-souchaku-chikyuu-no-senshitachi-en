@@ -177,9 +177,11 @@ def check_branches(orig):
     return errs
 
 
-def run(orig, mode="en", qa=None):
-    """Build and run every check -> (rom, writes, errors)."""
+def run(orig, mode="en", qa=None, st_out=None):
+    """Build and run every check -> (rom, writes, errors). st_out (a dict) receives insert.build's state."""
     new, writes, st = insert.build(orig, mode, qa)
+    if st_out is not None:
+        st_out.update(st)
     errs = check_writes(orig, new, writes)
     errs += check_pointer(new, st["model"])
     errs += check_texts(new, st["ids"], st["texts"], st["table"])
