@@ -14,7 +14,10 @@ Rules (budgets: tbl/windows.json, per-id geometry: tbl/windows_ids.tsv, docs/re/
 - glossary: a Characters/Places/Items row whose JP appears in the Japanese (as a whole kana/kanji run) must have
   its EN in the English; no spelling from a row's Avoid column (whole word, any case) may appear in the English;
 - honorifics: a '## Honorifics' row (直也さん | Naoya-san) whose JP appears must have its EN form;
-- no ordinal suffix glued onto {var}.
+- no ordinal suffix glued onto {var};
+- missing: Japanese text with no English fails (dev-only rows are skipped by their notes: nontext/debug/placeholder);
+- blanks: a leading/trailing blank in the Japanese (space or 　) must be one in the English, and vice versa;
+- stub: in dialogue, a page of 2+ lines must not end on a line under 6 characters (menus are lists: exempt).
 Waivers: tbl/lint_waive.tsv (id<TAB>rule<TAB>reason) for known engine work (phase 7).
 """
 import csv
@@ -139,7 +142,20 @@ class Lint:
                 errs.append(f"{mid} [{rule}] {msg}")
 
         if not en:
+            if TOKEN.sub("", jp).strip(" 　"):
+                err("missing", "Japanese text with no English (dev-only rows: notes nontext/debug/placeholder)")
             return errs
+        for side, jx, ex in (("leading", jp[:1], en[:1]), ("trailing", jp[-1:], en[-1:])):
+            if (jx in " 　") != (ex == " "):
+                err("blanks", f"{side} blank differs from the Japanese")
+        prose = sub in STORY or "dialogue" in self.by_id.get(mid, set())   # menus are item lists: no stub rule
+        for k, para in enumerate(en.split("{p}") if prose else []):
+            lines = [TOKEN.sub("", ln) for ln in para.split("{n}")]
+            if k == 0:
+                lines = lines[1:]   # speaker tag
+            lines = [ln for ln in lines if ln.strip()]
+            if len(lines) >= 2 and len(lines[-1].strip()) < 6:
+                err("stub", f"last line {lines[-1].strip()!r} is a stub: rebalance the lines")
         if any(ord(c) > 126 for c in en) or "\t" in en or "\\" in en:
             err("ascii", f"non-ASCII, tab or backslash: {en!r}")
         try:

@@ -48,6 +48,18 @@ class TextLintTest(unittest.TestCase):
         row["en"] = "Kageri{n}Where's Naoya-san?"
         self.assertEqual(lint.check(8, row), [])
 
+    def test_lint_missing_blanks_stub(self):
+        import textlint
+        lint = textlint.Lint()
+        row = {"id": "TEST", "jp": "グレン{n}いくぜ", "en": "", "notes": ""}
+        self.assertTrue(any("[missing]" in e for e in lint.check(8, row)))
+        row = {"id": "TEST", "jp": " グレン{n}いくぜ", "en": "Glen{n}Let's go!", "notes": ""}
+        self.assertTrue(any("[blanks]" in e for e in lint.check(1, row)))
+        row = {"id": "TEST", "jp": "グレン{n}いくぜ{n}ユカ", "en": "Glen{n}Let's go,{n}Yuka!", "notes": ""}
+        self.assertTrue(any("[stub]" in e for e in lint.check(8, row)))
+        row["en"] = "Glen{n}Let's go, Yuka!"
+        self.assertEqual(lint.check(8, row), [])
+
     def test_glossary_matches_whole_runs(self):
         import textlint
         self.assertTrue(textlint.has_term("ユカは", "ユカ"))

@@ -9,11 +9,14 @@ Checks (each returns error strings; [] = pass):
 - pointer:  resource group 2 (0xD226B4) points at the relocated block + 4, and the block there unpacks
             (textblock.unpack at FREE) to exactly the model the build packed.
 - texts:    every message the build replaced decodes back from the built ROM to its encoded text.
+- jp left:  (en build) no kana/kanji in any message of the built block except rows whose notes start with
+            nontext/debug/placeholder (dev readouts and 「開発中」 placeholders, kept Japanese by design).
 - readers:  no aligned 0x08/0x09 word in the original ROM points at a structure of the old block (master,
             sub-table, message, shared tail) except the group 2 word, which the build rewrites. 0xD226B8 (group 3)
             points at the block's end = the next resource, unmoved: allowed.
 - branches: no Thumb B/Bcc/BL within +-4 KB of a multi-halfword code patch lands strictly inside it.
 """
+import re
 import struct
 import sys
 from pathlib import Path
@@ -81,6 +84,24 @@ def check_texts(new, orig_ids, texts, table):
     return errs
 
 
+JP = re.compile("[぀-ヿ一-鿿]")
+KEEP_JP = ("nontext", "debug", "placeholder")   # script notes of rows that stay Japanese (dev-only, never shown)
+
+
+def check_leftover_jp(new, orig_ids, table, rows=None):
+    """Decode every message of the built block; kana/kanji outside rows whose notes start with KEEP_JP fails.
+    (The skill's jp_left.py assumes NUL-terminated strings; messages here end with 0x1F.)"""
+    rows = rows or script.load_script()
+    errs = []
+    got = textblock.unpack(new, insert.FREE)
+    for sub, ids in zip(got["subs"], orig_ids):
+        for m, mid in zip(sub["msgs"], ids):
+            plain = re.sub(r"\{[^}]*\}", "", script.decode(table, m))
+            if JP.search(plain) and not rows[mid]["notes"].startswith(KEEP_JP):
+                errs.append(f"{mid}: Japanese left in the built ROM: {plain[:40]!r}")
+    return errs
+
+
 def structure_starts(orig):
     m = textblock.unpack(orig)
     ids = insert.message_ids(m)
@@ -137,6 +158,8 @@ def run(orig, mode="en", qa=None):
     errs = check_writes(orig, new, writes)
     errs += check_pointer(new, st["model"])
     errs += check_texts(new, st["ids"], st["texts"], st["table"])
+    if mode == "en":
+        errs += check_leftover_jp(new, st["ids"], st["table"])
     errs += check_readers(orig)
     errs += check_branches(orig)
     return new, writes, errs

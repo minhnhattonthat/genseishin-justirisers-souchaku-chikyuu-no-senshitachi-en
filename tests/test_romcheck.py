@@ -32,6 +32,17 @@ class RomCheckTest(unittest.TestCase):
         _, _, errs = romcheck.run(self.orig, "marker")
         self.assertEqual(errs, [])
 
+    def test_leftover_jp(self):
+        import romcheck
+        import script
+        self.assertEqual(romcheck.check_leftover_jp(self.new, self.st["ids"], self.st["table"]), [])
+        rows = script.load_script()
+        mid = next(m for m in self.st["texts"] if not rows[m]["notes"].startswith(romcheck.KEEP_JP))
+        rows[mid] = dict(rows[mid], notes="")
+        import insert
+        new, _, st = insert.build(self.orig, "en", {mid: "Glen{n}" + "まだ"})
+        self.assertTrue(romcheck.check_leftover_jp(new, st["ids"], st["table"], rows))
+
     def test_stray_byte_fails(self):
         import romcheck
         bad = bytearray(self.new)
