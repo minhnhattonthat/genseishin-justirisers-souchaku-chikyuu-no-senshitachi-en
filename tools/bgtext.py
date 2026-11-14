@@ -3,6 +3,7 @@
     python -X utf8 tools/bgtext.py probe ROM N x,y,w,h        palette (bank, index) histogram of a rect of screen N
     python -X utf8 tools/bgtext.py render ROM N OUT.png [--zoom 3] [--grid]   screen N as the game draws it
     python -X utf8 tools/bgtext.py preview OUTDIR [--zoom 2]  every screen in gfx/bg.tsv, original | English
+    python -X utf8 tools/bgtext.py count ROM [TSV]            tiles per changed tileset vs its VRAM budget (exit 1 over)
 
 gfx/bg.tsv rows (tab-separated, '#' comments), applied by insert.build through apply(rom, orig):
     screen  rect      text              font    ink  shadow  bg  align  note
@@ -19,7 +20,10 @@ gfx/bg.tsv rows (tab-separated, '#' comments), applied by insert.build through a
   shadow  '-' none, N drop shadow at +1,+1, oN 1 px outline, oN+M outline plus drop shadow M
   bg      index the rect is cleared to, '-' to keep the pixels, cN: each pixel row cleared to the colour of column N
           in that row (gradient banners; N outside the text)
-  align   l / c / r, then optional b (bold: ink doubled 1 px right) and a tracking number (c-1: 1 px tighter)
+  align   l / c / r, then optional b (bold: ink doubled 1 px right) and a tracking number (c-1: 1 px tighter),
+          or g (grid: each glyph centred in its own 8 px cell, the line starting on a cell boundary, every line at
+          the font's full ink height). Grid letters repeat as whole tiles, so a label costs only its new letters:
+          use it where the VRAM tile budget is tight (gfx/bg_budget.tsv). Keep the rect's y on the cell grid too.
 
 Tiles: the rect's cells are re-encoded; a new tile matching an existing one (same pixels, same per-tile palette
 bank) reuses it, else it takes a slot that no map sharing this tileset references any more (the old Japanese), else
@@ -110,8 +114,8 @@ def load_rows(path=TSV):
                      "bank": int(bank) if bank else None,
                      "ink": [int(v) for v in r[4].split("/")], "shadow": parse_shadow(r[5]),
                      "bg": None if r[6] in ("", "-") else r[6] if r[6].startswith("c") else int(r[6]),
-                     "align": al[0],
-                     "bold": "b" in al, "track": int(al[1:].replace("b", "") or 0), "note": r[8]})
+                     "align": al[0], "grid": "g" in al,
+                     "bold": "b" in al, "track": int(al[1:].replace("b", "").replace("g", "") or 0), "note": r[8]})
     return rows
 
 
@@ -155,27 +159,42 @@ def draw(canvas, row, fonts, col, sample=None):
     nrows = 16 if row["font"] == "normal" else 8
     lines = row["text"].split("|")
     pitch = 16 if row["font"] == "normal" else 9
-    lo, hi = ink_rows(row["text"].replace("|", ""), glyphs, nrows)
+    grid = row.get("grid")
+    # grid: one ink range for the whole font, so every label sits on the same rows (tiles repeat across labels)
+    ref = "".join(c for c in glyphs if c.isascii() and c.isalnum()) if grid else row["text"].replace("|", "")
+    lo, hi = ink_rows(ref, glyphs, nrows)
     block = (len(lines) - 1) * pitch + (hi - lo + 1)
     top = y0 + (h - block) // 2 - lo
     ink = []
     for k, line in enumerate(lines):
         bold = 1 if row["bold"] else 0   # bold: every ink pixel doubled 1 px right, advance + 1
-        tw = text_px(line, glyphs) - 2 + (row["track"] + bold) * (len(line) - 1) + bold   # advance: 2 px spacing
-        pad = 2 if row["shadow"]["outline"] is not None else 0
+        if grid:
+            tw = 8 * len(line)
+        else:
+            tw = text_px(line, glyphs) - 2 + (row["track"] + bold) * (len(line) - 1) + bold   # advance: 2 px spacing
+        pad = 2 if row["shadow"]["outline"] is not None and not grid else 0
         if tw + pad > w:
             raise ValueError(f"{label(row['screen'])} {line!r}: {tw + pad} px > rect {w} px")
         x = x0 + {"l": 0, "c": (w - tw) // 2, "r": w - tw}[row["align"]]
+        if grid:   # snap to the cell grid, staying inside the rect
+            x = min(max(-(-x0 // 8) * 8, (x + 4) // 8 * 8), (x0 + w - tw) // 8 * 8)
+            if x < x0:
+                raise ValueError(f"{label(row['screen'])} {line!r}: no cell-aligned start inside the rect")
         y = top + k * pitch
         for c in line:
             g = glyphs[c]
+            gx0 = 0
+            if grid and g["rows"]:   # centre the glyph's ink columns in its cell
+                cols = [gx for gx in range(16) if any(r >> (15 - gx) & 1 for r in g["rows"])]
+                if cols:
+                    gx0 = (8 - (cols[-1] - cols[0] + 1)) // 2 - cols[0]
             for gy in range(nrows if g["rows"] else 0):
                 for gx in range(16):
                     if g["rows"][gy] >> (15 - gx) & 1:
-                        ink.append((x + gx, y + gy))
+                        ink.append((x + gx0 + gx, y + gy))
                         if bold:
-                            ink.append((x + gx + 1, y + gy))
-            x += g["width"] + row["track"] + bold
+                            ink.append((x + gx0 + gx + 1, y + gy))
+            x += 8 if grid else g["width"] + row["track"] + bold
     inside = lambda p: x0 <= p[0] < x0 + w and y0 <= p[1] < y0 + h  # noqa: E731
     sh = row["shadow"]
     put = lambda p, v: canvas.__setitem__(p, col(v)) if inside(p) else None  # noqa: E731
@@ -404,8 +423,27 @@ def main():
     p.add_argument("rom")
     p.add_argument("outdir")
     p.add_argument("--zoom", type=int, default=2)
+    p = sub.add_parser("count")
+    p.add_argument("rom")
+    p.add_argument("tsv", nargs="?", default=str(TSV))
     a = ap.parse_args()
     d = Path(a.rom).read_bytes()
+    if a.cmd == "count":   # draft rows: tiles per changed tileset against its budget, without stopping on it
+        budget = load_budget()
+        tn = {o: i for g, i, o, _ in res.resources(d) if g == 18}
+        orig_budget = globals()["load_budget"]
+        globals()["load_budget"] = lambda path=None: {i: 1 << 20 for i in range(1001)}
+        try:
+            tsets, _, _ = redraw(d, load_rows(Path(a.tsv)))
+        finally:
+            globals()["load_budget"] = orig_budget
+        bad = 0
+        for to, ts in sorted(tsets.items()):
+            cap = budget.get(tn[to], ts.n0)
+            bad += len(ts.tiles) > cap
+            print(f"18[{tn[to]}]: {ts.n0} -> {len(ts.tiles)} tiles, budget {cap}"
+                  + ("  OVER" if len(ts.tiles) > cap else ""))
+        return 1 if bad else 0
     if a.cmd == "preview":
         rows = load_rows()
         rom = bytearray(d)

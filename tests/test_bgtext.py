@@ -62,11 +62,26 @@ class BgTextTest(unittest.TestCase):
 
     def test_budget_enforced(self):
         import bgtext
-        big = [dict(r, text="Restore Defaults|Restore Defaults", rect=(8, 40, 200, 40), font="normal")
+        big = [dict(r, text="Restore Defaults|Restore Defaults", rect=(8, 40, 200, 40), font="normal", grid=False)
                for r in self.rows[:1]]
         big[0]["screen"] = (620, 620)
         with self.assertRaises(ValueError):
             bgtext.redraw(self.orig, big)
+
+    def test_grid_letters_repeat(self):
+        """align g: each glyph in its own 8 px cell, so a repeated letter is the same cell pixels (one tile)."""
+        import bgtext
+        import font
+        row = {"screen": (620, 620), "rect": (37, 40, 64, 16), "text": "oo o", "font": "normal", "bank": 0,
+               "ink": [1], "shadow": bgtext.parse_shadow("7"), "bg": 6, "align": "l", "grid": True, "bold": False,
+               "track": 0, "note": ""}
+        canvas = bgtext.draw({}, row, font.load_all(), lambda v: v)
+        cell = lambda cx: [canvas[(8 * cx + k % 8, 40 + k // 8)] for k in range(128)]  # noqa: E731
+        self.assertEqual({min(x for (x, _), v in canvas.items() if v == 1) // 8}, {5})   # snapped from 37 to 40
+        self.assertNotEqual(set(cell(5)), {6})
+        self.assertEqual(cell(5), cell(6))
+        self.assertEqual(cell(5), cell(8))
+        self.assertEqual(set(cell(7)), {6})   # the space is a blank cell
 
     def test_rows_parse(self):
         import bgtext

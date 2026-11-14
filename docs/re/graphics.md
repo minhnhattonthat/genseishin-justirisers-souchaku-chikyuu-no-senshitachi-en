@@ -97,8 +97,16 @@ no pixel changes outside the rects, other screens on the same tileset unchanged.
   using it is redrawn.
 - Tile data starts one byte after the per-tile banks for even and odd counts (`sweep.p70_parse`; even counts
   were read one byte early before 2026-11-15, so older renders of even-count tilesets are shifted).
-- Pilot (mode select 653, 653:654, 659, 659:660) and config 620 rows: `gfx/bg_pending.tsv`, over budget.
-  `bgtext.py ink ROM N rect IDX` prints the ink bands of a rect (where to place the English); bg `cN` clears each
+- **Tile-thrifty lettering** (2026-11-15): align flag `g` puts each glyph in its own 8 px cell (ink centred, the
+  line on a cell boundary, every row at the font's full ink height), so repeated letters are the same tile and a
+  label costs only its new letters (the game's Latin glyphs are 8 px advance except i l t j I). Kana labels share
+  tiles the same way (16 px pitch on the grid); proportional English made every cell unique: config 326 -> 383
+  tiles, grid 326. Mode buttons dropped "Mode" (D11): 653 295 -> 295, 659 335 -> 335. VRAM on mode select:
+  BG0/BG1 char base 0, tiles 311-317 / 320-359 / 384-427 / 448-491 belong to other layers (text canvases),
+  maps at screen blocks 27 and 31. On config the L-button pill sprites start at x 136: labels end by x 135.
+  Measure a draft with `bgtext.py count ROM [TSV]` (tiles per changed tileset vs budget, the budget check off).
+- Pilot rows (mode select 653, 653:654, 659, 659:660; config 620) are in `gfx/bg.tsv`, cold-boot checked
+  (`work/qa/gfx/budget_check.png`, `work/qa/smoke/final.png`). `bgtext.py ink ROM N rect IDX` prints the ink bands of a rect (where to place the English); bg `cN` clears each
   row to column N's colour (gradient banners). おまけモード = "Bonus Mode".
 
 ## Graphics-text survey (tour)

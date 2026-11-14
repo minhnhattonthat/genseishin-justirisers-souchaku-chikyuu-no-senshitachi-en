@@ -1,2 +1,28 @@
 # BG-screen lettering (tools/bgtext.py; format in its docstring). Columns:
 # screen	rect x,y,w,h	text ('|' = new line)	font	ink (a/b/.. bands top to bottom)	shadow (-, N, oN, oN+M)	bg	align[track]	note
+# VRAM tile budget (docs/re/graphics.md): mode select and config have 0 spare tiles, so their headers/labels use grid
+# alignment (g: letters repeat as whole tiles) and the mode buttons drop "Mode" (the header already says it).
+653	32,6,184,20	Choose a mode	normal	6/4/4/3	o2	0	cg	mode select header (モードを えらんでください)
+653	52,49,40,29	Kids	normal	7/11	o5+10	4	c-1	mode select button キッズモード
+653	100,49,40,29	Normal	normal	9/12	o5+10	4	c-1	mode select button ノーマルモード
+653	148,49,40,29	Hard	normal	8/13	o5+10	4	c-1	mode select button ハードモード
+653:654	52,49,40,29	Kids	normal	8/12	o1+11	6	c-1	mode select highlighted button (overlay map 20[654] on tileset 18[653])
+653:654	100,49,40,29	Normal	normal	10/13	o1+11	6	c-1	highlighted ノーマルモード
+653:654	148,49,40,29	Hard	normal	9/14	o1+11	6	c-1	highlighted ハードモード
+659	32,6,184,20	Choose a mode	normal	6/4/4/3	o2	0	cg	mode select, 4 modes (after unlocking おまけモード)
+659	29,49,40,29	Kids	normal	7/11	o5+10	4	c-1	
+659	77,49,40,29	Normal	normal	9/12	o5+10	4	c-1	
+659	125,49,40,29	Hard	normal	8/13	o5+10	4	c-1	
+659	173,49,40,29	Bonus	normal	7/9	o5+8	4	c-1	おまけモード (bank 4)
+659:660	29,49,40,29	Kids	normal	8/12	o1+11	6	c-1	highlighted (overlay map 20[660] on tileset 18[659])
+659:660	77,49,40,29	Normal	normal	10/13	o1+11	6	c-1	
+659:660	125,49,40,29	Hard	normal	9/14	o1+11	6	c-1	
+659:660	173,49,40,29	Bonus	normal	8/10	o1+9	6	c-1	bank 5
+620	27,5,66,16	Config	normal	8/9/11/12	o7	c94	c	config header コンフィグ (gold gradient banner: bg sampled per row)
+620	128,1,112,30	Pick an action,|then a button.	normal	1	2	0	l	config help こうもく を えらんで / ボタンを おしてください
+620	38,40,140,15	Attack	normal	1	7	6	lg	config label こうげき
+620	38,56,140,15	Jump	normal	1	7	6	lg	ジャンプ
+620	38,72,140,15	Guard	normal	1	7	6	lg	ガード
+620	38,88,140,15	Swap Weapon	normal	1	7	6	lg	こうげき せんたく (L: switch attack); button pill sprites start at x 136: labels end by x 135
+620	38,104,140,15	Restore Defaults	normal	1	7	6	lg	せってい を もどす
+620	38,120,140,15	Done	normal	1	7	6	lg	けってい
