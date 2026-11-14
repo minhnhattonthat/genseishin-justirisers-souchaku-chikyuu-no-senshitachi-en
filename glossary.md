@@ -5,8 +5,8 @@ Binding for every translator and reviewer. Agents propose additions in reports; 
 and a speaker tag (first line of a story message) must be exactly the EN of its row.
 
 ## Rulings (asked of the user once; options and reasons in docs/decisions.md)
-- Honorifics: kept, hyphenated (Shota-kun). Name order: Western (given name first). The script uses given names
-  only (翔太, 直也, ユカ), with no honorifics.
+- Honorifics: kept, hyphenated (Shota-kun). Name order: Western (given name first). The script mostly uses bare
+  given names (翔太, 直也, ユカ); the one honorific is Kageri's 直也さん -> "Naoya-san" (Honorifics table, linted).
 - Romanisation source: official English (TV series) names where they exist, else an earlier fan patch, else Hepburn
   without macrons. No earlier patch exists; names not known from the series are Hepburn or the obvious English
   reading of the katakana (D8).
@@ -56,6 +56,24 @@ and a speaker tag (first line of a story message) must be exactly the EN of its 
 | スー・ザ・ジィ | Sue the G | | s00 enemy name | |
 | ヴァン・ジャー | Van Jar | | s00 enemy name | |
 | トパス | Topas | | s00 enemy name | |
+| ジェナス | Jenas | | s00 enemy name (s00 table looks unused; transliterated per D8) | |
+| ラグナ | Ragna | | s00 enemy name | |
+| セラ | Sera | | s00 enemy name | |
+| シーン | Sheen | | s00 enemy name | |
+| ダーク | Dark | | s00 enemy name | |
+| パフ | Puff | | s00 enemy name | |
+| ケイケイ | Keikei | | s00 enemy name | |
+| ロシェット | Rochette | | s00 enemy name | |
+| タフト | Taft | | s00 enemy name | |
+| ジュリ | Juri | | s00 enemy name | |
+| ジュネ | June | | s00 enemy name; judgement call (could be Jeune), no official source | |
+
+## Honorifics
+Matched on the JP start only (a particle may follow). Lint rule `honorific`.
+
+| JP | EN | max | notes | Avoid |
+|---|---|---|---|---|
+| 直也さん | Naoya-san | | Kageri to Gant (D1) | |
 
 ## Places
 | JP | EN | max | notes | Avoid |

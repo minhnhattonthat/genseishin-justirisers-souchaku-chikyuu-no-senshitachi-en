@@ -31,3 +31,15 @@ None found.
 ## Assessment
 
 **Needs fixes** — two accuracy issues remain; otherwise, binding terminology, honorific relationships, and the heroes' distinct voices are consistently handled, with the minor findings suitable for a polish pass.
+## Follow-up (controller, 2026-11-15)
+
+Reviewer: `codex exec` (codex-cli 0.167.1, its default model; the original run did not record the model name).
+
+Both Important findings were fixed in commit 51d13f2 and re-checked by the phase 6 harness review:
+- **1E9581**: "A gun that fires bolts of light{n}from both of its barrels."
+- **1EC24A**: "...Until Kaiser Hades' revival is foiled{n}and peace returns to Earth..."
+
+Minor findings: fixed in phase 6 or listed in `docs/polish.md`. The textlint gate now also enforces the glossary's
+Avoid column and the 直也さん -> Naoya-san honorific (harness review Important 1).
+
+**Verdict: ok after fixes.**

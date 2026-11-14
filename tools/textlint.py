@@ -11,7 +11,9 @@ Rules (budgets: tbl/windows.json, per-id geometry: tbl/windows_ids.tsv, docs/re/
   glossary form of the Japanese tag), then at most 2 lines per page, 224 px each, a page's last line 216 px;
 - other logged windows: px/lines of their variant; `column` rows (notes) and never-drawn rows: each line at most
   the Japanese line's width (column rows: `{fill}` pads the line back to that width at build time);
-- glossary: a Characters/Places/Items row whose JP appears in the Japanese must have its EN in the English;
+- glossary: a Characters/Places/Items row whose JP appears in the Japanese (as a whole kana/kanji run) must have
+  its EN in the English; no spelling from a row's Avoid column (whole word, any case) may appear in the English;
+- honorifics: a '## Honorifics' row (直也さん | Naoya-san) whose JP appears must have its EN form;
 - no ordinal suffix glued onto {var}.
 Waivers: tbl/lint_waive.tsv (id<TAB>rule<TAB>reason) for known engine work (phase 7).
 """
@@ -49,13 +51,38 @@ def load_windows():
     return data["variants"], by_id
 
 
+def kind(char):
+    if "぀" <= char <= "ゟ":
+        return "hiragana"
+    if "゠" <= char <= "ヿ":
+        return "katakana"
+    if "一" <= char <= "鿿" or char == "々":
+        return "kanji"
+    return "other"
+
+
+def has_term(jp, term, honorific=False):
+    """term occurs as a whole kana/kanji run (ユカ isn't in ユカイ, ゾラ isn't in ソゾラ). An honorific row
+    (直也さん) checks only its start: a particle may follow (直也さんは)."""
+    for m in re.finditer(re.escape(term), jp):
+        a, b = m.start(), m.end()
+        if (a == 0 or kind(jp[a - 1]) != kind(term[0])) and \
+                (honorific or b == len(jp) or kind(jp[b]) != kind(term[-1])):
+            return True
+    return False
+
+
 def load_glossary():
-    """-> [(jp, en)] from the glossary tables (JP | EN | ...)."""
-    out = []
+    """-> [(jp, en, avoid, honorific)] from the glossary tables (JP | EN | max | notes | Avoid). avoid: the Avoid
+    cell split on ',' or '/'; honorific: the row sits under the '## Honorifics' heading."""
+    out, section = [], ""
     for line in (ROOT / "glossary.md").read_text(encoding="utf-8").splitlines():
+        if line.startswith("## "):
+            section = line[3:].strip().lower()
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
         if line.startswith("|") and len(cells) >= 2 and cells[0] not in ("JP", "") and not set(cells[0]) <= set("-"):
-            out.append((cells[0], cells[1]))
+            avoid = [x.strip() for x in re.split(r"[,/]", cells[4]) if x.strip()] if len(cells) > 4 else []
+            out.append((cells[0], cells[1], avoid, section.startswith("honorific")))
     return out
 
 
@@ -98,7 +125,7 @@ class Lint:
         return insert.px(self.jt.encode(text.replace(script.TAIL, "")), self.wt_jp)
 
     def tag_en(self, jp_tag):
-        for j, e in self.gloss:
+        for j, e, _, _ in self.gloss:
             if j == jp_tag:
                 return e
         return None
@@ -126,9 +153,12 @@ class Lint:
             err("codes", f"control codes differ: jp {dict(cj)} en {dict(ce)}")
         if re.search(r"\{var\}(st|nd|rd|th)\b", en):
             err("ordinal", "suffix glued onto {var}")
-        for j, e in self.gloss:
-            if j in jp and e.lower() not in en.lower() and not j.startswith("？"):
-                err("glossary", f"{j} -> {e!r} missing")
+        for j, e, avoid, hon in self.gloss:
+            if not j.startswith("？") and has_term(jp, j, hon) and e.lower() not in en.lower():
+                err("honorific" if hon else "glossary", f"{j} -> {e!r} missing")
+            for a in avoid:
+                if re.search(r"(?<!\w)" + re.escape(a) + r"(?!\w)", en, re.I):
+                    err("avoid", f"{a!r} is a rejected spelling (glossary: {e!r})")
         names = self.by_id.get(mid, set())
         story = sub in STORY
         if story or "dialogue" in names:

@@ -10,3 +10,4 @@ line is unticked. Source: phase 6 review, `docs/review/phase6_codex.md`.
 - [x] 1F6BB7 1F6C55 1F6CE9 1F6D81 - Gardias: "He/She is under my control!!" (fixed in phase 6)
 - [x] 1F8BC3 - "Let's split up and find the missiles!" (fixed in phase 6)
 - [x] 1FC766 1FC7F4 1FC883 1FC903 - フィニッシュだ -> "This ends now!" (fixed in phase 6)
+- [ ] 1EA49B-1EA618 - save-status stage list: "Cleared to X" reads unfinished; まで = up to and including -> "Cleared through X" (or "Cleared up to X"), check the 160 px budget with `textlint.py --fit`. (harness review phase 6, Minor 6)
