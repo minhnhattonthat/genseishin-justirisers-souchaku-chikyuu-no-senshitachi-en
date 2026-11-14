@@ -88,7 +88,12 @@ and repoints group 18/20 entries (allowed in `tbl/allowed.txt`). `bgtext.py prob
 no pixel changes outside the rects, other screens on the same tileset unchanged.
 - **Overlay maps use another screen's tileset** (`tools/lua/reslog.lua` shows the pairs): mode select loads
   18[653] + 20[653] and 20[654] (highlighted buttons, tiles 230-295 of 18[653], 295 = past its end). Write such
-  layers as `T:M` rows; recycling a slot no listed map uses showed as garbage around the highlight.
+  layers as `T:M` rows; recycling a slot no listed map uses showed as garbage around the highlight. Every known
+  pairing (also for maps no row touches) is in `gfx/bg_pairs.tsv` (from `work/qa/resall`: reslog over all 78 warps,
+  `warp_all.py --rom work/orig.gba --out work/qa/resall --script tools/lua/reslog.lua --jobs 2`); `-` = never loaded.
+- **Each tileset resource holds one extra tile** after its counted tiles (then 0-3 alignment bytes). The loader
+  copies it to VRAM after the set and maps use it as slot n0 (stage bar 20[625] on 18[655]: the "+" of L+R).
+  `bgtext.Tileset.extra` keeps it; renders still draw slot n0 as a black square.
 - **VRAM tile budget (verified: VRAM dumps of mode select and config, `tools/lua/bgcnt.lua --var DUMP=880` +
   `tools/bgvram.py`)**: BG0-2 share char block 0; the screen's tileset lands at VRAM tile 16 as one run and another
   layer's tiles follow at once (18[653]: 16-310, next used 311; 18[620]: 16-341, next used 342). A tileset that
