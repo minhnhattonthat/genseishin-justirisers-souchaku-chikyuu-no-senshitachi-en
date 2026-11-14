@@ -1,0 +1,7 @@
+# BG maps 20[M] the game draws with tileset 18[T] where 18[T] is not 18[M] (tools/bgtext.py load_pairs), for maps no
+# gfx/bg.tsv row pairs yet. Columns: map M, tileset T, evidence.
+# Evidence: tools/lua/reslog.lua over every scene (work/qa/resall, orig ROM): the battle scenes load 18[634] and then
+# 20[634], 20[635], 20[636] / 20[637] (lr 0801A719..0801A959); 18[635..637] are the status tileset 18[641].
+635	634	battle screens (battle_N, attract_battle): loaded after 18[634]
+636	634	battle screens: loaded after 18[634]
+637	634	battle screens: loaded after 18[634]

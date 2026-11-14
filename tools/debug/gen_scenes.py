@@ -45,6 +45,8 @@ FIXED = [
     ('char_select', 3, 0, 'area=0 stage=0 0x03001F58=1', '-', 'character select (scene 3), stage 1-2', 600),
     ('pause', 2, 0, 'area=0 stage=0 0x03001F58=1 @pause', 'mash60', 'pause menu in stage 1-2 (PAUSE, ゲームを つづける / リタイア / ステータス)', 3600),
     ('status', 2, 0, 'area=0 stage=0 0x03001F58=1 @sub36 @hold', 'mash60', 'status screen from the pause menu (ステータス)', 3600),
+    ('status_kageri', 2, 0, 'area=0 stage=0 0x03001F58=1 char=1 @sub36 @hold', 'mash60', 'status screen, Riser Kageri (name / weapon labels per character)', 3600),
+    ('status_gant', 2, 0, 'area=0 stage=0 0x03001F58=1 char=2 @sub36 @hold', 'mash60', 'status screen, Riser Gant', 3600),
     ('continue', 2, 0, 'area=0 stage=0 0x03001F58=1 @sub48 @hold', 'mash60', 'continue screen after a death (scene 4 sub 48)', 3600),
     ('game_over', 2, 0, 'area=0 stage=0 0x03001F58=1 0x03001F43=0 @sub64 @hold', 'mash60', 'GAME OVER (scene 4 sub 64), then back through the logos', 3600),
     ('battle_choice', 5, 0, 'area=0 stage=3 stageno=3 event=4 %s=1 %s=1' % (F58, F4A), 'mash90',

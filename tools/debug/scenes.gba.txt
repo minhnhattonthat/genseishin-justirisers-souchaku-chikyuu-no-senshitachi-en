@@ -15,6 +15,8 @@ points	6	0	0x03001F58=1	-	stage clear points screen (scene 6)	1500
 char_select	3	0	area=0 stage=0 0x03001F58=1	-	character select (scene 3), stage 1-2	1500
 pause	2	0	area=0 stage=0 0x03001F58=1 @pause	mash60	pause menu in stage 1-2 (PAUSE, ゲームを つづける / リタイア / ステータス)	4500
 status	2	0	area=0 stage=0 0x03001F58=1 @sub36 @hold	mash60	status screen from the pause menu (ステータス)	4500
+status_kageri	2	0	area=0 stage=0 0x03001F58=1 char=1 @sub36 @hold	mash60	status screen, Riser Kageri (name / weapon labels per character)	4500
+status_gant	2	0	area=0 stage=0 0x03001F58=1 char=2 @sub36 @hold	mash60	status screen, Riser Gant	4500
 continue	2	0	area=0 stage=0 0x03001F58=1 @sub48 @hold	mash60	continue screen after a death (scene 4 sub 48)	4500
 game_over	2	0	area=0 stage=0 0x03001F58=1 0x03001F43=0 @sub64 @hold	mash60	GAME OVER (scene 4 sub 64), then back through the logos	4500
 battle_choice	5	0	area=0 stage=3 stageno=3 event=4 0x03001F58=1 0x03001F4A=1	mash90	round 2: genseishin choice before the area 1 battle (scene 5 sub 17-18)	2400

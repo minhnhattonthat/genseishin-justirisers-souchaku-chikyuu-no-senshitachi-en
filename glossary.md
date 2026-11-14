@@ -103,7 +103,9 @@ Matched on the JP start only (a particle may follow). Lint rule `honorific`.
 | カゲリストライカー | Kageri Striker | 88 px | Kageri's weapon | |
 | ファントムクラッシュ | Phantom Crush | 88 px | Kageri's special | |
 | ガントスラッガー | Gant Slugger | 88 px | Gant's weapon | |
-| バーサスカノン | Versus Cannon | 88 px | Gant's special | || そうちゃく | Souchaku | | transformation call, kept | |
+| バーサスカノン | Versus Cannon | 88 px | Gant's special | |
+| ひっさつわざ | Skill | 40 px label | character select and status label (special move); ぶき beside it is "Arms" there (not a glossary term: script ぶき is "weapon") | |
+| そうちゃく | Souchaku | | transformation call, kept | |
 | ピープル | people | | civilians to rescue (mission goals) | |
 | おまけモード | Bonus Mode | 40 px button | unlockable 4th mode (mode select graphic, BG s0659); also Kids / Normal / Hard Mode. The buttons show only Kids / Normal / Hard / Bonus (VRAM tile budget, D11) | |
 

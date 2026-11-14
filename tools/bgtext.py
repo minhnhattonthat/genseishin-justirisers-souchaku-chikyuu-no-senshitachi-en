@@ -181,6 +181,7 @@ def draw(canvas, row, fonts, col, sample=None):
             if x < x0:
                 raise ValueError(f"{label(row['screen'])} {line!r}: no cell-aligned start inside the rect")
         y = top + k * pitch
+        start = len(ink)
         for c in line:
             g = glyphs[c]
             gx0 = 0
@@ -195,7 +196,20 @@ def draw(canvas, row, fonts, col, sample=None):
                         if bold:
                             ink.append((x + gx0 + gx + 1, y + gy))
             x += 8 if grid else g["width"] + row["track"] + bold
+        if row["align"] == "r" and not grid and len(ink) > start:
+            # right-align on the ink, not the advance: a last glyph whose ink runs past its advance (l with
+            # tracking -1) would otherwise end 1 px outside the rect; keep 1 px for the outline
+            edge = x0 + w - 1 - (1 if row["shadow"]["outline"] is not None else 0)
+            over = max(px for px, _ in ink[start:]) - edge
+            if over > 0:
+                ink[start:] = [(px - over, py) for px, py in ink[start:]]
     inside = lambda p: x0 <= p[0] < x0 + w and y0 <= p[1] < y0 + h  # noqa: E731
+    # The width check uses advances; a glyph's ink can run past its advance (l, i with negative tracking), and ink
+    # outside the rect would be dropped without a word (status "Special" lost its l).
+    out = sorted({px for px, py in ink if not inside((px, py))})
+    if out:
+        raise ValueError(f"{label(row['screen'])} {row['text']!r}: ink at x {out[0]}..{out[-1]} outside rect "
+                         f"{x0},{y0},{w},{h}")
     sh = row["shadow"]
     put = lambda p, v: canvas.__setitem__(p, col(v)) if inside(p) else None  # noqa: E731
     if sh["drop"] is not None:   # drop shadow at +1,+1 (beyond the outline when there is one)
@@ -225,7 +239,20 @@ def redraw(d, rows):
     fonts = font.load_all()
     tsets, maps, where = {}, {}, {}
     by_ts = {}
+    # A map a row pairs with another tileset (T:M) is drawn with T, not with 18[M]: 18[619] is the same resource as
+    # 18[620] (config), but 20[619] is the points overlay on 18[618], and counting its re-encoded cells as config
+    # tiles pushed config over its budget.
+    # gfx/bg_pairs.tsv records the same for maps no row touches (20[635..637]: battle screens on 18[634]).
+    repaired = {R[(20, r["screen"][1])] for r in rows if R[(18, r["screen"][0])] != R[(18, r["screen"][1])]}
+    pairs = load_pairs()
+    for m, t in pairs.items():
+        by_ts.setdefault(R[(18, t)], set()).add(R[(20, m)])
     for i in range(1001):
+        if i in pairs:
+            continue
+        if R[(20, i)] in repaired and R[(18, i)] not in {R[(18, r["screen"][0])] for r in rows
+                                                         if R[(20, r["screen"][1])] == R[(20, i)]}:
+            continue
         by_ts.setdefault(R[(18, i)], set()).add(R[(20, i)])
     for row in rows:
         n = row["screen"]
@@ -357,6 +384,13 @@ def redraw(d, rows):
 
 
 BUDGET = ROOT / "gfx" / "bg_budget.tsv"
+PAIRS = ROOT / "gfx" / "bg_pairs.tsv"
+
+
+def load_pairs(path=PAIRS):
+    """-> {map index M: tileset index T} for maps 20[M] the game draws with 18[T], not 18[M] (gfx/bg_pairs.tsv: map,
+    tileset, evidence). 20[M] then counts as a user of 18[T] only, so 18[M]'s tiles it never shows can be recycled."""
+    return {int(f[0]): int(f[1]) for f in _budget_rows(Path(path))}
 
 
 def _budget_rows(path):

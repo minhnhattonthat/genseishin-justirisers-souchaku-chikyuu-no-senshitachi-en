@@ -60,7 +60,7 @@
 600	69,130,33,12	Pick	small@1	7	o1	0	l	legend ✚=せんたく (rect to x 101 clears its tail in cell 12, which "Special" shares)
 600	69,146,33,12	OK	small@1	7	o1	0	l	legend Ⓐ=けってい
 600	104,113,40,15	Arms	normal@2	4	o3	0	r	label ぶき (weapon)
-600	102,128,50,15	Special	normal@2	4	o3	0	l	label ひっさつわざ (special move): text x 102-143, the rect also clears ざ's cell 18
+600	102,128,50,15	Skill	normal@2	4	o3	0	l	label ひっさつわざ (special move): text x 102-143, the rect also clears ざ's cell 18
 600:602	8,8,88,16	Glen Sword	normal@2	5/6/7/8	o3	0	l-1	グレンソード
 600:602	8,24,88,16	Raging Flame	normal@2	9/10/11/12	o3	0	l-1	レイジングフレイム
 600:602	8,48,88,16	Kageri Striker	normal@2	5/6/7/8	o3	0	l-1	カゲリストライカー
@@ -71,3 +71,49 @@
 633	64,55,112,16	Resume Game	normal	9	o5	4	c	ゲームを つづける
 633	64,72,112,16	Give Up	normal	9	o5	4	c	リタイア (leave the stage)
 633	64,89,112,16	Status	normal	9	o5	4	c	ステータス
+# Status (pause menu > Status): tileset 18[641], map 20[641] Glen, 20[642] Kageri, 20[643] Gant (warps status,
+# status_kageri, status_gant); 20[644] = Lv atlas (English already). Index 0 = transparent (backdrop shows through).
+# The cell right of ひっさつわざ (x 136, y 80) is past the tileset: the Special rect covers it.
+641	28,5,82,16	Status	normal	9/10/12/13	o8	c111	c	header ステータス
+641	128,8,80,8	 	normal@4	7	-	0	l	clears the old name's top row (the English name sits one row lower: x 120 at y 8 is the banner)
+641	112,16,96,16	Riser Glen	normal@4	7/6	o2+3	0	cg	ライザーグレン
+641	84,56,40,16	Arms	normal@2	3	o1	0	r	ぶき (as on character select)
+641	96,72,28,16	Skill	normal@2	3	o1	0	r	ひっさつわざ
+641	124,72,12,16	 	normal@2	3	-	0	l	clears the old label tail
+641	124,56,12,16	 	normal@2	3	-	0	l	clears the old label tail between label and name
+641	136,56,104,16	Glen Sword	normal@2	6/5/4/2	o1	0	rg	グレンソード
+641	136,72,104,16	Raging Flame	normal@2	10/9/8/7	o1	0	rg	レイジングフレイム
+641:642	28,5,82,16	Status	normal	9/10/12/13	o8	c111	c	header ステータス (Kageri)
+641:642	128,8,80,8	 	normal@4	7	-	0	l	clears the old name's top row
+641:642	112,16,96,16	Riser Kageri	normal@4	10/9	o2+3	0	cg	ライザーカゲリ
+641:642	84,56,40,16	Arms	normal@2	3	o1	0	r	ぶき
+641:642	96,72,28,16	Skill	normal@2	3	o1	0	r	ひっさつわざ
+641:642	124,72,12,16	 	normal@2	3	-	0	l	clears the old label tail
+641:642	124,56,12,16	 	normal@2	3	-	0	l	clears the old label tail between label and name
+641:642	128,56,112,16	Kageri Striker	normal@2	6/5/4/2	o1	0	rg	カゲリストライカー
+641:642	136,72,104,16	Phantom Crush	normal@2	10/9/8/7	o1	0	rg	ファントムクラッシュ
+641:643	28,5,82,16	Status	normal	9/10/12/13	o8	c111	c	header ステータス (Gant)
+641:643	128,8,80,8	 	normal@4	7	-	0	l	clears the old name's top row
+641:643	112,16,96,16	Riser Gant	normal@4	13/12	o2+3	0	cg	ライザーガント
+641:643	84,56,40,16	Arms	normal@2	3	o1	0	r	ぶき
+641:643	96,72,28,16	Skill	normal@2	3	o1	0	r	ひっさつわざ
+641:643	124,72,12,16	 	normal@2	3	-	0	l	clears the old label tail
+641:643	124,56,12,16	 	normal@2	3	-	0	l	clears the old label tail between label and name
+641:643	136,56,104,16	Gant Slugger	normal@2	6/5/4/2	o1	0	rg	ガントスラッガー
+641:643	136,72,104,16	Versus Cannon	normal@2	10/9/8/7	o1	0	rg	バーサスカノン
+# Stage map (scene 2): 18/20[608] = stage banner (stage number sprites start at x 204), overlay 20[609] on 18[608] =
+# header and the lives / gems bar. 20[606] (frames) has no text.
+608	153,137,50,15	Stage	normal@2	8/7	o4	c150	l	banner ステージ (number drawn after it)
+608:609	28,5,92,16	World Map	normal	8/9/11/12	o6	c122	c	header ぜんたいマップ
+# Continue (after losing the last life): 18/20[632]; legend right of the ✚ / Ⓐ icons (the "=" stays). The cell right of
+# けってい (x 232, y 112) is past the tileset (black square): the rect covers its upper part, the rest copies its left cell.
+632	206,88,34,13	Pick	small	1	o10	c176	l	legend ✚=せんたく
+632	206,104,34,13	OK	small	1	o10	c176	l	legend Ⓐ=けってい
+# Stage clear points: header 18/20[618], score box = overlay 20[619] on tileset 18[618] (digits and Pt drawn right
+# of x 150). The cell right of いままでのポイント is past the tileset (black square): the rect covers it.
+618	28,5,82,16	Clear Points	normal	9/10/12/13	o8	c111	c	header クリアポイント
+618:619	32,40,104,16	Action Points	normal@1	9/8/7/6	o5	4	cg	アクション ポイント
+618:619	32,56,104,16	Hit Bonus	normal@1	9/8/7/6	o5	4	cg	ヒット ボーナス
+618:619	32,72,104,16	Item Points	normal@1	9/8/7/6	o5	4	cg	アイテム ポイント
+618:619	32,88,104,16	Total	normal@1	13/12/11/10	o5	4	cg	ごうけい (this stage's total)
+618:619	32,112,96,16	Grand Total	normal@4	6/5/4/3	o2	1	cg	いままでの ポイント (running total over all stages); the game blanks its digit field from x 128 (x 136 on the rows above)

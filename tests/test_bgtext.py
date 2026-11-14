@@ -43,7 +43,18 @@ class BgTextTest(unittest.TestCase):
         tsets = {R[(18, n[0])] for n in done}
         # an index whose tileset and map are the very resources of a redrawn screen (18/20[510..599] = 600) is that screen
         same = {(R[(18, n[0])], R[(20, n[1])]) for n in done}
+        # a map a row draws with another tileset (20[619] on 18[618]) is never shown with 18[619] (= 18[620]); maps
+        # in gfx/bg_pairs.tsv are drawn with the tileset listed there
+        repaired = {R[(20, n[1])] for n in done if R[(18, n[0])] != R[(18, n[1])]}
+        pairs = bgtext.load_pairs()
         for i in range(1001):
+            if R[(20, i)] in repaired:
+                continue
+            if i in pairs:   # check the pair the game draws instead
+                if R[(18, pairs[i])] in tsets and (pairs[i], i) not in done:
+                    self.assertEqual(bgtext.render_screen(self.orig, (pairs[i], i)),
+                                     bgtext.render_screen(self.new, (pairs[i], i)), f"s{pairs[i]:04d}_{i:04d} changed")
+                continue
             if R[(18, i)] in tsets and (i, i) not in done and (R[(18, i)], R[(20, i)]) not in same:
                 try:
                     a = bgtext.render_screen(self.orig, (i, i))
