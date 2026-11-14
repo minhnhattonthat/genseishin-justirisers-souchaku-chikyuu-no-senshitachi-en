@@ -61,6 +61,11 @@ class Tileset:
         self.tpal = list(tpal)
         self.tiles = [bytes(tiles[32 * i:32 * i + 32]) for i in range(len(self.tpal))]
         self.n0 = len(self.tiles)
+        # Every tileset resource holds one more tile after its counted ones (then 0-3 alignment bytes). The game copies
+        # it to VRAM right after the set, and maps use it as slot n0: the "+" between L and R on the stage bar
+        # (20[625] on 18[655]) is that tile. A relocated blob without it showed the next blob's bytes there.
+        end = 6 + 2 * len(self.pal) + len(tpal) + 1 + 32 * self.n0
+        self.extra = bytes(data[end:end + 32]) if len(data) >= end + 32 else None
 
     def blob(self):
         nt = len(self.tiles)
@@ -68,6 +73,8 @@ class Tileset:
         out += bytes(self.tpal) + bytes([self.gap])
         for t in self.tiles:
             out += t
+        if self.extra is not None and nt == self.n0:   # grown sets put slot n0's tile in self.tiles (redraw pads)
+            out += self.extra
         return bytes(out)
 
     def pixels(self, t):
@@ -246,7 +253,8 @@ def redraw(d, rows):
     repaired = {R[(20, r["screen"][1])] for r in rows if R[(18, r["screen"][0])] != R[(18, r["screen"][1])]}
     pairs = load_pairs()
     for m, t in pairs.items():
-        by_ts.setdefault(R[(18, t)], set()).add(R[(20, m)])
+        if t is not None:   # None: no scene loads 20[m]
+            by_ts.setdefault(R[(18, t)], set()).add(R[(20, m)])
     for i in range(1001):
         if i in pairs:
             continue
@@ -364,7 +372,9 @@ def redraw(d, rows):
                     # tools/bgvram.py shows). Appending pads over them, so the budget check below decides.
                     # (only slots still referenced: a past-the-end cell inside a rect was just re-encoded)
                     while len(ts.tiles) <= max((k for k, v in refs.items() if v > 0), default=-1):
-                        ts.tiles.append(bytes(32))
+                        # slot n0 is the resource's extra tile (Tileset.extra); later slots showed other data: blank
+                        k = len(ts.tiles)
+                        ts.tiles.append(ts.extra if k == ts.n0 and ts.extra is not None else bytes(32))
                         ts.tpal.append(min(ts.tpal))
                     t = len(ts.tiles)
                     ts.tiles.append(tile)
@@ -389,8 +399,9 @@ PAIRS = ROOT / "gfx" / "bg_pairs.tsv"
 
 def load_pairs(path=PAIRS):
     """-> {map index M: tileset index T} for maps 20[M] the game draws with 18[T], not 18[M] (gfx/bg_pairs.tsv: map,
-    tileset, evidence). 20[M] then counts as a user of 18[T] only, so 18[M]'s tiles it never shows can be recycled."""
-    return {int(f[0]): int(f[1]) for f in _budget_rows(Path(path))}
+    tileset, evidence). 20[M] then counts as a user of 18[T] only, so 18[M]'s tiles it never shows can be recycled.
+    T '-' (None): no scene loads 20[M] at all."""
+    return {int(f[0]): None if f[1] == "-" else int(f[1]) for f in _budget_rows(Path(path))}
 
 
 def _budget_rows(path):

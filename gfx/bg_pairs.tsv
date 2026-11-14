@@ -1,7 +1,27 @@
-# BG maps 20[M] the game draws with tileset 18[T] where 18[T] is not 18[M] (tools/bgtext.py load_pairs), for maps no
-# gfx/bg.tsv row pairs yet. Columns: map M, tileset T, evidence.
-# Evidence: tools/lua/reslog.lua over every scene (work/qa/resall, orig ROM): the battle scenes load 18[634] and then
-# 20[634], 20[635], 20[636] / 20[637] (lr 0801A719..0801A959); 18[635..637] are the status tileset 18[641].
+# BG maps 20[M] the game draws with tileset 18[T] where 18[T] is not 18[M] (tools/bgtext.py load_pairs). A listed map
+# counts as a user of 18[T] only, so its tiles are kept when 18[T] is redrawn (whether or not a gfx/bg.tsv row
+# touches it) and 18[M]'s tiles it never shows can be recycled. Columns: map M, tileset T, evidence.
+# Evidence: tools/lua/reslog.lua over every scene (work/qa/resall, orig ROM; warp_all.py --script tools/lua/reslog.lua)
+# and per-screen runs (work/qa/res/<scene>), docs/status.md session (d) list.
+601	600	char select stat radar
+602	600	char select weapon / special name atlas
+609	608	stage map header + lives bar
+616	622	stage HUD gauge atlas
+617	622	stage HUD gauge atlas
+619	618	stage clear points box
+625	655	in-stage bottom bar (stage VRAM: 18[655] at tile 256, bgvram on work/qa/gfx/bgcnt_stage)
+626	656	game over
+628	625	key caps A/B, R/L (boot f783: 18[625] then 20[628])
 635	634	battle screens (battle_N, attract_battle): loaded after 18[634]
-636	634	battle screens: loaded after 18[634]
-637	634	battle screens: loaded after 18[634]
+636	634	battle screens: gauge atlas
+637	634	battle screens
+642	641	status, Kageri
+643	641	status, Gant
+644	641	status Lv atlas
+648	647	data load
+649	647	data file-card atlas
+650	647	data cursor frame
+652	651	unlock / ending
+654	653	mode select highlight
+655	-	not loaded by any of the 78 warp scenes (work/qa/resall_loads.txt); renders as garbage on 18[655]
+660	659	4-mode select highlight

@@ -50,8 +50,8 @@ class BgTextTest(unittest.TestCase):
         for i in range(1001):
             if R[(20, i)] in repaired:
                 continue
-            if i in pairs:   # check the pair the game draws instead
-                if R[(18, pairs[i])] in tsets and (pairs[i], i) not in done:
+            if i in pairs:   # check the pair the game draws instead ('-': never loaded)
+                if pairs[i] is not None and R[(18, pairs[i])] in tsets and (pairs[i], i) not in done:
                     self.assertEqual(bgtext.render_screen(self.orig, (pairs[i], i)),
                                      bgtext.render_screen(self.new, (pairs[i], i)), f"s{pairs[i]:04d}_{i:04d} changed")
                 continue
@@ -61,6 +61,26 @@ class BgTextTest(unittest.TestCase):
                 except Exception:   # noqa: BLE001 - pairs that are not drawable screens
                     continue
                 self.assertEqual(a, bgtext.render_screen(self.new, (i, i)), f"s{i:04d} changed")
+
+    def test_blob_keeps_extra_tile(self):
+        # every tileset resource holds one tile past its count (then 0-3 alignment bytes); the game copies it to VRAM
+        # and maps show it as slot n0 (stage bar "+", 20[625] on 18[655]). An unchanged set must re-serialise to the
+        # resource bytes, extra tile included.
+        import bgtext
+        import res
+        seen = set()
+        for g, i, o, s in res.resources(self.orig):
+            if g != 18 or o in seen:
+                continue
+            seen.add(o)
+            try:
+                ts = bgtext.Tileset(self.orig[o:o + s])
+            except ValueError:
+                continue
+            b = ts.blob()
+            self.assertIsNotNone(ts.extra, f"18[{i}]")
+            self.assertEqual(b, bytes(self.orig[o:o + len(b)]), f"18[{i}]")
+            self.assertLessEqual(s - len(b), 3, f"18[{i}]: {s - len(b)} bytes left after the extra tile")
 
     def test_tile_data_offset(self):
         # tiles start one byte after the per-tile banks for odd and even counts (VRAM dump of 18[620], nt 326)

@@ -105,6 +105,9 @@
 # header and the lives / gems bar. 20[606] (frames) has no text.
 608	153,137,50,15	Stage	normal@2	8/7	o4	c150	l	banner ステージ (number drawn after it)
 608:609	28,5,92,16	World Map	normal	8/9/11/12	o6	c122	c	header ぜんたいマップ
+# In-stage bottom bar: map 20[625] on tileset 18[655] (the stage VRAM holds 18[655] at tile 256, grey text; 18[625]
+# is loaded at boot for the key caps 20[628]). The "+" between L and R is a past-the-tileset cell.
+655:625	154,146,86,12	Use Skill	small	4	5	2	l	L+R = ひっさつわざをつかう (use the special move)
 # Continue (after losing the last life): 18/20[632]; legend right of the ✚ / Ⓐ icons (the "=" stays). The cell right of
 # けってい (x 232, y 112) is past the tileset (black square): the rect covers its upper part, the rest copies its left cell.
 632	206,88,34,13	Pick	small	1	o10	c176	l	legend ✚=せんたく
