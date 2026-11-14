@@ -26,7 +26,7 @@ FIXED = [
     # helper: warping there directly leaves a black screen). Scene 1 must be entered from the top menu, as the
     # game does: a direct jump to scene 1 returns into scene 0 sub 3 after mode select instead of the story.
     ('title', 0, 4, '-', '-', 'PUSH START title (scene 0 sub 4 with its scene-15 helper)', 400),
-    ('top_menu', 0, 4, '-', '150 -;6 start;150 -', 'title logo + はじめから / つづきから / OPTION menu (Start on the title)', 500),
+    ('top_menu', 0, 4, '-', '150 -;6 start;150 -', 'title logo + the ◀ はじめから ▶ carousel menu (one item shown; つづきから / OPTION by left/right) (Start on the title)', 500),
     ('mode_select', 1, 16, '-', '-', 'モードを えらんでください: kids / normal / hard (scene 1 sub 16-17)', 600),
     # mode select takes input only from sub 17 (~70 frames after the warp): press after 150
     ('mode_kids', 1, 16, '-', '150 -;6 left;60 -', 'mode select, cursor on キッズモード (its description line)', 700),
@@ -69,11 +69,19 @@ AREAS = 5  # the game has 5 areas x 4 stages: both rounds end after the area 5 b
 # Post-clear events that hang the game after a forced clear (CPU loops in IWRAM 0x030011C8-0x0300121C, dispatcher
 # no longer called; likely the event waits on the stage boss, which a clear 90 frames into the stage never
 # spawns). Their later lines need a real boss-fight route (phase 8 text coverage).
+# 2-4/3-4: TIMEOUT81 then ends the event, but the summon (scene 5 sub 0) stays frozen on a still for the rest
+# of the run. Boss stages (s == 4) have no CLEAR! banner: the game's sub 80 passes straight to sub 81 (the log
+# shows no sub=80), while other stages show CLEAR! for ~30 frames just before sub 81.
 CLEAR_HANGS = {
-    (2, 4): 'HANGS ~40 frames into the event (no dialogue yet); the battle is battle_2',
-    (3, 4): 'HANGS early in the event (no dialogue yet); the battle is battle_3',
+    (2, 4): 'the event stalls ~40 frames in (no dialogue yet), TIMEOUT81 ends it, the summon (scene 5) freezes on a still; the battle is battle_2',
+    (3, 4): 'the event stalls early (no dialogue yet), TIMEOUT81 ends it, the summon (scene 5) freezes on a still; the battle is battle_3',
     (4, 1): 'shows its dialogue and the monster walking in, then HANGS (green flashes)',
+    # The event ends normally (sub 82), but the summon then waits in scene 5 sub 16 for good; 0x03001F58 stays 01
+    # here, while the working clear_1_4 run has 09 by then.
+    (4, 4): 'post-clear event to its end, then the summon (scene 5 sub 16) freezes on the portraits; the battle is battle_4',
 }
+# Forced clears whose CLEAR! sprite never shows (checked with shots every 20 frames over all of sub 80).
+NO_BANNER = {(3, 1), (5, 1)}
 
 
 def grid():
@@ -90,9 +98,12 @@ def grid():
             # 1-1's stage-start story runs ~5000 frames before START!
             rows.append(('stage_%d_%d' % (a, s), 2, 0, pk, 'mash60', note, 7500 if lin == 0 else 3600 if s == 1 else 3000))
             after = 'the area %d mecha battle (summon)' % a if s == 4 else 'points, save menu'
-            note = 'stage %d-%d cleared at once: CLEAR!, post-clear event, %s' % (a, s, after)
+            banner = 'boss stage, no CLEAR! banner (sub 80 -> 81 at once)' if s == 4 else 'CLEAR! (~30 frames, just before sub 81)'
+            if (a, s) in NO_BANNER:
+                banner = 'no CLEAR! banner (forced mid-fight: HUD drops, camera pans off, banner never drawn; other clear_* show it)'
+            note = 'stage %d-%d cleared at once: %s, post-clear event, %s' % (a, s, banner, after)
             if (a, s) in CLEAR_HANGS:
-                note = 'stage %d-%d cleared at once: CLEAR!, start of the post-clear event; %s' % (a, s, CLEAR_HANGS[(a, s)])
+                note = 'stage %d-%d cleared at once: %s, start of the post-clear event; %s' % (a, s, banner, CLEAR_HANGS[(a, s)])
             rows.append(('clear_%d_%d' % (a, s), 2, 0, pk + ' @clear', 'mash60', note, 11000 if lin == 0 else 7000))
     for a in range(1, AREAS + 1):
         pk = 'area=%d stage=3 stageno=%d event=%d %s=1' % (a - 1, (a - 1) * 4 + 3, (a - 1) * 5 + 4, F58)

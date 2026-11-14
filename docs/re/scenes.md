@@ -95,3 +95,10 @@ post-clear events hang the CPU after a forced clear (loop in IWRAM 0x030011C8-0x
 called, found with `tools/lua/pcsample.lua`): 2-4 and 3-4 (no dialogue yet) and 4-1 (after its dialogue). Likely
 they wait on the stage boss, which a clear 90 frames in never spawns. Their remaining lines need a boss-fight
 route (GOD + reaching the boss) if phase 8 text coverage finds them unreached.
+After TIMEOUT81, 2-4 and 3-4 reach the summon (scene 5), which stays frozen on a still. 4-4's event ends
+normally but its summon waits in scene 5 sub 16 for good; 0x03001F58 stays 01 there, while the working 1-4 run
+has 09. The area battles themselves are covered by the `battle_N` entries.
+CLEAR! banner: boss stages (x-4) have none, since sub 80 passes straight to 81. Other stages show it for ~30
+frames at the end of sub 80, so 60-frame shots can miss it. The forced clears of 3-1 and 5-1 never draw it
+(checked with shots every 20 frames): the clear lands mid-fight, the HUD drops and the camera pans off.
+The top menu is a ◀ item ▶ carousel showing one item at a time.
