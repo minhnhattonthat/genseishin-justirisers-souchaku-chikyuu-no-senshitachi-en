@@ -1,0 +1,43 @@
+# OBJ sprite lettering (tools/objtext.py; docs/re/graphics.md §OBJ redraw). Tab-separated:
+# sprite	frame	rect	text	font	ink	shadow	bg	align	note
+# sprite = group-17 index (frame = its frame, rect relative to the frame's bounding box), or bg5:T:M = BG tileset
+# 5[T] + map 5[M] (frame unused, rect in map pixels). font normal/small, or glow:F = the white backing generated
+# from frame F. ink/shadow/bg are hex palette indices; shadow oN,M,.. = outline N then rings M..; align l/c/r, b bold, -1 tracking.
+601	2	0,0,64,16	New Game	small	9/A/B/B/A/9/9	o8	0	cb	top menu はじめから
+601	3	0,0,64,16	-	glow:2	-	-	0	c	top menu はじめから backing
+601	4	0,0,64,16	Continue	small	9/A/B/B/A/9/9	o8	0	cb	top menu つづきから
+601	5	0,0,64,16	-	glow:4	-	-	0	c	top menu つづきから backing
+545	0	0,0,80,24		small	-	-	0	c	clear the whole plate (no OBJ over its corners)
+545	0	8,0,64,24	Riser Glen	normal	7/6/6/4	o3,2,1	0	c-1	name plate ライザーグレン
+545	1	0,0,80,24	Riser Kageri	normal	A/9/9/8	o3,2,1	0	c-1	name plate ライザーカゲリ
+545	2	0,0,80,24		small	-	-	0	c	clear the whole plate (no OBJ over its corners)
+545	2	8,0,64,24	Riser Gant	normal	D/C/C/B	o3,2,1	0	c-1	name plate ライザーガント
+630	0	0,0,72,24	Riser Glen	normal	7/6/6/4	o3,2,1	0	cb-1	name plate ライザーグレン
+630	1	0,0,72,24	Riser Kageri	normal	A/9/9/8	o3,2,1	0	cb-2	name plate ライザーカゲリ
+630	2	0,0,72,24	Riser Gant	normal	D/C/C/B	o3,2,1	0	cb-1	name plate ライザーガント
+646	0	0,0,72,24	Riser Glen	normal	7/6/6/4	o3,2,1	0	cb-1	save card / win name plate
+646	1	0,0,72,24	Riser Kageri	normal	A/9/9/8	o3,2,1	0	cb-2	save card / win name plate
+646	2	0,0,72,24	Riser Gant	normal	D/C/C/B	o3,2,1	0	cb-1	save card / win name plate
+646	9	2,2,28,20		small	-	-	4:1,8,9,B,D	c	recolour the old glyphs to the badge face (shading kept)
+646	9	2,3,28,18	Normal	small	B	1	-	c-1	save card mode badge ノーマルモード (D11: no "Mode"); ink spans the face incl. its side shade columns
+646	10	2,2,28,20		small	-	-	4:1,8,C,7,D	c	recolour the old glyphs to the badge face (shading kept)
+646	10	2,3,28,18	Hard	small	C	1	-	c	save card mode badge ハードモード
+646	11	2,2,28,20		small	-	-	4:1,8,A,5,D	c	recolour the old glyphs to the badge face (shading kept)
+646	11	2,3,28,18	Kids	small	A	1	-	c	save card mode badge キッズモード
+646	12	2,2,28,20		small	-	-	4:1,8,7,5,9	c	recolour the old glyphs to the badge face (shading kept)
+646	12	2,3,28,18	Bonus	small	7	1	-	c-1	save card mode badge おまけモード
+646	13	0,0,48,24	Zakoul	normal	7/6/6/4	o3,2,1	0	cb-1	enemy name plate ザコール
+646	14	0,0,48,24	Zakoul	normal	A/9/9/8	o3,2,1	0	cb-1	enemy name plate ザコール
+646	15	0,0,48,24	Zakoul	normal	D/C/C/B	o3,2,1	0	cb-1	enemy name plate ザコール
+648	0	0,0,48,24	Zakoul	normal	7/6/6/4	o3,2,1	0	cb-1	enemy name plate ザコール
+648	1	0,0,48,24	Zakoul	normal	A/9/9/8	o3,2,1	0	cb-1	enemy name plate ザコール
+648	2	0,0,48,24	Zakoul	normal	D/C/C/B	o3,2,1	0	cb-1	enemy name plate ザコール
+662	0	0,0,48,24	Zakoul	normal	7/6/6/4	o3,2,1	0	cb-1	enemy name plate ザコール
+662	1	0,0,48,24	Zakoul	normal	A/9/9/8	o3,2,1	0	cb-1	enemy name plate ザコール
+662	2	0,0,48,24	Zakoul	normal	D/C/C/B	o3,2,1	0	cb-1	enemy name plate ザコール
+633	2	0,0,64,16	Mash B!	normal	3/2/1/9	oF	0	cb	battle hint れんだしろ! (B button below)
+633	46	16,0,112,16	Button: Attack!	normal	F/6/E	o8,7	0	cb	battle hint Ⓐボタンでこうげきだ! (Ⓐ icon at its left)
+bg5:0:3	0	6,2,44,12	Yes	normal	3	o2	C	c	overwrite prompt はい, selected
+bg5:0:3	0	78,2,44,12	No	normal	9	o2	7	c	overwrite prompt いいえ, not selected
+bg5:0:3	0	6,18,44,12	Yes	normal	9	o2	7	c	overwrite prompt はい, not selected
+bg5:0:3	0	78,18,44,12	No	normal	3	o2	C	c	overwrite prompt いいえ, selected

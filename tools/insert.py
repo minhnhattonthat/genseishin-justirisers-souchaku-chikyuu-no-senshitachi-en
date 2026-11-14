@@ -20,6 +20,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import asmpatch  # noqa: E402
 import bgtext  # noqa: E402
 import credits  # noqa: E402
+import objtext  # noqa: E402
 import font  # noqa: E402
 import script  # noqa: E402
 import textblock  # noqa: E402
@@ -280,5 +281,6 @@ def build(orig, mode="en", qa=None):
     if mode == "en":   # graphics text: BG screens redrawn in English (gfx/bg.tsv)
         writes += log_writes(orig, rom, bgtext.apply(rom, orig), "bgtext")
         writes += log_writes(orig, rom, credits.apply(rom, orig), "credits")   # staff roll (gfx/credits.tsv)
+        writes += log_writes(orig, rom, objtext.apply(rom, orig), "objtext")   # OBJ sprites + yes/no (gfx/obj.tsv)
     return bytes(rom), writes, {"replaced": len(texts), "addresses": addresses(model, FREE, ids), "model": model,
                                 "ids": ids, "texts": texts, "table": et}

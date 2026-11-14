@@ -80,7 +80,8 @@ def as_parse(data):
     for k in range(no):
         t, xv, yv = struct.unpack_from("<HHH", data, oo + 6 * k)
         sx = lambda v: (v & 0xFFF) - 0x1000 if v & 0x800 else v & 0xFFF   # noqa: E731
-        objs.append((t, sx(xv), sx(yv), 8 << (xv >> 12 & 3), 8 << (yv >> 12 & 3)))
+        # size code = bits 12-14, 0/1/3/7 -> 8/16/32/64 px (8 << (code & 3) read 32 px OBJs as 64 before 2026-11-15)
+        objs.append((t & 0x3FF, sx(xv), sx(yv), 8 * ((xv >> 12 & 7) + 1), 8 * ((yv >> 12 & 7) + 1)))
     frames = []
     for k in range(nf):
         c, first = struct.unpack_from("<HH", data, fo + 4 * k)

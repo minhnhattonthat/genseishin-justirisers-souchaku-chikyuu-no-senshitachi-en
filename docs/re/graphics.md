@@ -40,9 +40,36 @@ loads 18[n] + 20[n] (+ 19[n]), e.g. mode select = n 0x28D (tour log `f1671`).
 **'aS' sprite container** (verified: 17.606 dialogue box, tiles at +0xD8 = OBJ VRAM DMA source; every group-17
 container parses, `tests/test_containers.py`): `'aS'`, u8 extra palettes, u8 nframes-1, u16 nobjs-1, u16 ntiles,
 u16 ?, (extra+1)*16 colours, nframes x (u16 count-1, u16 first_obj), nobjs x (u16 tile, u16 x | wcode<<12,
-u16 y | hcode<<12) with 12-bit signed x/y and size 8<<code, then ntiles 4bpp tiles in 1D OBJ mapping (lower OBJ
-number on top). **'AS'** = same with a 256-colour palette and 8bpp tiles (tile numbers in 64-byte units).
-Parser: `tools/sweep.py as_parse`.
+u16 y | hcode<<12) with 12-bit signed x/y, then ntiles 4bpp tiles in 1D OBJ mapping (lower OBJ number on top).
+**'AS'** = same with a 256-colour palette and 8bpp tiles (tile numbers in 64-byte units).
+Parser: `tools/sweep.py as_parse`, `tools/objtext.py Sprite`. Corrected 2026-11-15 (h):
+- **OBJ size = 8 * (code + 1)**, code = bits 12-14 (only 0/1/3/7 occur = 8/16/32/64 px). The old reading
+  `8 << (code & 3)` drew every 32 px OBJ as 64, so earlier sweep renders of sprites (and their review verdicts) show
+  scrambled lettering.
+- The tile word's **top nibble is the OBJ's palette bank** (tile = low 10 bits); colour variants of one label (red
+  Glen / blue Kageri / green Gant) mostly use different indices of one bank, the save-card badges different banks.
+- **One extra tile**: OBJs reach exactly one tile past the header count in nearly every container, and its bytes
+  follow (like the BG tilesets' extra tile): 17[648] frame 2's last OBJ is that tile. `Sprite` reads it.
+
+## OBJ redraw pipeline (phase 8, `tools/objtext.py` + `gfx/obj.tsv`, `tests/test_objtext.py`)
+
+- Rows: sprite, frame, rect (relative to the frame's bounding box), text, font, ink bands, shadow (`oN,M,..` =
+  outline N then 1 px rings M..), bg (`N` clear, `N:a,b` recolour indices a, b to N, `-` keep), align, note. Text is
+  drawn with `bgtext.draw` on the frame's index canvas and written back into every tile the rect covers (in place,
+  same size, frame/OBJ tables untouched). Ink where no OBJ covers the frame is an error (17[545] plates have no OBJ
+  on two 8x8 corners); outline/ring pixels there are dropped. `glow:F` rows regenerate the top menu's white backing
+  frame from text frame F. `objtext.py preview` = original | English per frame (`work/qa/gfx/obj/obj_preview.png`),
+  `render N [--frames ..] [--bank B]`, `info N`.
+- Done (2026-11-15 (h)): top menu 17[601] (New Game / Continue + backings), name plates 17[545] (char select:
+  non-bold, 64 px usable), 17[630] (continue), 17[646] frames 0-2 (save cards, battle wins), save-card mode badges
+  17[646] 9-12 (Normal / Hard / Kids / Bonus, D11), Zakoul plates 17[646] 13-15, 17[648], 17[662], battle hints
+  17[633] (Mash B!, Ⓐ Button: Attack!; frames 44/45 share the tiles).
+- **はい/いいえ** of the overwrite prompt are **BG**: tileset **5[0]** + map **5[3]** (16x4: both buttons, both
+  highlight states), handled as `bg5:0:3` rows. Other layers draw with 5[0] too: recycling tiles 5[3] doesn't use
+  (tile 0 among them) turned the save screen behind the prompt into a tile pattern, so only the touched cells' old
+  tiles are recycled.
+- Checked on the en build (`work/qa/objen/`): top_menu, data_save_slots (cards + prompt), continue, char_select,
+  attract_battle f1560 (both hints).
 
 **BG tileset (group 18)** (verified against a VRAM dump of mode select): `00`, mode (0x70 4bpp / 0x50 8bpp), `31`,
 u8 extra palettes, u16 ntiles, palette ((extra+1)*16 colours, or 256), **ntiles bytes of per-tile palette bank**
@@ -170,7 +197,7 @@ Routes: `tools/routes/boot.txt` + menu routes in `tools/routes/survey_*.txt`; ma
 | Title | 幻星神ジャスティライザー logo + "THE JUSTIRISERS" + 装着!地球の戦士たち subtitle | BG, 'fp' 9.x/10.0 | logo: keep JP (D5); subtitle 装着!地球の戦士たち: translate (graphic) |
 | Title | "PUSH START" | BG/OBJ | keep (English) |
 | Title | copyright line "©2004 ジャスティライザープロジェクト・テレビ東京" | BG graphic | translate (romanise: Justiriser Project / TV Tokyo) |
-| Top menu | ◀ はじめから / つづきから / OPTION ▶ (OPTION already English) | OBJ 'aS' 17.0601 (with PUSH START) | translate はじめから, つづきから |
+| Top menu | ◀ はじめから / つづきから / OPTION ▶ (OPTION already English) | OBJ 'aS' 17.0601 (with PUSH START) | done: New Game / Continue (gfx/obj.tsv) |
 | Config (OPTION) | header コンフィグ, help 「こうもく を えらんで ボタンを おしてください」, labels こうげき / ジャンプ / ガード / こうげき せんたく / せってい を もどす / けってい | **BG screen 18/20 #0x26C (s0620)**, not text | translate (BG redraw) |
 | Data load/save (つづきから) | header データロード / データセーブ, legend Ⓐ=けってい ✚=せんたく Ⓑ=もどる ✚=しょうきょ, button データをけす, ステージ | BG screens s0642-s0647 | translate; "File", "NO DATA" already English |
 | Mode select | 「モードを えらんでください」 header, buttons キッズモード / ノーマルモード / ハードモード | BG screens s0652, s0653, s0659 (verified: VRAM dump) | translate |
