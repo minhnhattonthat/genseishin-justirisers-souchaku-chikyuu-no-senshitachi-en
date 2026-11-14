@@ -1,0 +1,27 @@
+# cold boot -> top menu (as boot.txt up to the third start)
+700 -
+6 start
+200 -
+6 start
+300 -
+6 start
+150 -
+# OPTION -> config screen, walk the cursor down and back
+6 right
+60 -
+6 right
+60 -
+6 a
+150 -
+6 down
+60 -
+6 down
+60 -
+6 down
+60 -
+6 down
+60 -
+6 down
+60 -
+6 b
+100 -

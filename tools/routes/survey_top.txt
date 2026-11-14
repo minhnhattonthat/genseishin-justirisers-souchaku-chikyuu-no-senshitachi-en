@@ -1,0 +1,17 @@
+700 -
+6 start
+200 -
+6 start
+300 -
+6 start
+150 -
+6 right
+80 -
+6 right
+80 -
+6 right
+80 -
+6 right
+80 -
+6 right
+80 -

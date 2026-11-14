@@ -63,6 +63,14 @@ Text interpreter reads the message at PCs 0x08007594-0x080077FC (read-watch on t
 
 ## Free space (candidates, not yet trap-tested)
 
+- **0xD2356C-0xF00000: 1,952,404 bytes of 0xFF** (scan for runs >= 4 KB, 2026-11-14). It sits right after the
+  resource table (0xD226AC, graphics.md) and before the data at 0xF00000; no resource offset points into it. 1344
+  aligned words in the ROM fall in 0x08D2356C-0x08F00000, about what random graphics data gives for a range that
+  size, so no pointer table was seen; trap-fill it and tour before use (phase 5). This is the main relocation target
+  for text and redrawn graphics.
+- 0x00 runs of 4-13 KB at 0x157497, 0x18C981, 0x18E9FD, 0x190A79, 0x192AF6, 0x194B72, 0x7C5BB4, 0x8130D1,
+  0x829205, 0x9B357C: inside data (image padding), not free.
+
 - The ROM is a full 16 MiB with no trailing padding. Going past 16 MiB means a 32 MiB ROM and an xdelta/BPS patch
   (FLASH512 save: check it still works). Search for internal 0x00/0xFF runs in phase 5; the tables themselves hold
   ~70 KB of mostly-identical "empty" entries that a rebuilt table could not shrink (indices are fixed) but whose

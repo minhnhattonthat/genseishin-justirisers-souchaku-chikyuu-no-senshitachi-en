@@ -1,0 +1,15 @@
+# cold boot -> top menu (as boot.txt up to the third start)
+700 -
+6 start
+200 -
+6 start
+300 -
+6 start
+150 -
+# つづきから -> data load screen
+6 right
+60 -
+6 a
+200 -
+6 b
+150 -
