@@ -130,6 +130,27 @@ no pixel changes outside the rects, other screens on the same tileset unchanged.
   (`work/qa/gfx/budget_check.png`, `work/qa/smoke/final.png`). `bgtext.py ink ROM N rect IDX` prints the ink bands of a rect (where to place the English); bg `cN` clears each
   row to column N's colour (gradient banners). おまけモード = "Bonus Mode".
 
+## Credits (scene 11) format (partly understood, 2026-11-15 (f))
+
+Not a plain 18[n]/20[n] screen, so `bgtext.py` can't letter it yet. Loads (`work/qa/resall/credits/log.txt`): at
+f804 16[700], 18[700], 18[701], 18[702] (all three tilesets), then per roll 20[n] + 19[n] (n = 700 at f804, 701 at
+f2304, 702 at f3504; callers lr 0801E1D7 / 0801E1F3 / 0801EAED / 0801EB07).
+- VRAM (dump `work/qa/credvram`, orig ROM, warp `credits` + `bgcnt.lua --var DUMP=3180`): BG0 only, BG0CNT 0x0204
+  (char base 0x4000 = VRAM tile 512, screen block 0x1000). The three tilesets sit back to back: 18[700] at tiles
+  512-988 (+ its extra tile 989), 18[701] 990-1206, 18[702] 1208-1644. Map entry tile = VRAM tile - 512, palette 2;
+  blank cells are 18[701] tiles 0/1 (entries 0x21DE/0x21DF) during roll 701.
+- 20[70x] (`B2`, header 15x40) is just the linear sequence 0..599 (= a 30x20 screen of distinct slots), not the page.
+- 19[70x] (`a2`, u16 599, then 2700 u16 = 5400 bytes, all three the same size) holds the tile numbers of the roll
+  (values 0/1 blank, else tileset tiles in reading order: 18[701] glyph tiles 2..217 appear in order). Read as a
+  30-wide map it is NOT the screen layout: on the senior-director page the screen has tiles 131-137 in consecutive
+  cells (row 7, cols 3-9) but 19[701] has them at word offsets 1687, 1690, 1691, 1694, 1695, ... (strides 3,1,3,1):
+  the true layout (2 words per cell? another width? code-built) is still open. Next: disassemble the loader at
+  0x0801E1F3 / 0x0801EB07 and the per-frame copy into screen block 0x1000.
+- Each page's text is a run of sequential, unique glyph tiles (row 7: 131..137, blank, 138..140; row 8: 141..152;
+  name 高宮 成光 rows 9-10 cols 17-23 = 153..166). A fallback that needs no layout RE: redraw the pixels of those tiles
+  in place (same tile count, English only on cells that already hold a unique tile), rendering each page from the VRAM
+  map. Tight for long role names; the proper fix is a writer for the 19[n] layout.
+
 ## Graphics-text survey (tour)
 
 Routes: `tools/routes/boot.txt` + menu routes in `tools/routes/survey_*.txt`; mash-A tour
