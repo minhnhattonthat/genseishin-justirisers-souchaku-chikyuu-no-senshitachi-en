@@ -25,3 +25,8 @@
 654	653	mode select highlight
 655	-	not loaded by any of the 78 warp scenes (work/qa/resall_loads.txt); renders as garbage on 18[655]
 660	659	4-mode select highlight
+627	657	in-stage bar as Gant (status_gant: 18[657] then 20[627])
+630	629	round-2 battle choice: right card (battle_choice f1342)
+631	629	round-2 battle choice: prompt bar (battle_choice f1342)
+656	-	not loaded by any of the 78 warp scenes (work/qa/resall_loads.txt)
+657	-	not loaded by any of the 78 warp scenes (work/qa/resall_loads.txt)

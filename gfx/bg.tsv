@@ -120,3 +120,11 @@
 618:619	32,72,104,16	Item Points	normal@1	9/8/7/6	o5	4	cg	アイテム ポイント
 618:619	32,88,104,16	Total	normal@1	13/12/11/10	o5	4	cg	ごうけい (this stage's total)
 618:619	32,112,96,16	Grand Total	normal@4	6/5/4/3	o2	1	cg	いままでの ポイント (running total over all stages); the game blanks its digit field from x 128 (x 136 on the rows above)
+656:626	154,146,86,12	Use Skill	small	4	5	2	l	in-stage bar as Kageri (18[656]): L+R = ひっさつわざをつかう
+657:627	154,146,86,12	Use Skill	small	4	5	2	l	in-stage bar as Gant (18[657]): L+R = ひっさつわざをつかう
+651	32,120,192,32	Genseishin Kenriser|is now available!	normal	7	8	0	c	unlock message げんせいしん ケンライザーが|つかえるように なりました ("Congratulations" is English)
+629	0,118,52,12	Genseishin	small	3/4/5	o1	0	r	choice card prefix げんせいしん (small, as the kana)
+629	52,112,66,24	Kenriser	normal	2/3/4/5	o1	0	lb	choice card ケンライザー
+629:630	122,118,52,12	Genseijuu	small	3/4/5	o1	0	r	choice card prefix げんせいじゅう
+629:630	174,112,66,24	Raizeros	normal	2/3/4/5	o1	0	lb	choice card ライゼロス
+629:631	50,137,140,14	Which will you use?	normal	8	9	7	c	choice prompt どちらを つかいますか?
