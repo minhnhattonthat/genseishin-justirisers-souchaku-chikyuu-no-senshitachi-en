@@ -68,6 +68,7 @@ and a speaker tag (first line of a story message) must be exactly the EN of its 
 | ジャスティパワー | Justi-Power | | | |
 | ライザーせいじん | Riser alien | | ライザー星人 | |
 | 幻星神 | Genseishin | | the giant guardian beasts (title word) | |
+| げんせいじゅう | Genseijuu | | s35 summon shout calls Raizeros 幻星獣, not 幻星神: kept distinct | |
 | ライゼロス | Raizeros | | Genseishin | |
 | ケンライザー | Kenriser | | | |
 | ライノスレイブ | Rhinoslave | | | |
