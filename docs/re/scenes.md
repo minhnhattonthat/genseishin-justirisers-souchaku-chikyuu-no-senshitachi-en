@@ -19,7 +19,7 @@ raw jump), `tools/lua/scenewrites.lua` (who writes a scene id).
 
 | Scene | What (verified by warp shots in `work/qa/warp/`) | Notes |
 |---|---|---|
-| 0 | boot logos (sub 2/3), top menu (sub 4: はじめから / つづきから / OPTION) | sub 5/6 green blank screen (unused path) |
+| 0 | boot logos (sub 2/3), sub 4: PUSH START title (scene 15 runs as its helper), Start -> はじめから / つづきから / OPTION menu | sub 5/6 green blank screen (unused path); はじめから calls scene 1, so a direct jump to scene 1 returns into scene 0 sub 3 after mode select |
 | 1 | story: mode select (sub 16-17), intro story (sub 0-2, event 3.0) | after the area 5-4 ending, "next" re-enters sub 0 (round 2) |
 | 2 | stage map; sub 4 = area card (エリアN + title) | card when F58 = 0 or stage = 3 (entering a new area) |
 | 3 | character select | |
@@ -34,13 +34,20 @@ raw jump), `tools/lua/scenewrites.lua` (who writes a scene id).
 | 12 | sub 0: post-battle story after a won mecha battle, then scene 6; sub 16: after the credits | |
 | 13 | mecha battle: sub 16 fight loop, 32/33 special attack, 48 pause, 64/65 lose (-> scene 3 or title), 80/81 win (-> 12) | |
 | 14 | save-memory check at boot | |
-| 15 | PUSH START title; idle -> 16 | |
+| 15 | PUSH START title helper; idle -> 16 | warping to it directly gives a black screen |
 | 16, 17 | attract mode: demo battle, story clip, then title | |
 
 Scene 4 sub-states: 0/1 setup, 2 stage-start event (story dialogue, event script 3.N), 3 START! banner,
 16 play loop, 32 pause menu, 33-35 its items (34 retire?), 36 status, 48-51 death / continue, 64/65 game over,
 80 stage clear (CLEAR!), 81 post-clear event, 82 -> scene 6 (or a mecha battle after an area's last stage),
 96-101 fades and called helpers.
+
+Sub 81 (handler 0x0802BAC0; sub table 0x088C0A50 copied by scene 4's handler 0x08029478): step 0 (u16 at
+0x030052F2) waits until the player struct (pointer at 0x08D2275C, = 0x03003B80) has +0x2C == 0, then starts the
+post-clear event (id 0xC300 + F41 via 0x080202E8); step 1 polls 0x0802023C until the event ends, then sub 82
+(0x0802BE60: goto 0x500 when F49 == 3, else 0x600). Player struct: +0x34 x, +0x38 y (low 24 bits, 16.8 fixed),
+written after map collision 0x0800F5C4 at 0x08015DF6. Most post-clear events walk the player right off the
+stage; after a forced clear near the stage start the walk can hit a wall (1-2: x stuck at 0x113).
 
 ## Progress block 0x03001E10 (verified unless marked)
 
@@ -60,10 +67,15 @@ Starts with the save signature "JUSTIRISERsavedt" + build date; written to flash
 | 0x03001F54 | play time (frames, capped 99:59:59) | main loop |
 | 0x03001F58 | story-in-progress flag: 0 = new game (area 1 card), 1 = the map advances one stage | map sub 0 |
 
-Areas: 7 areas x 4 stages. Area 5's last stage + battle ends the story (scene 10 + 2周目 note); areas 6-7 are
-reachable by the warp and have stages, battles and the same ending (round 2 content, guess). Event scripts
-(group 3): 3.0 intro, 3.(area*5 + stage + 1) per stage, slots 5/10/15/20 empty, 3.31 attract, 3.36-39 unknown;
-each script has 16 self-relative entry slots.
+Areas: 5 areas x 4 stages. The area 5 battle ends the story in BOTH rounds (verified: `battle_5_win_r2`, F4A=1:
+scene 13 win -> 12 post-battle story -> 6 points -> 10 ending -> 7 save). Areas 6-7 (F48 = 5, 6) exist only by
+poking: 6-1 plays event 3.26 (explosion, team stills, dialogue) then hangs in a fade (scene 4 sub 96) after
+START!; 6-2..6-4 die at once (death loop -> game over); the area 6 battle draws garbage with player HP 0; 7-1
+would run 3.31, the attract script. So they are not content; the scene list keeps only `event_3_26` (text
+coverage). Event scripts (group 3): 3.0 intro, 3.(area*5 + stage + 1) per stage 3.1-3.24, slots 5/10/15/20
+empty, 3.26-3.29 unreached (3.26 shown by `event_3_26`), 3.31 attract, 3.32-3.39 unknown; each script has 16
+self-relative entry slots. If text coverage (phase 8) finds unique lines only in 3.26-3.39, check whether
+another scene (ending, credits, attract) loads them before translating them as live text.
 
 ## Warp mechanics
 
@@ -77,3 +89,9 @@ Cheats (entry options, see gen_scenes.py): `@clear[N]` jumps the play loop (scen
 `@pause`; `@hold`. `--var GOD=1` pins the player's HP (u16 **0x03005264**, verified: 16 -> 11 under hits without
 it, held at full with it; 0xFFFE until the stage sets it). Mesen randomises save memory, so run lengths vary by a few hundred frames between runs: the
 scene list's frame budgets have slack.
+With `@clear`, sub 81 gets two helpers (warp.lua): **unstick** (a walk that stalls 30 frames against a wall:
+x += 16 px) and **TIMEOUT81** (900 static frames: goto scene 5/6 as sub 82 would). Both are logged. Three
+post-clear events hang the CPU after a forced clear (loop in IWRAM 0x030011C8-0x0300121C, dispatcher no longer
+called, found with `tools/lua/pcsample.lua`): 2-4 and 3-4 (no dialogue yet) and 4-1 (after its dialogue). Likely
+they wait on the stage boss, which a clear 90 frames in never spawns. Their remaining lines need a boss-fight
+route (GOD + reaching the boss) if phase 8 text coverage finds them unreached.

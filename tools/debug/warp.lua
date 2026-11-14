@@ -131,6 +131,40 @@ emu.addEventCallback(L.safe(function()
   if mash and not in_clear and L.route_done() and (L.frame - mash.from) % mash.every < 6 then emu.setInput({ [mash.key] = true }, 0) end
 end), emu.eventType.inputPolled)
 
+-- CLEAR unstick: the post-clear event (scene 4 sub 81 step 1) walks the player right to the stage exit, but the
+-- forced clear leaves them near the stage start, where the walk can hit a wall (map collision 0x0800F5C4) and
+-- the event never ends (stage 1-2: x stuck at 0x113). While x (player struct *0x08D2275C +0x34, 16.8 fixed, low
+-- 24 bits) stalls for 30 frames right after walking (10+ frames of small rightward steps), step it 16 px right.
+-- Other stages' post-clear events stall with the player standing (4-1: a monster walks in and nothing more
+-- happens): after 900 static frames, end the event (sub 82 -> points) and log TIMEOUT81, so the run reaches the
+-- points and save screens; whatever that event would have shown later is not covered by the entry.
+local stuck_x, stuck_n, walk_run, walking, static_n = -1, 0, 0, false, 0
+L.on_frame(function()
+  if NOUNSTICK or not (CLEAR or want.opt.clear) or rd(M) ~= 4 or rd(M + 1) ~= 81 or emu.read16(M + 2, B) ~= 1 then
+    stuck_x, stuck_n, walk_run, walking, static_n = -1, 0, 0, false, 0; return
+  end
+  local p = emu.read32(0x08D2275C, B)
+  local w = emu.read32(p + 0x34, B)
+  local x = w & 0xFFFFFF
+  local dx = stuck_x < 0 and 0 or x - stuck_x
+  if dx > 0 and dx < 0x400 then walk_run = walk_run + 1 else walk_run = 0 end
+  if walk_run >= 10 then walking = true elseif dx ~= 0 and (dx < 0 or dx >= 0x400) then walking = false end
+  if dx == 0 then stuck_n, static_n = stuck_n + 1, static_n + 1 else stuck_n, static_n = 0, 0 end
+  stuck_x = x
+  if walking and stuck_n >= 30 then
+    emu.write32(p + 0x34, (w & 0xFF000000) | ((x + 0x1000) & 0xFFFFFF), B)
+    L.log(string.format("UNSTICK f%d x=%06X", L.frame, x))
+    stuck_x, stuck_n = (x + 0x1000) & 0xFFFFFF, 0  -- our own step is not a jump that ends the walk
+  elseif static_n >= 900 then
+    -- what sub 82 (0x0802BE60) does: goto scene 5 (mecha summon) after an area's last stage, else scene 6
+    -- (points). Jumping to sub 82 itself hangs when the event froze the game (2-4, 3-4, 4-1).
+    emu.write(M, rd(P + 0x139) == 3 and 5 or 6, B)
+    emu.write(M + 1, 0, B); emu.write(M + 2, 0, B); emu.write(M + 3, 0, B)
+    L.log(string.format("TIMEOUT81 f%d x=%06X", L.frame, x))
+    static_n = 0
+  end
+end)
+
 local last = ""
 L.on_frame(function(f)
   local k = string.format("scene=%d sub=%d", rd(M), rd(M + 1))
