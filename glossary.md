@@ -1,13 +1,13 @@
-# Glossary - <Game title>
+# Glossary - Genseishin Justirisers: Souchaku Chikyuu no Senshitachi
 
 Binding for every translator and reviewer. Agents propose additions in reports; only the controller edits this file.
 
 ## Rulings (asked of the user once; options and reasons in docs/decisions.md)
-- Honorifics: <kept, hyphenated (Johannes-san) | dropped>. Name order: <JP | Western>.
-- Romanisation source: <official art / anime / Hepburn>.
-- Credits: <stay kanji | English>.
-- Register / flavour: <e.g. keep light JP flavour>. Sound effects: <*Slam!*>.
-- Abbreviations: <default: full names and terms everywhere, prefer engine changes over shortening>.
+- Honorifics: kept, hyphenated (Shota-kun). Name order: Western (given name first).
+- Romanisation source: official English (TV series) names where they exist, else an earlier fan patch, else Hepburn without macrons.
+- Credits: English.
+- Register / flavour: tokusatsu hero show; keep light JP flavour. Sound effects: <decide in phase 6>.
+- Abbreviations: full names and terms everywhere, prefer engine changes over shortening.
 
 ## Style rules
 - Punctuation map: 「」 -> "...", 『』 -> '...', ・・・ -> ..., ！？ -> !?, <more>.

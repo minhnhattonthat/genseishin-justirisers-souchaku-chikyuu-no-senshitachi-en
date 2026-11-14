@@ -1,0 +1,10 @@
+# cold boot -> skip logos -> title (PUSH START) -> top menu -> mode select
+700 -
+6 start
+200 -
+6 start
+300 -
+6 start
+300 -
+6 a
+300 -
