@@ -102,3 +102,24 @@ CLEAR! banner: boss stages (x-4) have none, since sub 80 passes straight to 81. 
 frames at the end of sub 80, so 60-frame shots can miss it. The forced clears of 3-1 and 5-1 never draw it
 (checked with shots every 20 frames): the clear lands mid-fight, the HUD drops and the camera pans off.
 The top menu is a ◀ item ▶ carousel showing one item at a time.
+
+## Event scripts and the message viewer (phase 8, verified)
+
+Event script 3.N is loaded by the resource loader 0x080202E8 with r0 = 0xC300 + N and **r1 = entry slot**
+(`tools/lua/evlog.lua`): stage start 0x0802961D -> slot 0, post-clear 0x0802BB29 -> slot 1; the title loads
+0xC31F (attract). Each script has 16 u32 self-relative slot offsets; 64 = empty. Non-empty mid-stage slots (2-15)
+exist in 3.1, 3.4, 3.6, 3.8, 3.9, 3.14, 3.15, 3.17, 3.19, 3.21-3.24 (boss arrivals and the like); forcing one in
+place of slot 0 (`warp.lua --var EVSLOT=k [EVSCRIPT=n]`) runs it without its stage state, so no dialogue shows
+(1-4 slot 3: player dies in a loop). Script 3.15 (an "empty" stage slot) has a slot 6 and text table s22 holds 9
+real lines (summon/truck), but nothing loads 3.15 in play.
+
+Text reaches the screen through three loader calls with group 2 (id 0x8200 + table, r1 = message slot):
+the preprocessor's include code 0x14 (0x08007648), the 0xF0-0xFF bytecode interpreter at 0x0800A320 (opcode 0xFD,
+handler 0x0800A7B0, table from its 4th argument byte) and the **event dialogue command at 0x080214A8** (r7 = table,
+r4 = slot). The table index is master entry - 1 (s08 = 11). Over the 75-scene tour, master entries 1 (s00),
+6 (s04), 7 (s05) and 8 (s06) were never read (`tools/lua/masterread.lua`: every read comes from 0x08020332-40).
+
+**Message viewer** (`tools/lua/msgview.lua`, runner `tools/msgview_run.py`): stage 1-1's intro runs 32 event
+text commands; the probe replaces the n-th command's (r7, r4) with the n-th pair of `MSGS='t:s,..'`, and
+warp.lua's `ADVANCE=40` pages through them. So any message can be drawn in the real dialogue window from a cold
+boot, which covers lines that only boss fights or unreachable scripts show.

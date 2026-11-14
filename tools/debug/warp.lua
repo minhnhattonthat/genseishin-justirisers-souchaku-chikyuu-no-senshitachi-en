@@ -1,6 +1,7 @@
 -- Warp to any scene of the scene list from a cold boot (phase 2 debug tool; docs/re/scenes.md).
 --   emu.py ROM --out DIR --script tools/debug/warp.lua --var "SCENE='stage_1_2'" --frames 1500 --sheet
 -- Opt-in: --var GOD=1 (pin the player's HP in stages), --var CLEAR=n (see below), --var DEBUG=1,
+--         --var ADVANCE=40 (press A every 40 frames after the warp: pages event dialogue on for text coverage),
 --         --var SCENES=[[abs path]] (default: tools/debug/scenes.gba.txt), --var LIST=1 (log scene names, stop).
 -- Scene list: tools/debug/gen_scenes.py writes it (columns and options are documented there).
 -- How: boots normally, presses Start through the logos and title, and on the first scene-dispatcher call
@@ -111,6 +112,23 @@ L.on_exec(0x08026684, 0x08026684, function()
   end
 end)
 
+-- EVSCRIPT=n / EVSLOT=k (text coverage): the stage-start event load after the warp (loader 0x080202E8, r0 = 0xC300 +
+-- script, r1 = entry slot 0; docs/re/scenes.md §Event scripts) runs event script 3.n (default: the stage's own)
+-- from entry slot k instead (0 start, 1 post-clear, 2-15 mid-stage triggers). Logged as "EVFORCE".
+if EVSCRIPT or EVSLOT then
+  local forced = false
+  L.on_exec(0x080202E8, 0x080202E8, function()
+    if forced or not warped then return end
+    local st = emu.getState()
+    local r0, r1 = st["cpu.r0"], st["cpu.r1"]
+    if (r0 >> 8) & 0x3F ~= 3 or r1 ~= 0 or (r0 & 0xFF) == 0x1F then return end
+    forced = true
+    local n0 = EVSCRIPT and ((r0 & ~0xFF) | EVSCRIPT) or r0
+    emu.setState({ ["cpu.r0"] = n0, ["cpu.r1"] = EVSLOT or 0 })
+    L.log(string.format("EVFORCE f%d r0=%08X->%08X slot=%d", L.frame, r0, n0, EVSLOT or 0))
+  end)
+end
+
 -- Start through the logos and the title until the warp fires (the driver's queue is empty before it).
 emu.addEventCallback(L.safe(function()
   -- only on the logos (scene 0 sub 2/3) and the PUSH START title (scene 15 sub 1): a Start still held when the
@@ -129,6 +147,11 @@ emu.addEventCallback(L.safe(function()
   -- "mashN" runs once the entry's fixed presses are done (L.route_done)
   local in_clear = (CLEAR or want.opt.clear) and (sc == 6 or sc == 7)
   if mash and not in_clear and L.route_done() and (L.frame - mash.from) % mash.every < 6 then emu.setInput({ [mash.key] = true }, 0) end
+  -- ADVANCE=n (text coverage): A every n frames once the warp's own presses are done, so event dialogue pages
+  -- on to its later lines instead of stopping on the first page (A in the play loop is only a jump)
+  if ADVANCE and warped and not in_clear and pausing == 0 and L.route_done() and L.frame % ADVANCE < 6 then
+    emu.setInput({ a = true }, 0)
+  end
 end), emu.eventType.inputPolled)
 
 -- CLEAR unstick: the post-clear event (scene 4 sub 81 step 1) walks the player right to the stage exit, but the

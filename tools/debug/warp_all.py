@@ -39,7 +39,7 @@ def read_scenes(path=LIST):
 
 def run(entry, a):
     out = os.path.join(a.out, entry['name'])
-    frames = entry['frames'] or a.frames
+    frames = (entry['frames'] or a.frames) + a.extra_frames
     cmd = [sys.executable, '-X', 'utf8', os.path.join(SKILL, 'scripts', 'emu.py'), a.rom, '--out', out,
            '--frames', str(frames), '--shot-every', str(a.every),
            '--script', os.path.join(ROOT, 'tools', 'debug', 'warp.lua'),
@@ -75,6 +75,7 @@ def main():
     ap.add_argument('--rom', default=os.path.join(ROOT, 'build', 'justirisers_en.gba'))
     ap.add_argument('--out', default=os.path.join(ROOT, 'work', 'qa', 'warp'))
     ap.add_argument('--frames', type=int, default=900)
+    ap.add_argument('--extra-frames', type=int, default=0, help='added to every entry\'s frame budget')
     ap.add_argument('--every', type=int, default=60)
     ap.add_argument('--jobs', type=int, default=3)
     ap.add_argument('--states', action='store_true')
