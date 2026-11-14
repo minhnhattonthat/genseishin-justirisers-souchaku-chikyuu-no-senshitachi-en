@@ -1,0 +1,11 @@
+# tileset index	max tiles ('-' = original count)	spare tiles ('-' or ranges)	how measured
+# (docs/re/graphics.md §BG redraw pipeline: VRAM tile budget). Absent = the original count, no spares.
+# 18[647] data save/load: loaded at VRAM tile 1024 (char block 2, BG1-3 char base 0x8000); the first screen block
+# is 0xD800 = tile 1728, and only the screen load (pc 08008FC8, f813) writes VRAM tiles 1599-1727
+# (watch.lua on data_save_slots, dialog open). BG tile numbers cross char blocks, so the room runs to 1727.
+647	704	-	vram dump work/qa/gfx/bgcnt_data + watch.lua 0x0600C7E0-0x0600D7FF
+# 18[600] char select: VRAM 16-488. Tiles 489-491 hold stale data (written at f1/f272, before the screen loads at
+# f804; watch.lua 0x06003D20-0x060043FF), the next live block is loaded at VRAM tile 512 (pc 0800583E, f787), so the
+# set may grow to VRAM 511 = 496 tiles. Tiles 131-136 and 143-148 are referenced by none of 20[600..602] (or
+# 20[510..599], the same map) nor by any BG map in the VRAM dump.
+600	496	131-136,143-148	vram dump work/qa/gfx/bgcnt_cs (char_select f1450) + work/qa/gfx/w489

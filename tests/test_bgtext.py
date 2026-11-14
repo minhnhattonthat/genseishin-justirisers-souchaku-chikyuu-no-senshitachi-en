@@ -41,8 +41,10 @@ class BgTextTest(unittest.TestCase):
         R = {(g, i): o for g, i, o, _ in res.resources(self.orig)}
         done = {r["screen"] for r in self.rows}
         tsets = {R[(18, n[0])] for n in done}
+        # an index whose tileset and map are the very resources of a redrawn screen (18/20[510..599] = 600) is that screen
+        same = {(R[(18, n[0])], R[(20, n[1])]) for n in done}
         for i in range(1001):
-            if R[(18, i)] in tsets and (i, i) not in done:
+            if R[(18, i)] in tsets and (i, i) not in done and (R[(18, i)], R[(20, i)]) not in same:
                 try:
                     a = bgtext.render_screen(self.orig, (i, i))
                 except Exception:   # noqa: BLE001 - pairs that are not drawable screens

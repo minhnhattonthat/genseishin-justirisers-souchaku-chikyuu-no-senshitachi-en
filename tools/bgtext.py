@@ -249,45 +249,50 @@ def redraw(d, rows):
                     continue
             users.append(mo)
         ts.users = users
-    for n in sorted({r["screen"] for r in rows}):
+    screen_cells = {}
+    for r in rows:
+        x0, y0, w, h = r["rect"]
+        screen_cells.setdefault(r["screen"], set()).update(
+            (cx, cy) for cy in range(y0 // 8, (y0 + h - 1) // 8 + 1) for cx in range(x0 // 8, (x0 + w - 1) // 8 + 1))
+    order = sorted(screen_cells)
+    orig_ts = {}
+    for si, n in enumerate(order):
         to, mo = where[n]
         ts, mp = tsets[to], maps[mo]
+        # Read pixels from the untouched tileset: an earlier screen may already have recycled a slot that this
+        # screen's cells (re-encoded below) still point at.
+        ots = orig_ts.setdefault(to, Tileset(d[to:to + sizes[to]]))
         canvas = {}
         my_rows = [r for r in rows if r["screen"] == n]
-        cells = set()
-        for r in my_rows:
-            x0, y0, w, h = r["rect"]
-            for cy in range(y0 // 8, (y0 + h - 1) // 8 + 1):
-                for cx in range(x0 // 8, (x0 + w - 1) // 8 + 1):
-                    cells.add((cx, cy))
+        cells = screen_cells[n]
         base = min(ts.tpal)
         bank_pal = lambda b: [-1] + ts.pal[(b - base) * 16 + 1:(b - base) * 16 + 16]  # noqa: E731
         for cx, cy in cells:
             e = mp.e[cy * mp.w + cx]
-            if e & 0x3FF >= len(ts.tiles):
+            if e & 0x3FF >= len(ots.tiles):
                 # Slot past the tileset: the game shows a leftover VRAM tile there that no resource holds (659:660's
                 # Bonus button corner) and that differs once the English loads. Pixels outside the rects copy the
                 # nearest real cell to the left in the same row (button edges and shades run horizontally).
-                src = next((x for x in range(cx - 1, -1, -1) if mp.e[cy * mp.w + x] & 0x3FF < len(ts.tiles)), None)
+                src = next((x for x in range(cx - 1, -1, -1) if mp.e[cy * mp.w + x] & 0x3FF < len(ots.tiles)), None)
                 for k in range(64):
                     if src is None:
                         canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] = -1
                         continue
                     e0 = mp.e[cy * mp.w + src]
-                    canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] = bank_pal(ts.tpal[e0 & 0x3FF])[cell_pixels(ts, e0)[k]]
+                    canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] = bank_pal(ots.tpal[e0 & 0x3FF])[cell_pixels(ots, e0)[k]]
                 continue
-            bp = bank_pal(ts.tpal[e & 0x3FF])
-            for k, v in enumerate(cell_pixels(ts, e)):
+            bp = bank_pal(ots.tpal[e & 0x3FF])
+            for k, v in enumerate(cell_pixels(ots, e)):
                 canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] = bp[v]
         for r in my_rows:
             if r["bank"] is None:
                 x0, y0, w, h = r["rect"]
-                r["bank"] = ts.tpal[mp.e[(y0 + h // 2) // 8 * mp.w + (x0 + w // 2) // 8] & 0x3FF]
+                r["bank"] = ots.tpal[mp.e[(y0 + h // 2) // 8 * mp.w + (x0 + w // 2) // 8] & 0x3FF]
             bp = bank_pal(r["bank"])
 
-            def sample(x, y, ts=ts, mp=mp):
+            def sample(x, y, ots=ots, mp=mp):
                 e0 = mp.e[(y // 8) * mp.w + x // 8]
-                return bank_pal(ts.tpal[e0 & 0x3FF])[cell_pixels(ts, e0)[(y % 8) * 8 + x % 8]]
+                return bank_pal(ots.tpal[e0 & 0x3FF])[cell_pixels(ots, e0)[(y % 8) * 8 + x % 8]]
             draw(canvas, r, fonts, lambda v, bp=bp: bp[v], sample)
         refs = Counter()
         for mo2 in ts.users:
@@ -296,21 +301,32 @@ def redraw(d, rows):
         before = Counter(refs)
         for cx, cy in cells:
             refs[mp.e[cy * mp.w + cx] & 0x3FF] -= 1
+        # Cells of screens still to come on this tileset are re-encoded too, so their tiles are free now as well
+        # (an atlas map processed later can free the tiles an earlier screen needs).
+        for n2 in order[si + 1:]:
+            if where[n2][0] == to and where[n2][1] != mo:
+                m2 = maps[where[n2][1]]
+                for cx, cy in screen_cells[n2]:
+                    refs[m2.e[cy * m2.w + cx] & 0x3FF] -= 1
         # Recycle only tiles the replaced cells freed: a slot no map of this tileset uses can still be drawn by
         # another layer sharing the char block (mode select's highlight overlay showed such slots as garbage).
-        free = [t for t in range(len(ts.tiles)) if before[t] > 0 and refs[t] <= 0 and t != 0]
+        # gfx/bg_budget.tsv may list spare slots: tiles no map uses, checked against the live VRAM maps.
+        spare = load_spare().get(n[0], set())
+        free = [t for t in range(len(ts.tiles)) if (before[t] > 0 or t in spare) and refs[t] <= 0 and t != 0]
         index = {(ts.tiles[t], ts.tpal[t]): t for t in range(len(ts.tiles)) if refs[t] > 0}
         for cx, cy in sorted(cells, key=lambda c: (c[1], c[0])):
             e = mp.e[cy * mp.w + cx]
             cols = [canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] for k in range(64)]
             need = set(cols) - {-1}
-            banks = ([ts.tpal[e & 0x3FF]] if e & 0x3FF < len(ts.tpal) else []) + sorted(set(ts.tpal))
-            bank = next((b for b in banks if need <= set(bank_pal(b))), None)
-            if bank is None:
+            banks = ([ots.tpal[e & 0x3FF]] if e & 0x3FF < len(ots.tpal) else []) + sorted(set(ts.tpal))
+            fits = [b for b in dict.fromkeys(banks) if need <= set(bank_pal(b))]
+            if not fits:
                 raise ValueError(f"{label(n)} cell {cx},{cy}: no palette bank holds colours "
                                  + " ".join(f"{c:04X}" for c in sorted(need)))
-            bp = bank_pal(bank)
-            tile = Tileset.encode([0 if c == -1 else bp.index(c, 1) for c in cols])
+            # Any bank holding the colours will do: prefer one where the same pixels already exist as a tile
+            # (blank cells and plain fills otherwise cost one tile per bank).
+            enc = [(b, Tileset.encode([0 if c == -1 else bank_pal(b).index(c, 1) for c in cols])) for b in fits]
+            bank, tile = next(((b, tl) for b, tl in enc if (tl, b) in index), enc[0])
             t = index.get((tile, bank))
             if t is None:
                 if free:
@@ -319,7 +335,8 @@ def redraw(d, rows):
                 else:
                     # A map may use slots past the tileset (VRAM after it: blank, or another layer's tiles that
                     # tools/bgvram.py shows). Appending pads over them, so the budget check below decides.
-                    while len(ts.tiles) <= max(refs):
+                    # (only slots still referenced: a past-the-end cell inside a rect was just re-encoded)
+                    while len(ts.tiles) <= max((k for k, v in refs.items() if v > 0), default=-1):
                         ts.tiles.append(bytes(32))
                         ts.tpal.append(min(ts.tpal))
                     t = len(ts.tiles)
@@ -339,14 +356,31 @@ def redraw(d, rows):
     return tsets, maps, where
 
 
-def load_budget(path=ROOT / "gfx" / "bg_budget.tsv"):
-    """{tileset index: max tiles}: VRAM room measured with tools/bgvram.py. Absent = the original count."""
-    out = {}
+BUDGET = ROOT / "gfx" / "bg_budget.tsv"
+
+
+def _budget_rows(path):
     if path.exists():
         for ln in path.read_text(encoding="utf-8").splitlines():
             if ln.strip() and not ln.startswith("#"):
-                f = ln.split("\t")
-                out[int(f[0])] = int(f[1])
+                yield ln.split("\t")
+
+
+def load_budget(path=BUDGET):
+    """{tileset index: max tiles}: VRAM room measured with tools/bgvram.py. Absent or '-' = the original count."""
+    return {int(f[0]): int(f[1]) for f in _budget_rows(path) if f[1] != "-"}
+
+
+def load_spare(path=BUDGET):
+    """{tileset index: {tile}}: column 3 ('131-136,143' or '-'), tiles that no map of the tileset references and no
+    live BG map in a VRAM dump of the screen uses, so a redraw may recycle them."""
+    out = {}
+    for f in _budget_rows(path):
+        if len(f) > 2 and f[2] not in ("", "-"):
+            s = out.setdefault(int(f[0]), set())
+            for part in f[2].split(","):
+                a, _, b = part.partition("-")
+                s.update(range(int(a), int(b or a) + 1))
     return out
 
 

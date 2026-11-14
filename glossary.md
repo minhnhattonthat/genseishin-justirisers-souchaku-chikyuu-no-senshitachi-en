@@ -98,7 +98,12 @@ Matched on the JP start only (a particle may follow). Lint rule `honorific`.
 | ライザーセイバー | Riser Saber | | | |
 | ライザーバーン | Riser Burn | | | |
 | メガヒートスラッシュ | Mega Heat Slash | | | |
-| そうちゃく | Souchaku | | transformation call, kept | |
+| グレンソード | Glen Sword | 88 px | char select weapon (BG atlas 20[602]) | |
+| レイジングフレイム | Raging Flame | 88 px | Glen's special | |
+| カゲリストライカー | Kageri Striker | 88 px | Kageri's weapon | |
+| ファントムクラッシュ | Phantom Crush | 88 px | Kageri's special | |
+| ガントスラッガー | Gant Slugger | 88 px | Gant's weapon | |
+| バーサスカノン | Versus Cannon | 88 px | Gant's special | || そうちゃく | Souchaku | | transformation call, kept | |
 | ピープル | people | | civilians to rescue (mission goals) | |
 | おまけモード | Bonus Mode | 40 px button | unlockable 4th mode (mode select graphic, BG s0659); also Kids / Normal / Hard Mode. The buttons show only Kids / Normal / Hard / Bonus (VRAM tile budget, D11) | |
 
