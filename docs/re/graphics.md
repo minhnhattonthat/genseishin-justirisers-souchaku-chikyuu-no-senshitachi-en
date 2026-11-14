@@ -110,6 +110,17 @@ no pixel changes outside the rects, other screens on the same tileset unchanged.
   = a leftover tile no group-18 resource holds, overwritten by other data in the English build (black hole /
   garbage). `bgtext.redraw` therefore fills a past-the-end cell inside a rect from the nearest real cell to its
   left (same row) and encodes it as a real tile. The 4-mode screen (F4A > 1, warp `mode_bonus`) is checked.
+- **Measuring a budget (2026-11-15 (d))**: `tools/bgvram.py` stops at the tileset's 512-tile char-block edge, but a
+  BG's tile numbers (0-1023) run on into the next char blocks, so the real limit is the first live data after the
+  set: dump VRAM on the screen (`bgcnt.lua --var DUMP=F`), then `watch.lua --var WATCH_LO=0x06..` over the range
+  after the set to see who writes it and whether that happens after the screen's load (live) or before (stale,
+  free to overwrite). 18[647] sits at VRAM tile 1024, room to the first screen block 0xD800 (tile 1728): 704.
+  18[600] at 16-488, 489-491 stale, live data from 512: 496. Tiles no map of the set uses and no live BG map shows
+  can be listed as spares (column 3 of `gfx/bg_budget.tsv`).
+- **Tile pool**: all screens of one tileset share one free pool in `bgtext.redraw` (cells of screens processed
+  later are re-encoded too, so their tiles are free from the start); pixels are always read from the original tiles.
+- **Atlas maps** (data file cards 20[649], char select names 20[602]) hold labels the code copies into the screen
+  map: check in the emulator which atlas columns reach the screen (char select: cells 1-11 -> screen 19-29).
 - Pilot rows (mode select 653, 653:654, 659, 659:660; config 620) are in `gfx/bg.tsv`, cold-boot checked
   (`work/qa/gfx/budget_check.png`, `work/qa/smoke/final.png`). `bgtext.py ink ROM N rect IDX` prints the ink bands of a rect (where to place the English); bg `cN` clears each
   row to column N's colour (gradient banners). おまけモード = "Bonus Mode".

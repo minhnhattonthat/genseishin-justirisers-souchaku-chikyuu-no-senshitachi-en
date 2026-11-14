@@ -67,3 +67,7 @@
 600:602	8,64,88,16	Phantom Crush	normal@2	9/10/11/12	o3	0	l-1	ファントムクラッシュ
 600:602	8,88,88,16	Gant Slugger	normal@2	5/6/7/8	o3	0	l-1	ガントスラッガー
 600:602	8,104,88,16	Versus Cannon	normal@2	9/10/11/12	o3	0	l-1	バーサスカノン
+# Pause menu (Start in a stage): 18/20[633]; the cell right of つづける is past the tileset (black square).
+633	64,55,112,16	Resume Game	normal	9	o5	4	c	ゲームを つづける
+633	64,72,112,16	Give Up	normal	9	o5	4	c	リタイア (leave the stage)
+633	64,89,112,16	Status	normal	9	o5	4	c	ステータス
