@@ -69,7 +69,16 @@ Parser: `tools/sweep.py as_parse`, `tools/objtext.py Sprite`. Corrected 2026-11-
   (tile 0 among them) turned the save screen behind the prompt into a tile pattern, so only the touched cells' old
   tiles are recycled.
 - Checked on the en build (`work/qa/objen/`): top_menu, data_save_slots (cards + prompt), continue, char_select,
-  attract_battle f1560 (both hints).
+  attract_battle f1560 (both hints); Continue item with `tools/routes/top_menu_continue.txt`.
+- **Title screen = 5[20]**, one 8bpp picture on BG2 (loaded f803; char base 0x4000, map 0x3800): `01`, w 30, h 20,
+  `00`, u16 256 colours, u16 594 tiles, u16 palette offset 0x4BC, u16 tiles offset 0x6BC; the 30x20 map at +0xC.
+  Rows `pic5:20`. The subtitle 装着!地球の戦士たち sits over stars and the Earth's limb, and its bevel uses the
+  background's colours, so it is rebuilt, not erased: bg `earth:CX/CY/R:IDX` (horizon circle fitted to the limb in
+  columns x<30 and x>=228: 123.4/319/228.1; sky per row from the side columns, Earth limb texture from the side
+  columns at the same depth, deeper than 10 px mirrored from below the rect). Then "Souchaku!" (normal font bold at
+  2x: font `normal*2`) and "Warriors of Earth" with outline + green ring. Copyright line 1 → "© 2004 Justiriser
+  Project / TV Tokyo" (small font, colour 75; `inpaint:75` clears the old line). Redrawn cells take only their own
+  old tiles (count and size unchanged, written in place).
 
 **BG tileset (group 18)** (verified against a VRAM dump of mode select): `00`, mode (0x70 4bpp / 0x50 8bpp), `31`,
 u8 extra palettes, u16 ntiles, palette ((extra+1)*16 colours, or 256), **ntiles bytes of per-tile palette bank**
@@ -194,9 +203,9 @@ Routes: `tools/routes/boot.txt` + menu routes in `tools/routes/survey_*.txt`; ma
 |---|---|---|---|
 | Boot | Konami logo, Konami Computer Entertainment Japan | BG, group 5 | keep (English) |
 | Boot | 超星神シリーズ series logo | BG | keep: official series logo, no English version (D5) |
-| Title | 幻星神ジャスティライザー logo + "THE JUSTIRISERS" + 装着!地球の戦士たち subtitle | BG, 'fp' 9.x/10.0 | logo: keep JP (D5); subtitle 装着!地球の戦士たち: translate (graphic) |
+| Title | 幻星神ジャスティライザー logo + "THE JUSTIRISERS" + 装着!地球の戦士たち subtitle | BG, picture 5[20] | logo: keep JP (D5); subtitle done: "Souchaku! Warriors of Earth" (gfx/obj.tsv) |
 | Title | "PUSH START" | BG/OBJ | keep (English) |
-| Title | copyright line "©2004 ジャスティライザープロジェクト・テレビ東京" | BG graphic | translate (romanise: Justiriser Project / TV Tokyo) |
+| Title | copyright line "©2004 ジャスティライザープロジェクト・テレビ東京" | BG, picture 5[20] | done: "© 2004 Justiriser Project / TV Tokyo" |
 | Top menu | ◀ はじめから / つづきから / OPTION ▶ (OPTION already English) | OBJ 'aS' 17.0601 (with PUSH START) | done: New Game / Continue (gfx/obj.tsv) |
 | Config (OPTION) | header コンフィグ, help 「こうもく を えらんで ボタンを おしてください」, labels こうげき / ジャンプ / ガード / こうげき せんたく / せってい を もどす / けってい | **BG screen 18/20 #0x26C (s0620)**, not text | translate (BG redraw) |
 | Data load/save (つづきから) | header データロード / データセーブ, legend Ⓐ=けってい ✚=せんたく Ⓑ=もどる ✚=しょうきょ, button データをけす, ステージ | BG screens s0642-s0647 | translate; "File", "NO DATA" already English |

@@ -26,3 +26,4 @@ D23570-EFFFFF   free space (0xFF fill, trap-tested): relocated script block
 5F87C4-5FCB19   OBJ 17[646] name plates, save-card badges, Zakoul plates, in place (tools/objtext.py)
 5FCB74-5FD2B1   OBJ 17[648] Zakoul plates, in place (tools/objtext.py)
 5FD2C0-5FD9FD   OBJ 17[662] Zakoul plates, in place (tools/objtext.py)
+2C15F4-2CB12F   title picture 5[20] (subtitle + copyright line 1), rewritten in place (tools/objtext.py)

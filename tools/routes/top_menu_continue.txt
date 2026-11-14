@@ -1,0 +1,10 @@
+# boot to the top menu, then Right: Continue
+700 -
+6 start
+200 -
+6 start
+300 -
+6 start
+300 -
+6 right
+90 -

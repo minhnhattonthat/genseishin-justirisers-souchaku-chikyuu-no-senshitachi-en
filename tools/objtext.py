@@ -162,12 +162,15 @@ def load_rows(path=TSV):
         if r[0].startswith("bg5:"):
             _, t, m = r[0].split(":")
             target = ("bg5", int(t), int(m))
+        elif r[0].startswith("pic5:"):
+            target = ("pic5", int(r[0][5:]), 0)
         else:
             target = ("obj", int(r[0]), int(r[1]))
         al = r[8] or "c"
         glow = int(r[4][5:]) if r[4].startswith("glow:") else None
+        fnt, _, sc = (r[4] or "small").partition("*")
         rows.append({"target": target, "screen": target[1:], "rect": (x, y, w, h), "text": r[3],
-                     "font": "glow" if glow is not None else r[4] or "small", "glow": glow,
+                     "font": "glow" if glow is not None else fnt, "glow": glow, "scale": int(sc or 1),
                      "ink": [int(v, 16) for v in r[5].split("/")] if r[5] not in ("", "-") else [],
                      "shadow": parse_shadow(r[6]), "bg": parse_bg(r[7]),
                      "align": al[0], "grid": False, "bold": "b" in al,
@@ -180,6 +183,8 @@ def parse_bg(s):
     face, the shading kept)."""
     if s in ("", "-"):
         return None
+    if s.startswith(("inpaint:", "earth:")):   # 'inpaint:LO-HI,N,..' (decimal) / 'earth:CX/CY/R:IDX' (title)
+        return s
     n, _, old = s.partition(":")
     return (int(n, 16), {int(v, 16) for v in old.split(",")}) if old else int(n, 16)
 
@@ -368,6 +373,200 @@ def redraw_bg5(d, rows, fonts):
     return (to, tb), (mo, mb)
 
 
+class Pic:
+    """Group-5 8bpp picture (5[20] = the title screen): u8 1 (8bpp), u8 w, u8 h, u8 0, u16 colours (256), u16 ntiles,
+    u16 palette offset (0x4BC), u16 tiles offset (0x6BC); the w x h map (u16 entries, no flips seen) at +0xC."""
+
+    def __init__(self, data):
+        if data[0] != 1:
+            raise ValueError("not an 8bpp group-5 picture")
+        self.w, self.h = data[1], data[2]
+        self.nt, self.po, self.to = struct.unpack_from("<HHH", data, 6)
+        self.head = bytes(data[:0xC])
+        self.e = list(struct.unpack_from(f"<{self.w * self.h}H", data, 0xC))
+        self.mid = bytes(data[0xC + 2 * self.w * self.h:self.to])   # palette
+        self.tiles = [bytes(data[self.to + 64 * i:self.to + 64 * i + 64]) for i in range(self.nt)]
+        self.size = self.to + 64 * self.nt
+
+    def blob(self):
+        return (self.head + struct.pack(f"<{len(self.e)}H", *self.e) + self.mid + b"".join(self.tiles))
+
+    def canvas(self):
+        c = {}
+        for k, e in enumerate(self.e):
+            cy, cx = divmod(k, self.w)
+            t = self.tiles[e & 0x3FF]
+            for i in range(64):
+                c[(8 * cx + i % 8, 8 * cy + i // 8)] = t[i]
+        return c
+
+
+def inpaint(canvas, rect, idx):
+    """Pixels of the rect with an index in idx (the old lettering) take the colour of the nearest pixel outside
+    that set (breadth-first from the background around them)."""
+    x0, y0, w, h = rect
+    hole = {(x, y) for y in range(y0, y0 + h) for x in range(x0, x0 + w) if canvas[(x, y)] in idx}
+    front = [p for p in hole if any((p[0] + dx, p[1] + dy) in canvas and (p[0] + dx, p[1] + dy) not in hole
+                                    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))]
+    seen = set()
+    while front:
+        nxt = []
+        for x, y in front:
+            if (x, y) in seen:
+                continue
+            nb = [canvas[q] for q in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1))
+                  if q in canvas and (q not in hole or q in seen)]
+            if not nb:
+                continue
+            canvas[(x, y)] = max(set(nb), key=nb.count)
+            seen.add((x, y))
+            nxt += [q for q in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)) if q in hole and q not in seen]
+        front = nxt
+
+
+def parse_idx(s):
+    """'63-124,10,14' (decimal) -> set of indices."""
+    out = set()
+    for part in s.split(","):
+        lo, _, hi = part.partition("-")
+        out |= set(range(int(lo), int(hi or lo) + 1))
+    return out
+
+
+def earth_backdrop(canvas, rect, circle, emblem):
+    """Rebuild the title's starfield + Earth limb behind the old subtitle (bg 'earth:CX/CY/R:IDX'): the horizon is
+    the circle (fitted to the limb in the columns left and right of the emblem); above it each row takes its sky
+    colour from those side columns, below it the Earth takes limb texture from the side columns at the same depth,
+    or (deeper than 10 px) the texture mirrored from just below the rect. Inside the rect every pixel is rebuilt;
+    outside it only pixels in the emblem's colours (its spikes reach past the rect)."""
+    import math
+    from collections import Counter
+    cx, cy, r = circle
+    x0, y0, w, h = rect
+    W = max(x for x, _ in canvas) + 1
+    orig = dict(canvas)
+    hz = lambda x: cy - math.sqrt(r * r - (x - cx) ** 2)   # noqa: E731
+    side = [x for x in range(W) if x < x0 or x >= x0 + w]
+    ok = lambda q: q in orig and orig[q] not in emblem and q[1] < y0 + h + 14   # noqa: E731
+    sky, last = {}, None
+    for y in range(y0, y0 + h):
+        cand = [orig[(x, y)] for x in side if y < hz(x) - 1 and orig[(x, y)] not in emblem]
+        if cand:
+            last = Counter(cand).most_common(1)[0][0]
+        sky[y] = last
+    for y in range(y0 + h - 1, y0 - 1, -1):   # rows with no sky at the sides take the nearest row above's
+        if sky[y] is None:
+            sky[y] = next((sky[k] for k in range(y - 1, y0 - 1, -1) if sky[k] is not None), 0)
+    bottom = y0 + h
+    left, right = [x for x in side if x < x0][2:], [x for x in side if x >= x0 + w][2:-2]
+
+    def earth(x, y):
+        dd = y - hz(x)
+        mirror = (x, 2 * bottom - 1 - y)
+        if dd > 10 and ok(mirror):
+            return orig[mirror]
+        src = left if x < cx else right
+        xs = src[x % len(src)]
+        ys = int(round(hz(xs) + dd))
+        for k in range(12):   # the side column at the same depth, else the nearest usable depth
+            for q in ((xs, ys - k), (xs, ys + k), (mirror[0], mirror[1] + k)):
+                if ok(q) and q[1] >= hz(q[0]):
+                    return orig[q]
+        return sky[y]
+
+    for y in range(y0, y0 + h):
+        for x in range(W):
+            if not (x0 <= x < x0 + w) and orig[(x, y)] not in emblem:
+                continue
+            canvas[(x, y)] = sky[y] if y < hz(x) else earth(x, y)
+
+
+def scaled_text(canvas, row, fonts, scale):
+    """Text at an integer scale (title lettering): the line's 1x ink (bold/tracking as in bgtext) scaled up, centred
+    in the rect, ink bands over its scaled ink rows, then the outline and rings 1 px each."""
+    x0, y0, w, h = row["rect"]
+    g = fonts[row["font"]]
+    nrows = 16 if row["font"] == "normal" else 8
+    ink, x = set(), 0
+    for c in row["text"]:
+        gl = g[c]
+        for gy in range(nrows if gl["rows"] else 0):
+            for gx in range(16):
+                if gl["rows"][gy] >> (15 - gx) & 1:
+                    ink.add((x + gx, gy))
+                    if row["bold"]:
+                        ink.add((x + gx + 1, gy))
+        x += gl["width"] + row["track"] + (1 if row["bold"] else 0)
+    mx0, mx1 = min(p[0] for p in ink), max(p[0] for p in ink)
+    my0, my1 = min(p[1] for p in ink), max(p[1] for p in ink)
+    tw, th = (mx1 - mx0 + 1) * scale, (my1 - my0 + 1) * scale
+    pad = 1 + len(row["shadow"]["rings"]) if row["shadow"]["outline"] is not None else 0
+    if tw + 2 * pad > w or th + 2 * pad > h:
+        raise ValueError(f"{row['text']!r}: {tw}x{th} px (+{pad} outline) > rect {w}x{h}")
+    ox = x0 + {"l": pad, "c": (w - tw) // 2, "r": w - tw - pad}[row["align"]]
+    oy = y0 + (h - th) // 2
+    big = {(ox + (px - mx0) * scale + i, oy + (py - my0) * scale + j)
+           for px, py in ink for i in range(scale) for j in range(scale)}
+    sh = row["shadow"]
+    if sh["outline"] is not None:   # paint rings outermost first
+        layers, m = [], set(big)
+        for ring in [sh["outline"]] + sh["rings"]:
+            g2 = {(px + dx, py + dy) for px, py in m for dx in (-1, 0, 1) for dy in (-1, 0, 1)}
+            layers.append((ring, g2))
+            m = g2
+        for ring, area in reversed(layers):
+            for p in area:
+                if x0 <= p[0] < x0 + w and y0 <= p[1] < y0 + h:
+                    canvas[p] = ring
+    bands = row["ink"]
+    for px, py in big:
+        b = min(len(bands) - 1, (py - oy) * len(bands) // th)
+        canvas[(px, py)] = bands[b]
+
+
+def redraw_pic(d, rows, fonts):
+    """Title picture 5[n]: rows drawn on its 8bpp canvas, touched cells re-encoded; new tiles may only take the old
+    tiles of the touched cells (the count and size stay). -> (offset, blob)."""
+    n = rows[0]["target"][1]
+    o, s = resource(d, n, 5)
+    pic = Pic(d[o:o + s])
+    canvas = pic.canvas()
+    before = dict(canvas)
+    for r in rows:
+        if isinstance(r["bg"], str) and r["bg"].startswith("inpaint:"):
+            inpaint(canvas, r["rect"], parse_idx(r["bg"][8:]))
+            r = dict(r, bg=None)
+        elif isinstance(r["bg"], str) and r["bg"].startswith("earth:"):
+            _, circ, idx = r["bg"].split(":")
+            earth_backdrop(canvas, r["rect"], tuple(float(v) for v in circ.split("/")), parse_idx(idx))
+            r = dict(r, bg=None)
+        if r["text"]:
+            sc = r.get("scale", 1)
+            if sc > 1 or r["shadow"]["rings"]:
+                scaled_text(canvas, r, fonts, sc)
+            else:
+                draw_text(canvas, r, fonts)
+    touched = {(x // 8, y // 8) for (x, y), v in canvas.items() if before[(x, y)] != v}
+    keep = {pic.e[cy * pic.w + cx] & 0x3FF for cy in range(pic.h) for cx in range(pic.w) if (cx, cy) not in touched}
+    old = {pic.e[cy * pic.w + cx] & 0x3FF for cx, cy in touched}
+    free = sorted(t for t in old if t not in keep and t > 0)
+    index = {pic.tiles[t]: t for t in keep}
+    for cx, cy in sorted(touched, key=lambda c: (c[1], c[0])):
+        enc = bytes(canvas[(8 * cx + i % 8, 8 * cy + i // 8)] for i in range(64))
+        if enc not in index:
+            if not free:
+                raise ValueError(f"5[{n}]: out of tiles (the redraw needs more unique tiles than it frees)")
+            t = free.pop(0)
+            pic.tiles[t] = enc
+            index[enc] = t
+        k = cy * pic.w + cx
+        pic.e[k] = (pic.e[k] & 0xFC00) | index[enc]
+    b = pic.blob()
+    if len(b) != pic.size:
+        raise ValueError(f"5[{n}]: size changed")
+    return o, b
+
+
 def apply(rom, orig, rows=None):
     """Redraw every sprite / bg5 screen with rows, written in place. -> written ranges."""
     import font
@@ -390,6 +589,11 @@ def apply(rom, orig, rows=None):
         for o, b in redraw_bg5(d, [r for r in bg if r["target"] == key], fonts):
             rom[o:o + len(b)] = b
             out.append((o, o + len(b)))
+    pics = [r for r in rows if r["target"][0] == "pic5"]
+    for key in sorted({r["target"] for r in pics}):
+        o, b = redraw_pic(d, [r for r in pics if r["target"] == key], fonts)
+        rom[o:o + len(b)] = b
+        out.append((o, o + len(b)))
     return out
 
 
@@ -461,6 +665,13 @@ def preview(d, outdir, zoom):
             if key[0] == "obj":
                 sp, _ = load(src, key[1])
                 pair.append(sp.rgb_canvas(key[2]))
+            elif key[0] == "pic5":
+                o, s = resource(src, key[1], 5)
+                pic = Pic(src[o:o + s])
+                pal = struct.unpack_from("<256H", pic.mid)
+                c = pic.canvas()
+                pair.append([bytearray(b"".join(rgb(pal[c[(x, y)]]) for x in range(8 * pic.w)))
+                             for y in range(8 * pic.h)])
             else:
                 to, tsz = resource(src, key[1], 5)
                 mo, msz = resource(src, key[2], 5)

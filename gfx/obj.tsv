@@ -41,3 +41,9 @@ bg5:0:3	0	6,2,44,12	Yes	normal	3	o2	C	c	overwrite prompt はい, selected
 bg5:0:3	0	78,2,44,12	No	normal	9	o2	7	c	overwrite prompt いいえ, not selected
 bg5:0:3	0	6,18,44,12	Yes	normal	9	o2	7	c	overwrite prompt はい, not selected
 bg5:0:3	0	78,18,44,12	No	normal	3	o2	C	c	overwrite prompt いいえ, selected
+
+pic5:20	0	24,73,200,50		small	-	-	earth:123.4/319/228.1:63-124,10,14,17,40,41	c	title: rebuild sky + Earth limb behind the subtitle 装着!地球の戦士たち (horizon circle fitted to the limb at x<30 and x>=228; emblem colours 63-124 + rim 10,14,17,40,41)
+pic5:20	0	24,73,200,29	Souchaku!	normal*2	59/53/57/5F/66/6E	o4A,40	-	cb	title subtitle 装着! (D8: kept as Souchaku!)
+pic5:20	0	24,102,200,20	Warriors of Earth	normal	59/53/57/5F/66/6E	o4A,40,4A	-	cb	title subtitle 地球の戦士たち
+pic5:20	0	34,138,206,10		small	-	-	inpaint:75-75	c	title copyright line 1: clear ジャスティライザープロジェクト・テレビ東京
+pic5:20	0	36,140,204,8	Justiriser Project / TV Tokyo	small	4B	-	-	l	title copyright line 1 (line 2 is English already)

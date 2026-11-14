@@ -75,5 +75,18 @@ class ObjTextTest(unittest.TestCase):
                 self.assertEqual(a.tiles[t], b.tiles[t], t)
 
 
+    def test_title_picture_in_place(self):
+        import objtext
+        o, s = objtext.resource(self.orig, 20, 5)
+        a, b = objtext.Pic(self.orig[o:o + s]), objtext.Pic(self.new[o:o + s])
+        self.assertEqual((a.head, a.mid, a.nt), (b.head, b.mid, b.nt))   # header, palette, tile count
+        ca, cb = a.canvas(), b.canvas()
+        rows = [r for r in self.rows if r["target"][0] == "pic5"]
+        y0 = min(r["rect"][1] for r in rows)
+        y1 = max(r["rect"][1] + r["rect"][3] for r in rows)
+        self.assertTrue(any(ca[p] != cb[p] for p in ca))
+        self.assertEqual([p for p in ca if ca[p] != cb[p] and not y0 <= p[1] < y1], [])   # logo, 2nd copyright line
+
+
 if __name__ == "__main__":
     unittest.main()
