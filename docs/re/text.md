@@ -130,28 +130,37 @@ per-code width, so English = narrow glyphs + their widths + two fixes below. Too
 - **Pads.** Name/stage list lines are `{padNN}`-padded to a fixed width (`column: N px` in the notes);
   `insert.fill()` refills the pads after the English text so the line keeps its width.
 
-### Windows (box variants; engine geometry from `tools/lua/winlog.lua`, partial tour: 47 of 75 scenes)
+### Windows and the width gate (all 75 warp scenes toured; budgets measured)
 
-`python -X utf8 tools/winlog.py work/qa/marker` -> `work/qa/windows.tsv` (id -> window). The renderer's right
-edge is (x + w) * 8 px, or (x + w - 2) * 8 in the small font; x0 = first pen x. **Pixel budgets are not measured
-yet** (the width gate): confirm each with a ruler line (`build.py --qa ID=...`) in a zoomed shot.
+`python -X utf8 tools/winlog.py work/qa/marker --out tbl/windows_ids.tsv` (id -> window geometry, 199 ids from the
+full tour). **Budgets: `tbl/windows.json`** (measured with ruler lines, `build.py --qa ID=...`, read with
+`tools/inkrows.py`; `tests/test_windows.py` checks every logged geometry maps to one variant). Right edge = (x + w)
+* 8 for attr 7xxx windows, (x + w - 2) * 8 for F000 windows; budget = edge - x0. `tools/msgscenes.py DIR [prefixes]`
+lists which scene drew which ids.
 
-| w (tiles) | x0 | lines | attr | Used by | ids seen |
-|---|---|---|---|---|---|
-| 28 | 8 | 4 (2 per page) | 7020 | dialogue box (story, stages, intro narration) | 122 |
-| 8 | 16 / 160 / 184 | 1 | 7080 (small font) | name tag, left / right-aligned by speaker side | 111 |
-| 28 | 8 | 4 | 7000 | mode descriptions (s03 289-291) | 3 |
-| 28 | 8 | 4 | 7A00 | weapon descriptions (s01) | 1 |
-| 20 | 48 | 9 | F000 | save/overwrite prompts (s03 263, 271, 273) | 3 |
-| 22 | 40 | 6 | F000 | next stage / save menu (s03 275) | 1 |
-| 30 | 8 | 6 | F000 | B-button hint (s03 293) | 1 |
+| Variant | w | x0 | attr | px per line | lines | Notes |
+|---|---|---|---|---|---|---|
+| dialogue | 28 | 8 | 7020 | 224 | 2 per page | page-wait arrow covers x226-234 on line 2: a page's last line 216 px. Also s35 summon shouts |
+| name tag | 8 | 16 / 160 / 184 | 7080 small | 64 | 1 | first line of a dialogue message; over 64 px spills onto the box's line 1. "Armor Gunner" = 70 px |
+| mode description | 28 | 8 | 7000 | 224 | 2 | |
+| weapon description | 28 | 8 | 7A00 | 224 | 2 | status screen (s01) |
+| next stage menu | 22 (h6) | 40 | F000 | 160 | 2 | includes the 2-space cursor indent |
+| save status | 22 (h4) | 40 | F000 | 160 | 1 | saving / loading / erasing results |
+| prompt | 20 | 48 | F000 | 144 | 2 (3 without buttons) | line 3 runs under the yes/no buttons |
+| button hint | 30 | 8 | F000 | 224 | 2 | battle B-button hint |
 
-Not reached yet: the battle_*, stage 4-3 to 5-4 and their clear_* entries, event_3_26.
+**The renderer wraps by character at the window edge** ("over t|he lazy"), and the wrapped text pushes lines onto a
+new page or below the box; an overlong 9-line ruler in prompt 1E9EE8 left the next prompt blank. So the phase 7
+lint must hold every line to its budget; nothing may rely on the engine's wrap.
 
-## Free space (trap test in progress)
+Not drawn in any of the 75 scenes (no window logged): s00 enemy names (96 px pad column), s05 stage-clear list
+(216 px column), s06 mission / failure-condition text, s03 yes/no 1E9B69. Budget = the Japanese width until phase 8
+text coverage places them; they may be unused.
 
-Trap test (`tools/lua/romtrap.lua` on the marker build, 47 of 75 warp scenes): no CPU read of 0xD3A6B4-0xF00000
-(free space after the relocated block) or of the old block 0x1E90CC-0x1FE9F0. Finish the remaining scenes.
+## Free space (trap test done)
+
+Trap test (`tools/lua/romtrap.lua` on the marker build, all 75 warp scenes): no CPU read of 0xD3A6B4-0xF00000
+(free space after the relocated block) or of the old block 0x1E90CC-0x1FE9F0.
 
 
 - **0xD2356C-0xF00000: 1,952,404 bytes of 0xFF** (scan for runs >= 4 KB, 2026-11-14). It sits right after the

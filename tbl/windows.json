@@ -1,0 +1,60 @@
+{
+  "_doc": "Width gate (phase 5): pixel budget per box variant, measured in-game with ruler lines (build.py --qa ID=...) and tools/inkrows.py on the shots named in 'shot'. px = widest English line the box shows in full (pen advance, font widths from font/en*.txt); lines = lines per page; last_px = budget of a page's last line where the page-wait arrow sits. The renderer wraps at the window edge on its own (character wrap, not word wrap) and the wrapped text pushes lines onto a new page or out of the box, so the phase 7 lint must keep every line within px. Match: tools/winlog.py geometry (w tiles, x0, attr) -> variant; ids never drawn in the tour use 'defaults'. Engine rule (verified on all variants below): right edge = (x + w) * 8 for attr 7xxx windows, (x + w - 2) * 8 for F000 windows; budget = right edge - x0.",
+  "variants": {
+    "dialogue": {
+      "match": {"w": 28, "x0": 8, "attr": "7020"},
+      "font": "normal", "px": 224, "lines": 2, "last_px": 216, "max_lines": null,
+      "measured": "28 x 'n' (8 px) fills x8-231; the 29th glyph wraps to the next line. The page-wait arrow covers x226-234 on the second line of each page, so a page's last line ends by x224 (216 px).",
+      "shot": "work/qa/wg_dlg/f002550.png, f002822.png (clear_1_1, build/qa_dlg.gba)"
+    },
+    "name_tag": {
+      "match": {"w": 8, "attr": "7080"},
+      "font": "small", "px": 64, "lines": 1,
+      "measured": "'MMMMMMMM' (64 px) and '0123456789' (60 px) show in full; 'ABCDEFGHIJKL' (70 px) pushed 'L' onto the dialogue's first line. Left tag x0=16, right tag right-aligned (x0 160/184). The tag is the first line of a dialogue message.",
+      "shot": "work/qa/wg_dlg/f002550.png, f002814.png",
+      "note": "Speaker names in the script: グレン ガント カゲリ ゾラ ザウラス ギルドロス アーマーガンナー ガーディアス ？？？. 'Armor Gunner' is 70 px in the small font: over budget, needs a shorter official form, a narrower space glyph or a wider tag (engine) before phase 7."
+    },
+    "mode_description": {
+      "match": {"w": 28, "x0": 8, "attr": "7000"},
+      "font": "normal", "px": 224, "lines": 2,
+      "measured": "28 x 'n' fills x8-229, the 29th wraps; two lines visible, a third scrolls the box.",
+      "shot": "work/qa/wg_win/mode_hard/f000880.png"
+    },
+    "weapon_description": {
+      "match": {"w": 28, "x0": 8, "attr": "7A00"},
+      "font": "normal", "px": 224, "lines": 2,
+      "measured": "28 x 'n' fills x8-229, the 29th wraps; two lines visible (status screen).",
+      "shot": "work/qa/wg_win/status/f002450.png"
+    },
+    "next_stage_menu": {
+      "match": {"w": 22, "x0": 40, "attr": "F000", "h": 6},
+      "font": "normal", "px": 160, "lines": 2,
+      "measured": "after the 2-space cursor indent (8 px), 19 x 'n' ends at x200 and the 20th wraps: 160 px including the indent. Keep the indent: the cursor sits in it.",
+      "shot": "work/qa/wg_win/data_save_slots/f000860.png"
+    },
+    "save_status": {
+      "match": {"w": 22, "x0": 40, "attr": "F000", "h": 4},
+      "font": "normal", "px": 160, "lines": 1,
+      "measured": "20 x 'n' fills x40-199 (legs 40..197); the 21st wraps out of sight. One line visible (save/load/erase progress and results, s03 1E9E3B-1E9EDD).",
+      "shot": "work/qa/wg_win2/data_save_slots/f001190.png"
+    },
+    "prompt": {
+      "match": {"w": 20, "x0": 48, "attr": "F000"},
+      "font": "normal", "px": 144, "lines": 2,
+      "measured": "18 x 'n' fills x48-191, the 19th wraps (overwrite prompt, s03 1E9E75). Lines at y51 and y67; a third line (y83) runs under the yes/no buttons, so 2 lines when the buttons show. 1E9EE8 (2nd-round note, 3 Japanese lines) is drawn while the screen is dark at the end: keep it to 3 lines of 144 px. An overlong ruler in 1E9EE8 left the following prompt blank: never exceed the box.",
+      "shot": "work/qa/wg_win2/data_save_slots/f001300.png (build/qa_win2.gba, second run so the slot holds data)"
+    },
+    "button_hint": {
+      "match": {"w": 30, "x0": 8, "attr": "F000"},
+      "font": "normal", "px": 224, "lines": 2,
+      "measured": "28 x 'n' fills x8-229, the 29th wraps (battle B-button hint, s03 1E9F89).",
+      "shot": "work/qa/wg_win/battle_lose/f001850.png"
+    }
+  },
+  "defaults": {
+    "_doc": "Ids the 75-scene tour never drew. Story sub-tables s07-s39 use the dialogue rules (first line = name tag when the Japanese has one). Pad-column lines (notes 'column: N px') keep N. s00 enemy names, s05 stage-clear list and s06 mission text were not drawn in any warp scene: budget = the Japanese line's pixel width until phase 8 text coverage places them.",
+    "story": "dialogue",
+    "column_note": "column",
+    "unplaced": "jp_width"
+  }
+}
