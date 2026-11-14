@@ -3,7 +3,7 @@
     python -X utf8 tools/msgview_run.py COVERDIR [--tables s08,s22] [--chunk 30] [--jobs 4] [--dry]
 
 COVERDIR holds earlier warp/tour runs with textcover.lua logs (each in its own subdir). For each sub-table in
---tables (default: every table with a message slot, minus s00-s06), the messages none of those runs read are cut
+--tables (default: s07 on; s01/s03 by name; nontext/debug/placeholder rows skipped), the messages none of those runs read are cut
 into chunks of --chunk, and each chunk becomes one cold-boot run COVERDIR/msgview/<table>_<n>/: warp to stage_1_1,
 press A every 40 frames (warp.lua ADVANCE) and let tools/lua/msgview.lua swap the n-th event text command for the
 n-th message of the chunk (stage 1-1's intro has 32 commands), with textcover.lua logging the reads and a shot
@@ -47,7 +47,9 @@ def messages(name):
     path = glob.glob(os.path.join(ROOT, 'script', name + '_*.tsv'))[0]
     with open(path, encoding='utf-8', newline='') as f:
         for row in csv.DictReader(f, delimiter='\t', quoting=csv.QUOTE_NONE):
-            slots = [s for s in re.split(r'[ ,]+', row['slots'].strip()) if s.isdigit()]
+            slots = re.findall(r'\d+', row['slots'])  # "5", "5-7", "3,9": the first slot is enough
+            if re.match(r'(nontext|debug|placeholder):', row.get('notes') or ''):
+                continue  # waived in docs/text_unshown.tsv, never drawn in play
             if slots:
                 yield row['id'], int(slots[0])
 
@@ -71,7 +73,7 @@ def shown(coverdir):
 
 def run(name, pairs, a):
     out = os.path.join(a.coverdir, 'msgview', name)
-    frames = 2300 + 160 * len(pairs)
+    frames = 2800 + 220 * len(pairs)  # the intro's first command runs ~f2235; long narration pages need more
     cmd = [sys.executable, '-X', 'utf8', os.path.join(SKILL, 'scripts', 'emu.py'), a.rom, '--out', out,
            '--frames', str(frames), '--shot-every', '20', '--timeout', '900',
            '--script', os.path.join(ROOT, 'tools', 'debug', 'warp.lua'), '--var', "SCENE='stage_1_1'",
@@ -107,7 +109,7 @@ def main():
     for n in names:
         miss = [(i, (idx[n], s)) for i, s in messages(n) if i not in seen]
         for k in range(0, len(miss), a.chunk):
-            jobs.append(('%s_%d' % (n, k // a.chunk), miss[k:k + a.chunk]))
+            jobs.append(('%s_%s' % (n, miss[k][0]), miss[k:k + a.chunk]))  # first id: reruns never overwrite
     print('%d runs, %d messages' % (len(jobs), sum(len(p) for _, p in jobs)))
     if a.dry:
         for name, pairs in jobs:
