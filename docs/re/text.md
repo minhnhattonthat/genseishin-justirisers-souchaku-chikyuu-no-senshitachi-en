@@ -130,7 +130,29 @@ per-code width, so English = narrow glyphs + their widths + two fixes below. Too
 - **Pads.** Name/stage list lines are `{padNN}`-padded to a fixed width (`column: N px` in the notes);
   `insert.fill()` refills the pads after the English text so the line keeps its width.
 
-## Free space (candidates, not yet trap-tested)
+### Windows (box variants; engine geometry from `tools/lua/winlog.lua`, partial tour: 47 of 75 scenes)
+
+`python -X utf8 tools/winlog.py work/qa/marker` -> `work/qa/windows.tsv` (id -> window). The renderer's right
+edge is (x + w) * 8 px, or (x + w - 2) * 8 in the small font; x0 = first pen x. **Pixel budgets are not measured
+yet** (the width gate): confirm each with a ruler line (`build.py --qa ID=...`) in a zoomed shot.
+
+| w (tiles) | x0 | lines | attr | Used by | ids seen |
+|---|---|---|---|---|---|
+| 28 | 8 | 4 (2 per page) | 7020 | dialogue box (story, stages, intro narration) | 122 |
+| 8 | 16 / 160 / 184 | 1 | 7080 (small font) | name tag, left / right-aligned by speaker side | 111 |
+| 28 | 8 | 4 | 7000 | mode descriptions (s03 289-291) | 3 |
+| 28 | 8 | 4 | 7A00 | weapon descriptions (s01) | 1 |
+| 20 | 48 | 9 | F000 | save/overwrite prompts (s03 263, 271, 273) | 3 |
+| 22 | 40 | 6 | F000 | next stage / save menu (s03 275) | 1 |
+| 30 | 8 | 6 | F000 | B-button hint (s03 293) | 1 |
+
+Not reached yet: the battle_*, stage 4-3 to 5-4 and their clear_* entries, event_3_26.
+
+## Free space (trap test in progress)
+
+Trap test (`tools/lua/romtrap.lua` on the marker build, 47 of 75 warp scenes): no CPU read of 0xD3A6B4-0xF00000
+(free space after the relocated block) or of the old block 0x1E90CC-0x1FE9F0. Finish the remaining scenes.
+
 
 - **0xD2356C-0xF00000: 1,952,404 bytes of 0xFF** (scan for runs >= 4 KB, 2026-11-14). It sits right after the
   resource table (0xD226AC, graphics.md) and before the data at 0xF00000; no resource offset points into it. 1344
