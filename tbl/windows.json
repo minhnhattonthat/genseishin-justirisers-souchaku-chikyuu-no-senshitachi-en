@@ -56,5 +56,14 @@
     "story": "dialogue",
     "column_note": "column",
     "unplaced": "jp_width"
+  },
+  "assigned": {
+    "_doc": "Ids the tour did not log, given the variant of their logged siblings in the same menu (phase 6, tools/textlint.py). Other never-drawn rows: each line within the widest Japanese line of its sub-table (the box they share), and no more lines than the Japanese.",
+    "weapon_description": ["1E9559", "1E9581", "1E95A8", "1E95CF", "1E9600"],
+    "save_status": ["1E9E3B", "1E9E45", "1E9E4F", "1E9E59", "1E9E68", "1E9E88", "1E9E92", "1E9EA2", "1E9EC3", "1E9ECF", "1E9EDD"],
+    "prompt": ["1E9E75", "1E9EAF", "1E9EE8", "1E9F0F", "1E9F24", "1E9F52"],
+    "mode_description": ["1E9F5D", "1E9F69", "1E9F76", "1E9F82"],
+    "button_hint": ["1E9F89"],
+    "next_stage_menu": ["1E9F3A"]
   }
 }

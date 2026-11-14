@@ -16,6 +16,7 @@ tools/textblock.py, in ROM order.
 """
 import argparse
 import csv
+import io
 import sys
 from pathlib import Path
 
@@ -103,10 +104,13 @@ def read_tsv(path):
 
 
 def write_tsv(path, rs):
-    with open(path, "w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, COLS, delimiter="\t", quoting=csv.QUOTE_NONE, lineterminator="\n")
-        w.writeheader()
-        w.writerows(rs)
+    # quotechar=None: English has literal " (read_tsv is QUOTE_NONE too). Built in memory first so an error
+    # never leaves a truncated file.
+    buf = io.StringIO()
+    w = csv.DictWriter(buf, COLS, delimiter="\t", quoting=csv.QUOTE_NONE, quotechar=None, lineterminator="\n")
+    w.writeheader()
+    w.writerows(rs)
+    Path(path).write_text(buf.getvalue(), encoding="utf-8", newline="")
 
 
 def load_script():

@@ -1,18 +1,18 @@
 id	slots	jp	en	notes
-1EEFB7	0	グレン{n}…ザコール！		
-1EEFC5	1	グレン{n}{se:0E00}にがすかッ‼		
-1EEFD4	2	カゲリ{n}…ザコール！		
-1EEFE2	3	カゲリ{n}{se:0E01}まちなさい！		
-1EEFF1	4	ガント{n}…ザコール！		
-1EEFFF	5	ガント{n}{se:0E02}にがさん！		
-1EF00D	6	グレン{n}…やつらは こんな ところで{n}いったい なにを たくらんでるんだ？		
-1EF035	7	カゲリ{n}ねえ あれをみて！		
-1EF044	8	ガント{n}ふるい こうじょう か…{n}あやしいな		
-1EF05C	9	グレン{n}よしッ いってみよう！		
-1EF06D	10	グレン{n}あぶねえ…！		
-1EF07A	11	カゲリ{n}あぶない…！		
-1EF087	12	ガント{n}あぶない…！		
-1EF094	13	グレン{n}くっ…{n}あんな ところ から⁉		
-1EF0AA	14	カゲリ{n}くっ…{n}あんな ところ から⁉		
-1EF0C0	15	ガント{n}くっ…{n}あんな ところ から⁉		
+1EEFB7	0	グレン{n}…ザコール！	Glen{n}...Zakoul!	
+1EEFC5	1	グレン{n}{se:0E00}にがすかッ‼	Glen{n}{se:0E00}You're not getting away!!	
+1EEFD4	2	カゲリ{n}…ザコール！	Kageri{n}...Zakoul!	
+1EEFE2	3	カゲリ{n}{se:0E01}まちなさい！	Kageri{n}{se:0E01}Wait right there!	
+1EEFF1	4	ガント{n}…ザコール！	Gant{n}...Zakoul!	
+1EEFFF	5	ガント{n}{se:0E02}にがさん！	Gant{n}{se:0E02}You won't escape!	
+1EF00D	6	グレン{n}…やつらは こんな ところで{n}いったい なにを たくらんでるんだ？	Glen{n}...What the heck are those guys{n}plotting out here?	
+1EF035	7	カゲリ{n}ねえ あれをみて！	Kageri{n}Hey, look at that!	
+1EF044	8	ガント{n}ふるい こうじょう か…{n}あやしいな	Gant{n}An old factory...{n}Suspicious.	
+1EF05C	9	グレン{n}よしッ いってみよう！	Glen{n}Alright, let's check it out!	
+1EF06D	10	グレン{n}あぶねえ…！	Glen{n}Whoa, close one...!	
+1EF07A	11	カゲリ{n}あぶない…！	Kageri{n}Look out...!	
+1EF087	12	ガント{n}あぶない…！	Gant{n}Look out...!	
+1EF094	13	グレン{n}くっ…{n}あんな ところ から⁉	Glen{n}Ngh...{n}From over there!?	
+1EF0AA	14	カゲリ{n}くっ…{n}あんな ところ から⁉	Kageri{n}Ngh...{n}From over there!?	
+1EF0C0	15	ガント{n}くっ…{n}あんな ところ から⁉	Gant{n}Ngh...{n}From over there!?	
 1EF0D6	16-1024	開発中		placeholder: 'in development', fills an unused sub-table

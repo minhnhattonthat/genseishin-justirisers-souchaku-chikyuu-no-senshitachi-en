@@ -1,54 +1,54 @@
 id	slots	jp	en	notes
-1F0B45	0	ギルドロス{n}…いそげ！		
-1F0B53	1	ギルドロス{n}やつらが やってくる までに{n}さくせんを おわらせるのだ‼		
-1F0B78	2	グレン{n}あく の たくらみは…{n}おれたちが かならず うちくだく‼		
-1F0B9C	3	カゲリ{n}…おもいどおり には{n}させないわ‼		
-1F0BB4	4	ガント{n}…そうは させん‼		
-1F0BC4	5	ギルドロス{n}ええい いまいましい やつめ！		
-1F0BDB	6	ギルドロス{n}かかれッ ザコール‼		
-1F0BEE	7	グレン{n}おまえは…！		
-1F0BFB	8	カゲリ{n}ドクター・ゾラ‼		
-1F0C0B	9	ガント{n}ちょうど いい…		
-1F0C19	10	ガント{n}このば で{n}けっちゃくを つけてやる‼		
-1F0C32	11	カゲリ{n}ドクター・ゾラ…！		
-1F0C44	12	グレン{n}…でやがったな‼		
-1F0C53	13	ガント{n}ちょうど いい…		
-1F0C61	14	ガント{n}このば で{n}けっちゃくを つけてやる‼		
-1F0C7A	15	ガント{n}おまえは…！		
-1F0C87	16	カゲリ{n}ドクター・ゾラ‼		
-1F0C97	17	グレン{n}ちょうど いいぜ！		
-1F0CA6	18	グレン{n}このば で{n}けっちゃくを つけてやる‼		
-1F0CBF	19	ゾラ{n}この わたしと{n}たたかうだと…		
-1F0CD3	20	ゾラ{n}フハハハハハ！{n}みのほど しらずめ‼		
-1F0CEB	21	ギルドロス{n}ドクター・ゾラ！		
-1F0CFD	22	ギルドロス{n}もう まもなく{n}はこび だせます！		
-1F0D16	23	ギルドロス{n}そろそろ{n}しゅっぱつの じゅんびを…		
-1F0D30	24	ゾラ{n}…わかった		
-1F0D3A	25	ゾラ{n}こやつらの しまつ は{n}おまえに まかせたぞ！		
-1F0D56	26	ギルドロス{n}ギギーッ‼		
-1F0D64	27	カゲリ{n}まちなさい！		
-1F0D70	28	グレン{n}まてッ‼		
-1F0D7A	29	カゲリ{n}まちなさい！		
-1F0D86	30	ギルドロス{n}バカめ！{n}いかせる ものかッ‼		
-1F0D9E	31	グレン{n}こいつは おれが ひきうける！{n}ふたりは ゾラを おってくれ‼		
-1F0DC4	32	ガント{n}わかった{n}きを つけろ 翔太！		
-1F0DDB	33	カゲリ{n}ここは あたしが ひきうける！{n}ふたりは ゾラを おって！		
-1F0DFF	34	ガント{n}わかった{n}きを つけろ ユカ！		
-1F0E14	35	ガント{n}こいつは おれが ひきうける！{n}ふたりは ゾラを おってくれ！		
-1F0E3A	36	グレン{n}わかった！{n}きを つけろ 直也！		
-1F0E53	37	ギルドロス{n}お おのれ…{n}じごくに おとして やる‼		
-1F0E70	38	ギルドロス{n}お おのれ…		
-1F0E7E	39	ギルドロス{n}このまま では{n}おわらんぞッ…‼		
-1F0E97	40	グレン{n}きょだいか した…⁉{n}よし あいてに なってやるッ！		
-1F0EB9	41	カゲリ{n}きょだいか した…⁉{n}よし いくわよ！		
-1F0ED4	42	ガント{n}きょだいか したか…{n}よし いくぞ！		
-1F0EED	43	カゲリ{n}あと１ぽ の ところで{n}ドクター・ゾラには にげられたわ…		
-1F0F12	44	グレン{n}ここで なにが つくられて いたのか{n}わからず じまいか…		
-1F0F35	45	カゲリ{n}あと１ぽ の ところで{n}ドクター・ゾラに にげられたのね…？		
-1F0F5C	46	グレン{n}ここで なにが つくられて いたのか{n}わからず じまい だ…！		
-1F0F82	47	ガント{n}てがかりは ある		
-1F0F8F	48	ガント{n}ゾラの ふくに {n}はっしんきを うちこんで おいた…		
-1F0FAF	49	グレン{n}すげえ！{n}さっすが 直也だ！		
-1F0FC6	50	カゲリ{n}翔太ったら こういうときだけ{n}ちょうし よく ほめるんだから…		
-1F0FED	51	グレン{n}と とにかく{n}ついせき かいし だ！		
+1F0B45	0	ギルドロス{n}…いそげ！	Gildoros{n}...Hurry!	
+1F0B53	1	ギルドロス{n}やつらが やってくる までに{n}さくせんを おわらせるのだ‼	Gildoros{n}Finish the operation before{n}those pests get here!!	
+1F0B78	2	グレン{n}あく の たくらみは…{n}おれたちが かならず うちくだく‼	Glen{n}Whatever evil you're plotting...{n}we're gonna smash it for sure!!	
+1F0B9C	3	カゲリ{n}…おもいどおり には{n}させないわ‼	Kageri{n}...We won't let things{n}go your way!!	
+1F0BB4	4	ガント{n}…そうは させん‼	Gant{n}...I won't allow it!!	
+1F0BC4	5	ギルドロス{n}ええい いまいましい やつめ！	Gildoros{n}Bah, you infuriating pests!	
+1F0BDB	6	ギルドロス{n}かかれッ ザコール‼	Gildoros{n}Attack, Zakoul!!	
+1F0BEE	7	グレン{n}おまえは…！	Glen{n}You're...!	
+1F0BFB	8	カゲリ{n}ドクター・ゾラ‼	Kageri{n}Doctor Zora!!	
+1F0C0B	9	ガント{n}ちょうど いい…	Gant{n}Perfect timing...	
+1F0C19	10	ガント{n}このば で{n}けっちゃくを つけてやる‼	Gant{n}We'll settle this{n}right here and now!!	
+1F0C32	11	カゲリ{n}ドクター・ゾラ…！	Kageri{n}Doctor Zora...!	
+1F0C44	12	グレン{n}…でやがったな‼	Glen{n}...So you finally showed up!!	
+1F0C53	13	ガント{n}ちょうど いい…	Gant{n}Perfect timing...	
+1F0C61	14	ガント{n}このば で{n}けっちゃくを つけてやる‼	Gant{n}We'll settle this{n}right here and now!!	
+1F0C7A	15	ガント{n}おまえは…！	Gant{n}You're...!	
+1F0C87	16	カゲリ{n}ドクター・ゾラ‼	Kageri{n}Doctor Zora!!	
+1F0C97	17	グレン{n}ちょうど いいぜ！	Glen{n}Perfect timing!	
+1F0CA6	18	グレン{n}このば で{n}けっちゃくを つけてやる‼	Glen{n}We'll settle this{n}right here and now!!	
+1F0CBF	19	ゾラ{n}この わたしと{n}たたかうだと…	Zora{n}You intend to fight{n}me, of all people...?	
+1F0CD3	20	ゾラ{n}フハハハハハ！{n}みのほど しらずめ‼	Zora{n}Fuhahahaha!{n}You know not your place!!	
+1F0CEB	21	ギルドロス{n}ドクター・ゾラ！	Gildoros{n}Doctor Zora!	
+1F0CFD	22	ギルドロス{n}もう まもなく{n}はこび だせます！	Gildoros{n}It will be ready{n}to move out shortly!	
+1F0D16	23	ギルドロス{n}そろそろ{n}しゅっぱつの じゅんびを…	Gildoros{n}Please prepare{n}for departure...	
+1F0D30	24	ゾラ{n}…わかった	Zora{n}...Very well.	
+1F0D3A	25	ゾラ{n}こやつらの しまつ は{n}おまえに まかせたぞ！	Zora{n}I leave the disposal{n}of these pests to you!	
+1F0D56	26	ギルドロス{n}ギギーッ‼	Gildoros{n}Gigiii!!	
+1F0D64	27	カゲリ{n}まちなさい！	Kageri{n}Wait right there!	
+1F0D70	28	グレン{n}まてッ‼	Glen{n}Hold it!!	
+1F0D7A	29	カゲリ{n}まちなさい！	Kageri{n}Wait right there!	
+1F0D86	30	ギルドロス{n}バカめ！{n}いかせる ものかッ‼	Gildoros{n}Fools!{n}You're not going anywhere!!	
+1F0D9E	31	グレン{n}こいつは おれが ひきうける！{n}ふたりは ゾラを おってくれ‼	Glen{n}I'll take care of this guy!{n}You two go after Zora!!	
+1F0DC4	32	ガント{n}わかった{n}きを つけろ 翔太！	Gant{n}Understood.{n}Be careful, Shota!	
+1F0DDB	33	カゲリ{n}ここは あたしが ひきうける！{n}ふたりは ゾラを おって！	Kageri{n}Leave this one to me!{n}You two, go after Zora!	
+1F0DFF	34	ガント{n}わかった{n}きを つけろ ユカ！	Gant{n}Understood.{n}Be careful, Yuka!	
+1F0E14	35	ガント{n}こいつは おれが ひきうける！{n}ふたりは ゾラを おってくれ！	Gant{n}I'll handle this one!{n}You two, go after Zora!	
+1F0E3A	36	グレン{n}わかった！{n}きを つけろ 直也！	Glen{n}Got it!{n}Be careful, Naoya!	
+1F0E53	37	ギルドロス{n}お おのれ…{n}じごくに おとして やる‼	Gildoros{n}C-curse you...{n}I'll drag you down to hell!!	
+1F0E70	38	ギルドロス{n}お おのれ…	Gildoros{n}C-curse you...	
+1F0E7E	39	ギルドロス{n}このまま では{n}おわらんぞッ…‼	Gildoros{n}This isn't{n}over yet...!!	
+1F0E97	40	グレン{n}きょだいか した…⁉{n}よし あいてに なってやるッ！	Glen{n}He got huge...!?{n}Fine, I'll take you on!	
+1F0EB9	41	カゲリ{n}きょだいか した…⁉{n}よし いくわよ！	Kageri{n}He got huge...!?{n}Okay, here we go!	
+1F0ED4	42	ガント{n}きょだいか したか…{n}よし いくぞ！	Gant{n}So he's grown giant...{n}Very well, here we go!	
+1F0EED	43	カゲリ{n}あと１ぽ の ところで{n}ドクター・ゾラには にげられたわ…	Kageri{n}We were just one step away,{n}and Doctor Zora got away...	
+1F0F12	44	グレン{n}ここで なにが つくられて いたのか{n}わからず じまいか…	Glen{n}And we never found out what{n}they were building here...	
+1F0F35	45	カゲリ{n}あと１ぽ の ところで{n}ドクター・ゾラに にげられたのね…？	Kageri{n}We were just one step away,{n}and Doctor Zora got away...?	
+1F0F5C	46	グレン{n}ここで なにが つくられて いたのか{n}わからず じまい だ…！	Glen{n}And we never found out what{n}they were building here...!	
+1F0F82	47	ガント{n}てがかりは ある	Gant{n}We do have a lead.	
+1F0F8F	48	ガント{n}ゾラの ふくに {n}はっしんきを うちこんで おいた…	Gant{n}I planted a tracking device{n}on Zora's clothes...	
+1F0FAF	49	グレン{n}すげえ！{n}さっすが 直也だ！	Glen{n}Awesome!{n}That's our Naoya!	
+1F0FC6	50	カゲリ{n}翔太ったら こういうときだけ{n}ちょうし よく ほめるんだから…	Kageri{n}Honestly, Shota, you only{n}praise people at times like this...	
+1F0FED	51	グレン{n}と とにかく{n}ついせき かいし だ！	Glen{n}A-anyway, let's{n}start the pursuit!	
 1F1005	52-1024	開発中		placeholder: 'in development', fills an unused sub-table

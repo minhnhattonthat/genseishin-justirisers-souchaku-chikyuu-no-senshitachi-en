@@ -1,18 +1,18 @@
 id	slots	jp	en	notes
-1F624F	0	グレン{n}ユカ…どこだ⁉		
-1F625D	1	ガント{n}てわけ して{n}ユカを さがそう！		
-1F6273	2	グレン{n}わかった！		
-1F627E	3	グレン{n}ユカ…どこだ⁉		
-1F628C	4	ガント{n}てわけ して{n}ユカを さがそう！		
-1F62A2	5	グレン{n}わかった！		
-1F62AD	6	カゲリ{n}翔太…どこ⁉		
-1F62BC	7	ガント{n}てわけ して{n}翔太を さがそう！		
-1F62D4	8	カゲリ{n}わかった！		
-1F62DF	9	カゲリ{n}翔太…どこ⁉		
-1F62EE	10	ガント{n}てわけ して{n}翔太を さがそう！		
-1F6306	11	カゲリ{n}わかった！		
-1F6311	12	グレン{n}ユカ…{n}ぶじ で いてくれ！		
-1F6326	13	ガント{n}ユカ…{n}ぶじ で いてくれ！		
-1F633B	14	カゲリ{n}翔太…{n}ぶじ で いて！		
-1F6350	15	ガント{n}翔太…{n}ぶじ で いてくれ！		
+1F624F	0	グレン{n}ユカ…どこだ⁉	Glen{n}Yuka... where are you!?	
+1F625D	1	ガント{n}てわけ して{n}ユカを さがそう！	Gant{n}Let's split up{n}and search for Yuka!	
+1F6273	2	グレン{n}わかった！	Glen{n}Got it!	
+1F627E	3	グレン{n}ユカ…どこだ⁉	Glen{n}Yuka... where are you!?	
+1F628C	4	ガント{n}てわけ して{n}ユカを さがそう！	Gant{n}Let's split up{n}and search for Yuka!	
+1F62A2	5	グレン{n}わかった！	Glen{n}Got it!	
+1F62AD	6	カゲリ{n}翔太…どこ⁉	Kageri{n}Shota... where are you!?	
+1F62BC	7	ガント{n}てわけ して{n}翔太を さがそう！	Gant{n}Let's split up{n}and search for Shota!	
+1F62D4	8	カゲリ{n}わかった！	Kageri{n}Okay!	
+1F62DF	9	カゲリ{n}翔太…どこ⁉	Kageri{n}Shota... where are you!?	
+1F62EE	10	ガント{n}てわけ して{n}翔太を さがそう！	Gant{n}Let's split up{n}and search for Shota!	
+1F6306	11	カゲリ{n}わかった！	Kageri{n}Okay!	
+1F6311	12	グレン{n}ユカ…{n}ぶじ で いてくれ！	Glen{n}Yuka...{n}please be okay!	
+1F6326	13	ガント{n}ユカ…{n}ぶじ で いてくれ！	Gant{n}Yuka...{n}please be safe!	
+1F633B	14	カゲリ{n}翔太…{n}ぶじ で いて！	Kageri{n}Shota...{n}please be okay!	
+1F6350	15	ガント{n}翔太…{n}ぶじ で いてくれ！	Gant{n}Shota...{n}please be safe!	
 1F6367	16-1024	開発中		placeholder: 'in development', fills an unused sub-table

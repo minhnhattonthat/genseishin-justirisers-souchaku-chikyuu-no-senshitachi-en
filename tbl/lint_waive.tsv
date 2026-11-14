@@ -1,0 +1,2 @@
+# id (or speaker tag for tagwidth)	rule	reason. Read by tools/textlint.py. Each waiver is engine work owed by phase 7.
+Armor Gunner	tagwidth	70 px in the small font, tag window 64 px. Phase 7: widen the name-tag window to 9 tiles (72 px); D4 forbids abbreviating.

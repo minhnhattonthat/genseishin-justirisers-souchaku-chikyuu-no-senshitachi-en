@@ -1,15 +1,15 @@
 id	slots	jp	en	notes
-1F2017	0	ゾラ{n}フフフ…{n}おいかけて こい ジャスティライザー		
-1F2034	1	ゾラ{n}アーマーガンナー しゅつげき せよ！		
-1F204E	2	ゾラ{n}ジャスティライザーを{n}しまつ するのだ‼		
-1F2068	3	アーマーガンナー{n}よく きたな ジャスティライザー！{n}ここが おまえたちの はかば だ‼		
-1F209B	4	カゲリ{n}…にがさないッ！		
-1F20AA	5	ガント{n}ふかおい するな ユカ！		
-1F20BC	6	グレン{n}…にがすかッ‼		
-1F20CA	7	ガント{n}ふかおい するな 翔太！		
-1F20DE	8	カゲリ{n}…まちなさい！		
-1F20EC	9	グレン{n}にがして たまるかッ‼		
-1F20FD	10	グレン{n}にがさないぜ…{n}ドクター・ゾラ！		
-1F2116	11	カゲリ{n}にがさないわよ…{n}ドクター・ゾラ！		
-1F2130	12	ガント{n}にがさんぞ…{n}ドクター・ゾラ！		
+1F2017	0	ゾラ{n}フフフ…{n}おいかけて こい ジャスティライザー	Zora{n}Fufufu...{n}Come and catch me, Justirisers.	
+1F2034	1	ゾラ{n}アーマーガンナー しゅつげき せよ！	Zora{n}Armor Gunner, sortie!	
+1F204E	2	ゾラ{n}ジャスティライザーを{n}しまつ するのだ‼	Zora{n}Dispose of{n}the Justirisers!!	
+1F2068	3	アーマーガンナー{n}よく きたな ジャスティライザー！{n}ここが おまえたちの はかば だ‼	Armor Gunner{n}Welcome, Justirisers!{n}This place will be your grave!!	
+1F209B	4	カゲリ{n}…にがさないッ！	Kageri{n}...You're not getting away!	
+1F20AA	5	ガント{n}ふかおい するな ユカ！	Gant{n}Don't chase him too far, Yuka!	
+1F20BC	6	グレン{n}…にがすかッ‼	Glen{n}...You're not getting away!!	
+1F20CA	7	ガント{n}ふかおい するな 翔太！	Gant{n}Don't chase him too far, Shota!	
+1F20DE	8	カゲリ{n}…まちなさい！	Kageri{n}...Wait right there!	
+1F20EC	9	グレン{n}にがして たまるかッ‼	Glen{n}Like I'd let you get away!!	
+1F20FD	10	グレン{n}にがさないぜ…{n}ドクター・ゾラ！	Glen{n}You're not getting away...{n}Doctor Zora!	
+1F2116	11	カゲリ{n}にがさないわよ…{n}ドクター・ゾラ！	Kageri{n}You won't get away...{n}Doctor Zora!	
+1F2130	12	ガント{n}にがさんぞ…{n}ドクター・ゾラ！	Gant{n}You will not escape...{n}Doctor Zora!	
 1F2148	13-1024	開発中		placeholder: 'in development', fills an unused sub-table

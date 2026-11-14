@@ -1,32 +1,32 @@
 id	slots	jp	en	notes
-1F5833	0	ガーディアス{n}ここから さきは とおさん…		
-1F584B	1	ガント{n}…どけッ！		
-1F5857	2	ガント{n}…なにッ‼		
-1F5863	3	カゲリ{n}{se:2201}…直也さん！		
-1F5875	4	グレン{n}ん…？		
-1F587F	5	グレン{n}なにか こえが きこえた ような…⁉		
-1F5898	6	ガーディアス{n}ここから さきは とおさん…		
-1F58B0	7	ガント{n}…どけッ！		
-1F58BC	8	ガント{n}…なにッ‼		
-1F58C8	9	グレン{n}{se:2600}…直也！		
-1F58D8	10	カゲリ{n}ん…？		
-1F58E2	11	カゲリ{n}なにか こえが きこえた ような…⁉		
-1F58FB	12	ガーディアス{n}ここから さきは とおさん…		
-1F5913	13	グレン{n}…どけッ！		
-1F591F	14	グレン{n}…なにッ‼		
-1F592B	15	カゲリ{n}{se:2101}…翔太！		
-1F593B	16	ガント{n}ん…？		
-1F5945	17	ガント{n}なにか こえが きこえた ような…⁉		
-1F595E	18	グレン{n}…直也‼		
-1F596B	19	カゲリ{n}…直也さん‼		
-1F597A	20	ガント{n}…翔太‼		
-1F5987	21	グレン{n}…だいじょうぶか{n}直也⁉		
-1F599C	22	ガント{n}…すまん{n}ゆだんを した…		
-1F59B0	23	グレン{n}ユカが しんぱいだ{n}いそごう！		
-1F59C5	24	カゲリ{n}…だいじょうぶ{n}直也さん⁉		
-1F59DB	25	ガント{n}…すまん{n}ゆだんを した…		
-1F59EF	26	カゲリ{n}翔太が しんぱい だわ{n}いそぎましょう！		
-1F5A0B	27	ガント{n}だいじょうぶか{n}翔太‼		
-1F5A1E	28	グレン{n}すまねえ{n}ゆだん したぜ…		
-1F5A31	29	ガント{n}ユカが しんぱいだ{n}いそぐぞ！		
+1F5833	0	ガーディアス{n}ここから さきは とおさん…	Gardias{n}You shall go no further...	
+1F584B	1	ガント{n}…どけッ！	Gant{n}...Out of my way!	
+1F5857	2	ガント{n}…なにッ‼	Gant{n}...What!!	
+1F5863	3	カゲリ{n}{se:2201}…直也さん！	Kageri{n}{se:2201}...Naoya-san!	
+1F5875	4	グレン{n}ん…？	Glen{n}Hm...?	
+1F587F	5	グレン{n}なにか こえが きこえた ような…⁉	Glen{n}Did I just hear somebody...!?	
+1F5898	6	ガーディアス{n}ここから さきは とおさん…	Gardias{n}You shall go no further...	
+1F58B0	7	ガント{n}…どけッ！	Gant{n}...Out of my way!	
+1F58BC	8	ガント{n}…なにッ‼	Gant{n}...What!!	
+1F58C8	9	グレン{n}{se:2600}…直也！	Glen{n}{se:2600}...Naoya!	
+1F58D8	10	カゲリ{n}ん…？	Kageri{n}Hm...?	
+1F58E2	11	カゲリ{n}なにか こえが きこえた ような…⁉	Kageri{n}Did I just hear a voice...!?	
+1F58FB	12	ガーディアス{n}ここから さきは とおさん…	Gardias{n}You shall go no further...	
+1F5913	13	グレン{n}…どけッ！	Glen{n}...Outta my way!	
+1F591F	14	グレン{n}…なにッ‼	Glen{n}...What!!	
+1F592B	15	カゲリ{n}{se:2101}…翔太！	Kageri{n}{se:2101}...Shota!	
+1F593B	16	ガント{n}ん…？	Gant{n}Hm...?	
+1F5945	17	ガント{n}なにか こえが きこえた ような…⁉	Gant{n}Did I just hear a voice...!?	
+1F595E	18	グレン{n}…直也‼	Glen{n}...Naoya!!	
+1F596B	19	カゲリ{n}…直也さん‼	Kageri{n}...Naoya-san!!	
+1F597A	20	ガント{n}…翔太‼	Gant{n}...Shota!!	
+1F5987	21	グレン{n}…だいじょうぶか{n}直也⁉	Glen{n}...Are you okay,{n}Naoya!?	
+1F599C	22	ガント{n}…すまん{n}ゆだんを した…	Gant{n}...Sorry.{n}I let my guard down...	
+1F59B0	23	グレン{n}ユカが しんぱいだ{n}いそごう！	Glen{n}I'm worried about Yuka.{n}Let's hurry!	
+1F59C5	24	カゲリ{n}…だいじょうぶ{n}直也さん⁉	Kageri{n}...Are you all right,{n}Naoya-san!?	
+1F59DB	25	ガント{n}…すまん{n}ゆだんを した…	Gant{n}...Sorry.{n}I let my guard down...	
+1F59EF	26	カゲリ{n}翔太が しんぱい だわ{n}いそぎましょう！	Kageri{n}I'm worried about Shota.{n}Let's hurry!	
+1F5A0B	27	ガント{n}だいじょうぶか{n}翔太‼	Gant{n}Are you all right,{n}Shota!!	
+1F5A1E	28	グレン{n}すまねえ{n}ゆだん したぜ…	Glen{n}Sorry, man...{n}I got careless...	
+1F5A31	29	ガント{n}ユカが しんぱいだ{n}いそぐぞ！	Gant{n}I'm worried about Yuka.{n}We must hurry!	
 1F5A46	30-1024	開発中		placeholder: 'in development', fills an unused sub-table

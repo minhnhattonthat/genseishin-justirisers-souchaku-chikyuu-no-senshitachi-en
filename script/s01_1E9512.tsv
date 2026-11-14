@@ -1,8 +1,8 @@
 id	slots	jp	en	notes
-1E9532	0	ばつぐんの きれあじ で てっこつを{n}いちげきで きる ことが できる けん		
-1E9559	1	うで に そうび した とくしゅな ぶき{n}さまざま な かたちに へんか する		
-1E9581	2	２つの じゅうこう から こうだんを{n}はっしゃ する ことが できる じゅう		
-1E95A8	3	けんを ふりおろすと ほのおを はなち{n}まえに いる てきを こうげき する		
-1E95CF	4	こうエネルギーだん{sp6}と{sp6}なった{sp6}クナイが{n}まわりに{sp6}いる{sp6}てきを{sp6}こうげき{sp6}する		
-1E9600	5	きょうりょくな{sp4}エネルギーの{sp4}かりょくで{n}まえと{sp4}うしろの{sp4}てきを{sp4}こうげき{sp4}する		
+1E9532	0	ばつぐんの きれあじ で てっこつを{n}いちげきで きる ことが できる けん	A sword so sharp it can slice steel{n}beams in two with a single stroke.	
+1E9559	1	うで に そうび した とくしゅな ぶき{n}さまざま な かたちに へんか する	A special weapon worn on the arm.{n}It can change into many forms.	
+1E9581	2	２つの じゅうこう から こうだんを{n}はっしゃ する ことが できる じゅう	A gun that can fire shells from{n}both of its barrels.	
+1E95A8	3	けんを ふりおろすと ほのおを はなち{n}まえに いる てきを こうげき する	Swing the sword down to unleash{n}flames on the enemies ahead.	
+1E95CF	4	こうエネルギーだん{sp6}と{sp6}なった{sp6}クナイが{n}まわりに{sp6}いる{sp6}てきを{sp6}こうげき{sp6}する	Kunai charged with high energy{n}strike the enemies all around.	
+1E9600	5	きょうりょくな{sp4}エネルギーの{sp4}かりょくで{n}まえと{sp4}うしろの{sp4}てきを{sp4}こうげき{sp4}する	Powerful energy fire strikes the{n}enemies both ahead and behind.	
 1E9631	6-15	エラーコード		placeholder: 'error code', fills unused slots

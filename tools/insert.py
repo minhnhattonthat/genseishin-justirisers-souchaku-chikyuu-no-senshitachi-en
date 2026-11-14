@@ -152,6 +152,23 @@ def marker_text(jt, et, wt_jp, wt_en, row):
     return "".join(out)
 
 
+def fill_pads(jt, et, wt_jp, wt_en, jp, en):
+    """Replace each `{fill}` in an English line with spacer cells that bring the line back to the pixel width of
+    the Japanese line in the same position (column rows: name lists, stage-clear list)."""
+    if "{fill}" not in en:
+        return en
+    jl, el = split_lines(jp), split_lines(en)
+    if len(jl) != len(el):
+        raise ValueError(f"{{fill}} needs the Japanese line layout: {en!r}")
+    out = []
+    for a, b in zip(jl, el):
+        if "{fill}" in b:
+            gap = px(jt.encode(a.replace(script.TAIL, "")), wt_jp) - px(et.encode(b.replace("{fill}", "")), wt_en)
+            b = b.replace("{fill}", fill(max(0, gap)), 1).replace("{fill}", "")
+        out.append(b)
+    return "".join(out)
+
+
 def message_ids(model):
     """-> [[id of each message] per sub-table], ids = original ROM offsets as in script/*.tsv."""
     addr = textblock.MASTER + 4 * len(model["master"])
@@ -230,7 +247,7 @@ def build(orig, mode="en", qa=None):
             if has_text(jt, r["jp"].replace(script.TAIL, "")):
                 texts[mid] = marker_text(jt, et, wt_jp, wt_en, r)
         elif r["en"]:
-            texts[mid] = r["en"]
+            texts[mid] = fill_pads(jt, et, wt_jp, wt_en, r["jp"], r["en"])
     texts.update(qa or {})
     model = textblock.unpack(orig)
     ids = message_ids(model)

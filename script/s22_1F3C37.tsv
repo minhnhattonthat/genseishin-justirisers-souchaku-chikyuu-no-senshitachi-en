@@ -1,10 +1,10 @@
 id	slots	jp	en	notes
-1F4439	0	グレン{n}巨大化したか…！{n}決着を つけてやるッ‼		
-1F445A	1	グレン{n}幻星神ライゼロス 召喚ッ‼		
-1F4472	2	カゲリ{n}まだ やる気なの…！{n}行くわよっ‼		
-1F448D	3	カゲリ{n}幻星神ライゼロス 召喚‼		
-1F44A4	4	ガント{n}巨大化したか…！{n}よしッ‼		
-1F44BC	5	ガント{n}幻星神ライゼロス 召喚ッ‼		
-1F44D4	6	カゲリ{n}見て！ あのトラック…{n}ザコールが 運転してるわ‼		
-1F44F9	7	グレン{n}よしッ 急いで追いかけるんだ！		
+1F4439	0	グレン{n}巨大化したか…！{n}決着を つけてやるッ‼	Glen{n}So he went giant...!{n}Let's settle this!!	
+1F445A	1	グレン{n}幻星神ライゼロス 召喚ッ‼	Glen{n}I summon you,{n}Genseishin Raizeros!!	
+1F4472	2	カゲリ{n}まだ やる気なの…！{n}行くわよっ‼	Kageri{n}You still want more...!{n}Here we go!!	
+1F448D	3	カゲリ{n}幻星神ライゼロス 召喚‼	Kageri{n}I summon you,{n}Genseishin Raizeros!!	
+1F44A4	4	ガント{n}巨大化したか…！{n}よしッ‼	Gant{n}So he's grown giant...!{n}Very well!!	
+1F44BC	5	ガント{n}幻星神ライゼロス 召喚ッ‼	Gant{n}I summon you,{n}Genseishin Raizeros!!	
+1F44D4	6	カゲリ{n}見て！ あのトラック…{n}ザコールが 運転してるわ‼	Kageri{n}Look! That truck...{n}Zakoul are driving it!!	
+1F44F9	7	グレン{n}よしッ 急いで追いかけるんだ！	Glen{n}Alright, hurry, after it!	
 1F4510	8-1024	開発中		placeholder: 'in development', fills an unused sub-table

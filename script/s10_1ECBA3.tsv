@@ -1,13 +1,13 @@
 id	slots	jp	en	notes
-1ED3A5	0	グレン{n}{se:0400}おまえたち…ゆるさねえッ！		
-1ED3BC	1	カゲリ{n}{se:0401}やめなさい！		
-1ED3CB	2	ガント{n}{se:0402}そこまでだ！		
-1ED3DA	3	カゲリ{n}まちじゅうが ひどいことに…！		
-1ED3F0	4	ガント{n}かなしんでいる ひまは ない{n}…いくぞ！		
-1ED40B	5	グレン{n}ザコールめ！{n}ひとり のこらず たおしてやるぜッ‼		
-1ED42C	6	グレン{n}ザコールめ！{n}ひとり のこらず たおしてやるぜッ‼		
-1ED44D	7	グレン{n}ザコールめ！{n}ひとり のこらず たおしてやるぜッ‼		
-1ED46E	8	グレン{n}よくも まちを…{n}ゆるさねえぜッ ザウラス！		
-1ED48B	9	カゲリ{n}よくも まちを…{n}ゆるさないわよ ザウラス！		
-1ED4A8	10	ガント{n}よくも まちを…{n}ゆるさんぞ ザウラス！		
+1ED3A5	0	グレン{n}{se:0400}おまえたち…ゆるさねえッ！	Glen{n}{se:0400}You creeps... you're gonna pay!	
+1ED3BC	1	カゲリ{n}{se:0401}やめなさい！	Kageri{n}{se:0401}Stop it!	
+1ED3CB	2	ガント{n}{se:0402}そこまでだ！	Gant{n}{se:0402}That's far enough!	
+1ED3DA	3	カゲリ{n}まちじゅうが ひどいことに…！	Kageri{n}The whole city's been ravaged...!	
+1ED3F0	4	ガント{n}かなしんでいる ひまは ない{n}…いくぞ！	Gant{n}There's no time to grieve.{n}...Let's go!	
+1ED40B	5	グレン{n}ザコールめ！{n}ひとり のこらず たおしてやるぜッ‼	Glen{n}Zakoul punks!{n}I'll take down every last one!!	
+1ED42C	6	グレン{n}ザコールめ！{n}ひとり のこらず たおしてやるぜッ‼	Glen{n}Zakoul punks!{n}I'll take down every last one!!	
+1ED44D	7	グレン{n}ザコールめ！{n}ひとり のこらず たおしてやるぜッ‼	Glen{n}Zakoul punks!{n}I'll take down every last one!!	
+1ED46E	8	グレン{n}よくも まちを…{n}ゆるさねえぜッ ザウラス！	Glen{n}Look what you did to the city...{n}You're gonna pay, Zauras!	
+1ED48B	9	カゲリ{n}よくも まちを…{n}ゆるさないわよ ザウラス！	Kageri{n}How dare you do this to the city...{n}I won't forgive you, Zauras!	
+1ED4A8	10	ガント{n}よくも まちを…{n}ゆるさんぞ ザウラス！	Gant{n}How dare you harm the city...{n}You will answer for this, Zauras!	
 1ED4C3	11-1024	開発中		placeholder: 'in development', fills an unused sub-table

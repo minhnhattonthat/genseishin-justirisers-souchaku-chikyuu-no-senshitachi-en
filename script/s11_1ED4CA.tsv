@@ -1,35 +1,35 @@
 id	slots	jp	en	notes
-1EDCCC	0	グレン{n}ザウラス…どこだ⁉		
-1EDCDC	1	グレン{n}じゃまだ どけッ‼		
-1EDCEB	2	カゲリ{n}ザウラスは どこに…⁉		
-1EDCFD	3	カゲリ{n}ザコール…どきなさい‼		
-1EDD10	4	ガント{n}ザウラスめ…{n}どこに いった⁉		
-1EDD26	5	ガント{n}ザコール！{n}じゃまを するなッ‼		
-1EDD3E	6	ザウラス{n}フッフフフ…		
-1EDD4B	7	グレン{n}……！		
-1EDD56	8	カゲリ{n}……！		
-1EDD61	9	ガント{n}……！		
-1EDD6C	10	ザウラス{n}ここまで くるとは さすがだな{n}ジャスティライザー！		
-1EDD8E	11	ザウラス{n}こんかいの もくてきは{n}すでに はたした…		
-1EDDAA	12	ザウラス{n}あとは きさま たちを{n}しまつ するだけだ‼		
-1EDDC7	13	グレン{n}けっちゃくを つけてやるッ！		
-1EDDDB	14	カゲリ{n}かくご しなさい！		
-1EDDEA	15	ガント{n}…かくご しろッ！		
-1EDDFA	16	グレン{n}おつぎは きょだいかいじゅう かよ…{n}いくぜッ‼		
-1EDE19	17	カゲリ{n}きょだいかいじゅう⁉{n}よし…いくわよ！		
-1EDE34	18	ガント{n}きょだいかいじゅう か…{n}よしッ‼		
-1EDE4C	19	グレン{n}よし…やったぜ！		
-1EDE5B	20	ゾラ{n}{se:000A}ハッハッハッハ‼		
-1EDE6B	21	カゲリ{n}この こえは…{n}ドクター・ゾラ⁉		
-1EDE84	22	ゾラ{n}ジャスティライザーよ{n}おぼえて おくが いい！		
-1EDEA1	23	ゾラ{n}すべては われわれの{n}けいかく どおり…		
-1EDEBA	24	ゾラ{n}カイザーハデスが{n}ふっかつ する ひは ちかい！		
-1EDED8	25	ガント{n}なにッ…！		
-1EDEE4	26	ゾラ{n}{se:010A}ハーッハッハッハッハ‼		
-1EDEF8	27	 {n}はげしい たたかいの すえに{n}てきをたおした ジャスティライザー		
-1EDF1C	28	 {n}だが…ゾラの ぶきみな ことば は{n}いったい なにを いみ するのか？		
-1EDF44	29	 {n}ハデスの ふっかつを そし し{n}ちきゅうに へいわを もたらすため…		
-1EDF6A	30	 {n}{se:0207}たて ジャスティライザー！		
-1EDF7F	31	グレン{n}いけッ！ ライゼロス‼		
-1EDF91	32	グレン{n}いくぞ！ ケンライザー‼		
+1EDCCC	0	グレン{n}ザウラス…どこだ⁉	Glen{n}Zauras... where are you!?	
+1EDCDC	1	グレン{n}じゃまだ どけッ‼	Glen{n}Outta my way!!	
+1EDCEB	2	カゲリ{n}ザウラスは どこに…⁉	Kageri{n}Where's Zauras...!?	
+1EDCFD	3	カゲリ{n}ザコール…どきなさい‼	Kageri{n}Zakoul... out of my way!!	
+1EDD10	4	ガント{n}ザウラスめ…{n}どこに いった⁉	Gant{n}Zauras...{n}where did he go!?	
+1EDD26	5	ガント{n}ザコール！{n}じゃまを するなッ‼	Gant{n}Zakoul!{n}Stand aside!!	
+1EDD3E	6	ザウラス{n}フッフフフ…	Zauras{n}Fu-fufufu...	
+1EDD4B	7	グレン{n}……！	Glen{n}......!	
+1EDD56	8	カゲリ{n}……！	Kageri{n}......!	
+1EDD61	9	ガント{n}……！	Gant{n}......!	
+1EDD6C	10	ザウラス{n}ここまで くるとは さすがだな{n}ジャスティライザー！	Zauras{n}Impressive, making it this far,{n}Justirisers!	
+1EDD8E	11	ザウラス{n}こんかいの もくてきは{n}すでに はたした…	Zauras{n}This time, my objective{n}has already been achieved...	
+1EDDAA	12	ザウラス{n}あとは きさま たちを{n}しまつ するだけだ‼	Zauras{n}All that's left is to{n}dispose of you!!	
+1EDDC7	13	グレン{n}けっちゃくを つけてやるッ！	Glen{n}Let's settle this!	
+1EDDDB	14	カゲリ{n}かくご しなさい！	Kageri{n}Prepare yourself!	
+1EDDEA	15	ガント{n}…かくご しろッ！	Gant{n}...Brace yourself!	
+1EDDFA	16	グレン{n}おつぎは きょだいかいじゅう かよ…{n}いくぜッ‼	Glen{n}Now a giant monster, huh...{n}Bring it on!!	
+1EDE19	17	カゲリ{n}きょだいかいじゅう⁉{n}よし…いくわよ！	Kageri{n}A giant monster!?{n}Okay... here we go!	
+1EDE34	18	ガント{n}きょだいかいじゅう か…{n}よしッ‼	Gant{n}A giant monster...{n}Very well!!	
+1EDE4C	19	グレン{n}よし…やったぜ！	Glen{n}Alright... we did it!	
+1EDE5B	20	ゾラ{n}{se:000A}ハッハッハッハ‼	Zora{n}{se:000A}Hahahahaha!!	
+1EDE6B	21	カゲリ{n}この こえは…{n}ドクター・ゾラ⁉	Kageri{n}That voice...{n}Doctor Zora!?	
+1EDE84	22	ゾラ{n}ジャスティライザーよ{n}おぼえて おくが いい！	Zora{n}Justirisers,{n}mark my words!	
+1EDEA1	23	ゾラ{n}すべては われわれの{n}けいかく どおり…	Zora{n}Everything is going{n}according to our plan...	
+1EDEBA	24	ゾラ{n}カイザーハデスが{n}ふっかつ する ひは ちかい！	Zora{n}The day Kaiser Hades{n}returns is near!	
+1EDED8	25	ガント{n}なにッ…！	Gant{n}What...!	
+1EDEE4	26	ゾラ{n}{se:010A}ハーッハッハッハッハ‼	Zora{n}{se:010A}Haaahahahahaha!!	
+1EDEF8	27	 {n}はげしい たたかいの すえに{n}てきをたおした ジャスティライザー	 {n}After a fierce battle, the{n}Justirisers defeated the enemy.	
+1EDF1C	28	 {n}だが…ゾラの ぶきみな ことば は{n}いったい なにを いみ するのか？	 {n}But... what could Zora's{n}ominous words mean?	
+1EDF44	29	 {n}ハデスの ふっかつを そし し{n}ちきゅうに へいわを もたらすため…	 {n}To stop the return of Hades{n}and bring peace to the Earth...	
+1EDF6A	30	 {n}{se:0207}たて ジャスティライザー！	 {n}{se:0207}Rise up, Justirisers!	
+1EDF7F	31	グレン{n}いけッ！ ライゼロス‼	Glen{n}Go! Raizeros!!	
+1EDF91	32	グレン{n}いくぞ！ ケンライザー‼	Glen{n}Let's go! Kenriser!!	
 1EDFA5	33-1024	開発中		placeholder: 'in development', fills an unused sub-table

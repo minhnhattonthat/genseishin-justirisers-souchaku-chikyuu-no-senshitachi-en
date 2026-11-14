@@ -1,38 +1,38 @@
 id	slots	jp	en	notes
-1F4D19	0	ガント{n}翔太 きこえるか！		
-1F4D2A	1	ガント{n}そのトラックは{n}ミサイルを はこんで いるぞ！		
-1F4D47	2	カゲリ{n}トラックを とめて{n}翔太…！		
-1F4D5E	3	グレン{n}…よしッ わかった‼		
-1F4D6F	4	ガント{n}ユカ きこえるか！		
-1F4D7E	5	ガント{n}そのトラックは{n}ミサイルを はこんで いるぞ！		
-1F4D9B	6	グレン{n}トラックを とめるんだ{n}ユカ！		
-1F4DB0	7	カゲリ{n}…わかった やってみる！		
-1F4DC3	8	グレン{n}直也 きこえるか！		
-1F4DD4	9	グレン{n}こいつら ミサイルを はこんでるぜ！		
-1F4DEC	10	カゲリ{n}トラックを とめて{n}直也さん…！		
-1F4E05	11	ガント{n}…わかった！		
-1F4E12	12	グレン{n}よし…{n}あとは トラックを とめる だけだ！		
-1F4E2F	13	カゲリ{n}よし…{n}あとは トラックを とめる だけね！		
-1F4E4C	14	ガント{n}よし…{n}あとは トラックを とめる だけだ！		
-1F4E69	15	グレン{n}……⁉		
-1F4E74	16	カゲリ{n}……⁉		
-1F4E7F	17	ガント{n}……⁉		
-1F4E8A	18	グレン{n}く…{n}まて…ッ！		
-1F4E9A	19	ガーディアス{n}ククク…とどめだ‼		
-1F4EAE	20	ガント{n}{se:0502}ジャスティライザー・ガント{n}すいさん！		
-1F4ECC	21	ガーディアス{n}チッ…{n}じゃま が はいったか…		
-1F4EE7	22	カゲリ{n}翔太！ しっかりして！		
-1F4EFB	23	グレン{n}だいじょうぶだ…{n}さあ いくぜッ！		
-1F4F13	24	カゲリ{n}くっ…{n}まちなさ…い…！		
-1F4F28	25	ガーディアス{n}ククク…とどめだ‼		
-1F4F3C	26	グレン{n}{se:0500}ジャスティライザー・グレン{n}けんざん！		
-1F4F5A	27	ガーディアス{n}チッ…{n}じゃま が はいったか…		
-1F4F75	28	ガント{n}ユカ！ しっかりしろ！		
-1F4F87	29	カゲリ{n}だいじょうぶ…{n}さあ いきましょう！		
-1F4FA0	30	ガント{n}く…{n}まて…ッ！		
-1F4FB0	31	ガーディアス{n}ククク…とどめだ‼		
-1F4FC4	32	カゲリ{n}{se:0501}ジャスティライザー・カゲリ{n}さんじょう！		
-1F4FE3	33	ガーディアス{n}チッ…{n}じゃま が はいったか…		
-1F4FFE	34	グレン{n}直也！ しっかりしろ！		
-1F5012	35	ガント{n}だいじょうぶ だ…{n}さあ いくぞ！		
+1F4D19	0	ガント{n}翔太 きこえるか！	Gant{n}Shota, can you hear me!	
+1F4D2A	1	ガント{n}そのトラックは{n}ミサイルを はこんで いるぞ！	Gant{n}That truck is{n}carrying missiles!	
+1F4D47	2	カゲリ{n}トラックを とめて{n}翔太…！	Kageri{n}Stop that truck,{n}Shota...!	
+1F4D5E	3	グレン{n}…よしッ わかった‼	Glen{n}...Right, got it!!	
+1F4D6F	4	ガント{n}ユカ きこえるか！	Gant{n}Yuka, can you hear me!	
+1F4D7E	5	ガント{n}そのトラックは{n}ミサイルを はこんで いるぞ！	Gant{n}That truck is{n}carrying missiles!	
+1F4D9B	6	グレン{n}トラックを とめるんだ{n}ユカ！	Glen{n}Stop that truck,{n}Yuka!	
+1F4DB0	7	カゲリ{n}…わかった やってみる！	Kageri{n}...Got it, I'll give it a try!	
+1F4DC3	8	グレン{n}直也 きこえるか！	Glen{n}Naoya, can you hear me!	
+1F4DD4	9	グレン{n}こいつら ミサイルを はこんでるぜ！	Glen{n}These guys are hauling missiles!	
+1F4DEC	10	カゲリ{n}トラックを とめて{n}直也さん…！	Kageri{n}Stop that truck,{n}Naoya-san...!	
+1F4E05	11	ガント{n}…わかった！	Gant{n}...Understood!	
+1F4E12	12	グレン{n}よし…{n}あとは トラックを とめる だけだ！	Glen{n}Alright...{n}Now we just gotta stop it!	
+1F4E2F	13	カゲリ{n}よし…{n}あとは トラックを とめる だけね！	Kageri{n}Okay...{n}Now to stop that truck!	
+1F4E4C	14	ガント{n}よし…{n}あとは トラックを とめる だけだ！	Gant{n}Good...{n}Now we need only stop the truck!	
+1F4E69	15	グレン{n}……⁉	Glen{n}......!?	
+1F4E74	16	カゲリ{n}……⁉	Kageri{n}......!?	
+1F4E7F	17	ガント{n}……⁉	Gant{n}......!?	
+1F4E8A	18	グレン{n}く…{n}まて…ッ！	Glen{n}Ngh...{n}W-wait...!	
+1F4E9A	19	ガーディアス{n}ククク…とどめだ‼	Gardias{n}Kukuku... Time to finish you!!	
+1F4EAE	20	ガント{n}{se:0502}ジャスティライザー・ガント{n}すいさん！	Gant{n}{se:0502}Justiriser Gant!{n}Reporting for battle!	
+1F4ECC	21	ガーディアス{n}チッ…{n}じゃま が はいったか…	Gardias{n}Tch...{n}Someone's butting in...	
+1F4EE7	22	カゲリ{n}翔太！ しっかりして！	Kageri{n}Shota! Hang in there!	
+1F4EFB	23	グレン{n}だいじょうぶだ…{n}さあ いくぜッ！	Glen{n}I'm okay...{n}Come on, let's go!	
+1F4F13	24	カゲリ{n}くっ…{n}まちなさ…い…！	Kageri{n}Ngh...{n}W-wait...!	
+1F4F28	25	ガーディアス{n}ククク…とどめだ‼	Gardias{n}Kukuku... Time to finish you!!	
+1F4F3C	26	グレン{n}{se:0500}ジャスティライザー・グレン{n}けんざん！	Glen{n}{se:0500}Justiriser Glen!{n}Here I come!	
+1F4F5A	27	ガーディアス{n}チッ…{n}じゃま が はいったか…	Gardias{n}Tch...{n}Someone's butting in...	
+1F4F75	28	ガント{n}ユカ！ しっかりしろ！	Gant{n}Yuka! Pull yourself together!	
+1F4F87	29	カゲリ{n}だいじょうぶ…{n}さあ いきましょう！	Kageri{n}I'm okay...{n}Come on, let's go!	
+1F4FA0	30	ガント{n}く…{n}まて…ッ！	Gant{n}Ngh...{n}W-wait...!	
+1F4FB0	31	ガーディアス{n}ククク…とどめだ‼	Gardias{n}Kukuku... Time to finish you!!	
+1F4FC4	32	カゲリ{n}{se:0501}ジャスティライザー・カゲリ{n}さんじょう！	Kageri{n}{se:0501}Justiriser Kageri!{n}On the scene!	
+1F4FE3	33	ガーディアス{n}チッ…{n}じゃま が はいったか…	Gardias{n}Tch...{n}Someone's butting in...	
+1F4FFE	34	グレン{n}直也！ しっかりしろ！	Glen{n}Naoya! Hang in there!	
+1F5012	35	ガント{n}だいじょうぶ だ…{n}さあ いくぞ！	Gant{n}I'm all right...{n}Come, let's go!	
 1F502A	36-1024	開発中		placeholder: 'in development', fills an unused sub-table

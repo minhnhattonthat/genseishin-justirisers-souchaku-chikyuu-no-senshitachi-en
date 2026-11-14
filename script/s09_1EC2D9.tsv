@@ -1,10 +1,10 @@
 id	slots	jp	en	notes
-1ECADB	0	グレン{n}{se:0300}まてッ！		
-1ECAE8	1	カゲリ{n}{se:0E01}まちなさい！		
-1ECAF7	2	ガント{n}{se:0302}まて！		
-1ECB03	3	ザウラス{n}ええい しつこい やつめ…{n}ザコール！		
-1ECB1F	4	ザウラス{n}ジャスティライザーを{n}あしどめ するのだ！		
-1ECB3C	5	グレン{n}まちの はかいを くいとめないと…！{n}いくぜッ‼		
-1ECB5C	6	カゲリ{n}まちの はかいを くいとめなきゃ…！{n}いくわよ‼		
-1ECB7C	7	ガント{n}まちの はかいを くいとめなければ…！{n}いくぞ‼		
+1ECADB	0	グレン{n}{se:0300}まてッ！	Glen{n}{se:0300}Hold it!	
+1ECAE8	1	カゲリ{n}{se:0E01}まちなさい！	Kageri{n}{se:0E01}Wait right there!	
+1ECAF7	2	ガント{n}{se:0302}まて！	Gant{n}{se:0302}Halt!	
+1ECB03	3	ザウラス{n}ええい しつこい やつめ…{n}ザコール！	Zauras{n}Bah, you persistent pests...{n}Zakoul!	
+1ECB1F	4	ザウラス{n}ジャスティライザーを{n}あしどめ するのだ！	Zauras{n}Hold off{n}the Justirisers!	
+1ECB3C	5	グレン{n}まちの はかいを くいとめないと…！{n}いくぜッ‼	Glen{n}Gotta stop 'em trashing the city...!{n}Let's go!!	
+1ECB5C	6	カゲリ{n}まちの はかいを くいとめなきゃ…！{n}いくわよ‼	Kageri{n}We have to save the city...!{n}Here we go!!	
+1ECB7C	7	ガント{n}まちの はかいを くいとめなければ…！{n}いくぞ‼	Gant{n}We must stop the destruction...!{n}Move out!!	
 1ECB9C	8-1024	開発中		placeholder: 'in development', fills an unused sub-table

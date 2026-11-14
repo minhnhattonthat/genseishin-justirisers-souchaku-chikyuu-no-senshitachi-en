@@ -1,26 +1,26 @@
 id	slots	jp	en	notes
-1F0163	0	ガント{n}やつらは この こうじょう で{n}なにかを つくって いたようだな…		
-1F018A	1	カゲリ{n}{se:2001}…ふせてっ‼		
-1F019A	2	グレン{n}でやがったな…！		
-1F01A9	3	ギルドロス{n}ギギーッ ジャスティライザー！{n}われわれの じゃまは ゆるさん‼		
-1F01D4	4	グレン{n}おまえたちの すきには させない！{n}…いくぜッ‼		
-1F01F4	5	ガント{n}３にん で かたまって いると{n}やつ の こうげきに まきこまれる…		
-1F021C	6	ガント{n}ぶんさん して たたかうぞ！		
-1F0230	7	ギルドロス{n}ギギーッ！		
-1F023E	8	ギルドロス{n}にがさんッ‼		
-1F024C	9	グレン{n}…また おまえか！		
-1F025C	10	グレン{n}かこまれたか…！		
-1F026B	11	グレン{n}…ユカ！		
-1F0276	12	カゲリ{n}きを つけて{n}翔太！		
-1F0288	13	グレン{n}さあ かかって こいッ‼		
-1F029A	14	カゲリ{n}…また でたわね！		
-1F02AA	15	カゲリ{n}かこまれた…！		
-1F02B8	16	カゲリ{n}…直也さん！		
-1F02C7	17	ガント{n}きを つけろ{n}ユカ！		
-1F02D7	18	カゲリ{n}さあ…{n}かかって きなさい‼		
-1F02EC	19	ガント{n}…また おまえか！		
-1F02FC	20	ガント{n}かこまれた…！		
-1F030A	21	ガント{n}翔太…！		
-1F0317	22	グレン{n}きを つけろ{n}直也！		
-1F0329	23	ガント{n}さあ…{n}かかって こい‼		
+1F0163	0	ガント{n}やつらは この こうじょう で{n}なにかを つくって いたようだな…	Gant{n}It seems they were building{n}something in this factory...	
+1F018A	1	カゲリ{n}{se:2001}…ふせてっ‼	Kageri{n}{se:2001}...Get down!!	
+1F019A	2	グレン{n}でやがったな…！	Glen{n}So you finally showed up...!	
+1F01A9	3	ギルドロス{n}ギギーッ ジャスティライザー！{n}われわれの じゃまは ゆるさん‼	Gildoros{n}Gigiii! Justirisers!{n}I won't let you get in our way!!	
+1F01D4	4	グレン{n}おまえたちの すきには させない！{n}…いくぜッ‼	Glen{n}We won't let you have your way!{n}...Here I go!!	
+1F01F4	5	ガント{n}３にん で かたまって いると{n}やつ の こうげきに まきこまれる…	Gant{n}If the three of us stay together,{n}his attacks will catch us all...	
+1F021C	6	ガント{n}ぶんさん して たたかうぞ！	Gant{n}Split up and fight!	
+1F0230	7	ギルドロス{n}ギギーッ！	Gildoros{n}Gigiii!	
+1F023E	8	ギルドロス{n}にがさんッ‼	Gildoros{n}You won't escape!!	
+1F024C	9	グレン{n}…また おまえか！	Glen{n}...You again!	
+1F025C	10	グレン{n}かこまれたか…！	Glen{n}They've got me surrounded...!	
+1F026B	11	グレン{n}…ユカ！	Glen{n}...Yuka!	
+1F0276	12	カゲリ{n}きを つけて{n}翔太！	Kageri{n}Be careful,{n}Shota!	
+1F0288	13	グレン{n}さあ かかって こいッ‼	Glen{n}Come on, bring it on!!	
+1F029A	14	カゲリ{n}…また でたわね！	Kageri{n}...You again!?	
+1F02AA	15	カゲリ{n}かこまれた…！	Kageri{n}I'm surrounded...!	
+1F02B8	16	カゲリ{n}…直也さん！	Kageri{n}...Naoya-san!	
+1F02C7	17	ガント{n}きを つけろ{n}ユカ！	Gant{n}Be careful,{n}Yuka!	
+1F02D7	18	カゲリ{n}さあ…{n}かかって きなさい‼	Kageri{n}Come on...{n}bring it on!!	
+1F02EC	19	ガント{n}…また おまえか！	Gant{n}...You again!	
+1F02FC	20	ガント{n}かこまれた…！	Gant{n}Surrounded...!	
+1F030A	21	ガント{n}翔太…！	Gant{n}Shota...!	
+1F0317	22	グレン{n}きを つけろ{n}直也！	Glen{n}Be careful,{n}Naoya!	
+1F0329	23	ガント{n}さあ…{n}かかって こい‼	Gant{n}Come...{n}face me!!	
 1F033C	24-1024	開発中		placeholder: 'in development', fills an unused sub-table
