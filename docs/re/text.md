@@ -141,7 +141,7 @@ lists which scene drew which ids.
 | Variant | w | x0 | attr | px per line | lines | Notes |
 |---|---|---|---|---|---|---|
 | dialogue | 28 | 8 | 7020 | 224 | 2 per page | page-wait arrow covers x226-234 on line 2: a page's last line 216 px. Also s35 summon shouts |
-| name tag | 8 | 16 / 160 / 184 | 7080 small | 64 | 1 | first line of a dialogue message; over 64 px spills onto the box's line 1. "Armor Gunner" = 70 px |
+| name tag | 8 -> 9 | 16 / 152-184 | 7080 small | 72 | 1 | first line of a dialogue message; over the width it spills onto the box's line 1. Widened from 8 tiles (64 px) in phase 7 so "Armor Gunner" (70 px) fits: init_window 0x08006C3C(win, attr, x, y, [sp] w, [sp+4] h) is called for window 1 at 0x08021152 / 0x0802117A / 0x080211D6; `asmpatch.py` sets w 9 and moves the right-side tags from x 20 to 19 |
 | mode description | 28 | 8 | 7000 | 224 | 2 | |
 | weapon description | 28 | 8 | 7A00 | 224 | 2 | status screen (s01) |
 | next stage menu | 22 (h6) | 40 | F000 | 160 | 2 | includes the 2-space cursor indent |

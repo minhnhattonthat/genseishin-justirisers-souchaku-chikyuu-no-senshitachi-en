@@ -7,7 +7,7 @@ Rules (budgets: tbl/windows.json, per-id geometry: tbl/windows_ids.tsv, docs/re/
 - control codes ({se:..}, {style:..}, {msg:..}, {var}, {tail}...) are the same multiset as in the Japanese;
   {n}/{p} may differ (English breaks its own lines), spacer cells ({padNN}, {spN}) and `{fill}` are free;
 - every character encodes (tools/insert.py en_table), ASCII only, no tabs;
-- story sub-tables s07-s39 and ids logged as dialogue: line 1 = speaker tag (small font, 64 px, must be the
+- story sub-tables s07-s39 and ids logged as dialogue: line 1 = speaker tag (small font, 72 px, must be the
   glossary form of the Japanese tag), then at most 2 lines per page, 224 px each, a page's last line 216 px;
 - other logged windows: px/lines of their variant; `column` rows (notes) and never-drawn rows: each line at most
   the Japanese line's width (column rows: `{fill}` pads the line back to that width at build time);
@@ -199,8 +199,9 @@ class Lint:
             elif etag != want:
                 err("tag", f"speaker {etag!r}, glossary says {want!r}")
             tw = self.width(etag, small=True)
-            if tw > 64 and (etag, "tagwidth") not in self.waive:
-                err("tagwidth", f"tag {etag!r} {tw} px > 64")
+            budget = self.variants["name_tag"]["px"]
+            if tw > budget and (etag, "tagwidth") not in self.waive:
+                err("tagwidth", f"tag {etag!r} {tw} px > {budget}")
         elif etag != jtag:
             err("tag", f"empty speaker line must stay {jtag!r}, got {etag!r}")
         v = self.variants["dialogue"]

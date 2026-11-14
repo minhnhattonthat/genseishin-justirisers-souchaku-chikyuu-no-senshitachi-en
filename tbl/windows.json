@@ -9,10 +9,10 @@
     },
     "name_tag": {
       "match": {"w": 8, "attr": "7080"},
-      "font": "small", "px": 64, "lines": 1,
-      "measured": "'MMMMMMMM' (64 px) and '0123456789' (60 px) show in full; 'ABCDEFGHIJKL' (70 px) pushed 'L' onto the dialogue's first line. Left tag x0=16, right tag right-aligned (x0 160/184). The tag is the first line of a dialogue message.",
-      "shot": "work/qa/wg_dlg/f002550.png, f002814.png",
-      "note": "Speaker names in the script: グレン ガント カゲリ ゾラ ザウラス ギルドロス アーマーガンナー ガーディアス ？？？. 'Armor Gunner' is 70 px in the small font: over budget, needs a shorter official form, a narrower space glyph or a wider tag (engine) before phase 7."
+      "font": "small", "px": 72, "lines": 1,
+      "measured": "Original 8-tile window: 'MMMMMMMM' (64 px) and '0123456789' (60 px) show in full; 'ABCDEFGHIJKL' (70 px) pushed 'L' onto the dialogue's first line. Left tag x0=16, right tag right-aligned (x0 160/184). The tag is the first line of a dialogue message. Phase 7: tools/asmpatch.py widens the window to 9 tiles (72 px; right tags x 20 -> 19, right edge still 224); 'Armor Gunner' (70 px) then shows in full on both sides on the tag plate.",
+      "shot": "work/qa/wg_dlg/f002550.png, f002814.png; 9 tiles: work/qa/tagw/zoom_right.png, zoom_left.png (build.py --qa, clear_1_1)",
+      "note": "Speaker names in the script: グレン ガント カゲリ ゾラ ザウラス ギルドロス アーマーガンナー ガーディアス ？？？. The match keeps w 8: tbl/windows_ids.tsv was logged on the original window width."
     },
     "mode_description": {
       "match": {"w": 28, "x0": 8, "attr": "7000"},

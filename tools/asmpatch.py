@@ -35,6 +35,14 @@ PATCHES = [
                         0x4770)),   # bx   lr
     # 0x080083C4: mov r0,ip / subs r0,r0,r7 / mov ip,r0 / cmp r0,#7 / ble  ->  bl hook / mov ip,r0 / cmp r0,#0 / ble
     (0x83C4, bytes.fromhex("6046c01b84460728"), thumb_bl(0x83C4, COPY_HOOK) + h(0x4684, 0x2800)),
+    # Name-tag window (window 1, attr 0x70|0x80 small font) 8 -> 9 tiles (64 -> 72 px) so "Armor Gunner" (70 px)
+    # fits (D9). Set up at 0x0802110C-0x080211D6 by init_window 0x08006C3C(win, attr, x, y, [sp] w, [sp+4] h).
+    # movs r0,#8 (w) -> #9 at the three calls; the right-side tags (x=20) move to x=19 to keep their right edge 224.
+    (0x21140, bytes.fromhex("0820"), h(0x2009)),   # right tag, y=6: w
+    (0x2114E, bytes.fromhex("1422"), h(0x2213)),   # right tag, y=6: x 20 -> 19
+    (0x21168, bytes.fromhex("0820"), h(0x2009)),   # left tag, y=6: w (x=2 stays)
+    (0x211C4, bytes.fromhex("0820"), h(0x2009)),   # right tag, y=13: w
+    (0x211D2, bytes.fromhex("1422"), h(0x2213)),   # right tag, y=13: x 20 -> 19
 ]
 
 
