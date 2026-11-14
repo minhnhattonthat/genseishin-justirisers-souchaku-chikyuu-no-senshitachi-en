@@ -89,7 +89,17 @@ no pixel changes outside the rects, other screens on the same tileset unchanged.
 - **Overlay maps use another screen's tileset** (`tools/lua/reslog.lua` shows the pairs): mode select loads
   18[653] + 20[653] and 20[654] (highlighted buttons, tiles 230-295 of 18[653], 295 = past its end). Write such
   layers as `T:M` rows; recycling a slot no listed map uses showed as garbage around the highlight.
-- Pilot done: mode select 653, 653:654, 659, 659:660 (`work/qa/gfx/mode_z.png`). おまけモード = "Bonus Mode".
+- **VRAM tile budget (verified: VRAM dumps of mode select and config, `tools/lua/bgcnt.lua --var DUMP=880` +
+  `tools/bgvram.py`)**: BG0-2 share char block 0; the screen's tileset lands at VRAM tile 16 as one run and another
+  layer's tiles follow at once (18[653]: 16-310, next used 311; 18[620]: 16-341, next used 342). A tileset that
+  grows overwrites that layer (dot grid, missing background). `bgtext.py` enforces `gfx/bg_budget.tsv` (default:
+  the original count). Japanese glyph tiles are shared between labels, so a tile frees only when every label
+  using it is redrawn.
+- Tile data starts one byte after the per-tile banks for even and odd counts (`sweep.p70_parse`; even counts
+  were read one byte early before 2026-11-15, so older renders of even-count tilesets are shifted).
+- Pilot (mode select 653, 653:654, 659, 659:660) and config 620 rows: `gfx/bg_pending.tsv`, over budget.
+  `bgtext.py ink ROM N rect IDX` prints the ink bands of a rect (where to place the English); bg `cN` clears each
+  row to column N's colour (gradient banners). おまけモード = "Bonus Mode".
 
 ## Graphics-text survey (tour)
 

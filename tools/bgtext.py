@@ -17,7 +17,8 @@ gfx/bg.tsv rows (tab-separated, '#' comments), applied by insert.build through a
           bank of the rect's centre cell). Pixels are kept as colours; each cell takes a bank holding all its colours.
   ink     index, or a/b/.. bands split over each line's ink rows top to bottom
   shadow  '-' none, N drop shadow at +1,+1, oN 1 px outline, oN+M outline plus drop shadow M
-  bg      index the rect is cleared to, '-' to keep the pixels
+  bg      index the rect is cleared to, '-' to keep the pixels, cN: each pixel row cleared to the colour of column N
+          in that row (gradient banners; N outside the text)
   align   l / c / r, then optional b (bold: ink doubled 1 px right) and a tracking number (c-1: 1 px tighter)
 
 Tiles: the rect's cells are re-encoded; a new tile matching an existing one (same pixels, same per-tile palette
@@ -50,15 +51,17 @@ class Tileset:
             raise ValueError("not a 00 70/50 31 tileset")
         self.head = bytes(data[:4])
         self.pal, tpal, tiles, self.bpp = p
+        self.gap = data[6 + 2 * len(self.pal) + len(tpal)]   # the byte between banks and tiles (sweep.p70_parse)
         if self.bpp != 4:
             raise ValueError("8bpp tileset: not supported yet")
         self.tpal = list(tpal)
         self.tiles = [bytes(tiles[32 * i:32 * i + 32]) for i in range(len(self.tpal))]
+        self.n0 = len(self.tiles)
 
     def blob(self):
         nt = len(self.tiles)
         out = bytearray(self.head) + struct.pack("<H", nt) + struct.pack(f"<{len(self.pal)}H", *self.pal)
-        out += bytes(self.tpal) + (b"\0" if nt & 1 else b"")
+        out += bytes(self.tpal) + bytes([self.gap])
         for t in self.tiles:
             out += t
         return bytes(out)
@@ -106,7 +109,8 @@ def load_rows(path=TSV):
         rows.append({"screen": (int(t), int(m or t)), "rect": (x, y, w, h), "text": r[2], "font": fnt,
                      "bank": int(bank) if bank else None,
                      "ink": [int(v) for v in r[4].split("/")], "shadow": parse_shadow(r[5]),
-                     "bg": None if r[6] in ("", "-") else int(r[6]), "align": al[0],
+                     "bg": None if r[6] in ("", "-") else r[6] if r[6].startswith("c") else int(r[6]),
+                     "align": al[0],
                      "bold": "b" in al, "track": int(al[1:].replace("b", "") or 0), "note": r[8]})
     return rows
 
@@ -134,10 +138,16 @@ def ink_rows(text, glyphs, nrows):
     return (min(rows), max(rows)) if rows else (0, nrows - 1)
 
 
-def draw(canvas, row, fonts, col):
-    """Draw one row into canvas {(x, y): colour (rgb555, -1 = transparent)}; col(index) -> colour in the row's bank."""
+def draw(canvas, row, fonts, col, sample=None):
+    """Draw one row into canvas {(x, y): colour (rgb555, -1 = transparent)}; col(index) -> colour in the row's bank.
+    sample(x, y) -> the original screen's colour there (for bg 'cN': each row cleared to column N's colour)."""
     x0, y0, w, h = row["rect"]
-    if row["bg"] is not None:
+    if isinstance(row["bg"], str):   # 'cN': gradient backgrounds (banners) keep their per-row colour
+        n = int(row["bg"][1:])
+        for y in range(y0, y0 + h):
+            for x in range(x0, x0 + w):
+                canvas[(x, y)] = sample(n, y)
+    elif row["bg"] is not None:
         for y in range(y0, y0 + h):
             for x in range(x0, x0 + w):
                 canvas[(x, y)] = col(row["bg"])
@@ -235,6 +245,10 @@ def redraw(d, rows):
         bank_pal = lambda b: [-1] + ts.pal[(b - base) * 16 + 1:(b - base) * 16 + 16]  # noqa: E731
         for cx, cy in cells:
             e = mp.e[cy * mp.w + cx]
+            if e & 0x3FF >= len(ts.tiles):   # slot past the tileset: blank VRAM, drawn transparent
+                for k in range(64):
+                    canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] = -1
+                continue
             bp = bank_pal(ts.tpal[e & 0x3FF])
             for k, v in enumerate(cell_pixels(ts, e)):
                 canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] = bp[v]
@@ -243,14 +257,15 @@ def redraw(d, rows):
                 x0, y0, w, h = r["rect"]
                 r["bank"] = ts.tpal[mp.e[(y0 + h // 2) // 8 * mp.w + (x0 + w // 2) // 8] & 0x3FF]
             bp = bank_pal(r["bank"])
-            draw(canvas, r, fonts, lambda v, bp=bp: bp[v])
+
+            def sample(x, y, ts=ts, mp=mp):
+                e0 = mp.e[(y // 8) * mp.w + x // 8]
+                return bank_pal(ts.tpal[e0 & 0x3FF])[cell_pixels(ts, e0)[(y % 8) * 8 + x % 8]]
+            draw(canvas, r, fonts, lambda v, bp=bp: bp[v], sample)
         refs = Counter()
         for mo2 in ts.users:
             m = maps.get(mo2) or Map(d[mo2:mo2 + sizes[mo2]])
             refs.update(e & 0x3FF for e in m.e)
-        while len(ts.tiles) <= max(refs):   # a map may use slots past the tileset (VRAM after it, blank): keep
-            ts.tiles.append(bytes(32))       # them blank so appended tiles don't land there
-            ts.tpal.append(min(ts.tpal))
         before = Counter(refs)
         for cx, cy in cells:
             refs[mp.e[cy * mp.w + cx] & 0x3FF] -= 1
@@ -262,7 +277,7 @@ def redraw(d, rows):
             e = mp.e[cy * mp.w + cx]
             cols = [canvas[(cx * 8 + k % 8, cy * 8 + k // 8)] for k in range(64)]
             need = set(cols) - {-1}
-            banks = [ts.tpal[e & 0x3FF]] + sorted(set(ts.tpal))
+            banks = ([ts.tpal[e & 0x3FF]] if e & 0x3FF < len(ts.tpal) else []) + sorted(set(ts.tpal))
             bank = next((b for b in banks if need <= set(bank_pal(b))), None)
             if bank is None:
                 raise ValueError(f"{label(n)} cell {cx},{cy}: no palette bank holds colours "
@@ -275,13 +290,37 @@ def redraw(d, rows):
                     t = free.pop(0)
                     ts.tiles[t], ts.tpal[t] = tile, bank
                 else:
+                    # A map may use slots past the tileset (VRAM after it: blank, or another layer's tiles that
+                    # tools/bgvram.py shows). Appending pads over them, so the budget check below decides.
+                    while len(ts.tiles) <= max(refs):
+                        ts.tiles.append(bytes(32))
+                        ts.tpal.append(min(ts.tpal))
                     t = len(ts.tiles)
                     ts.tiles.append(tile)
                     ts.tpal.append(bank)
                 index[(tile, bank)] = t
             refs[t] += 1
             mp.e[cy * mp.w + cx] = (e & 0xF000) | t
+    budget = load_budget()
+    tn = {R[(18, i)]: i for i in range(1001)}
+    for to, ts in tsets.items():   # the tileset is copied to VRAM as one run: growing it overwrites the next layer
+        n = tn.get(to)
+        cap = budget.get(n, ts.n0)
+        if len(ts.tiles) > cap:
+            raise ValueError(f"tileset 18[{n}]: {len(ts.tiles)} tiles > budget {cap} (gfx/bg_budget.tsv; "
+                             f"measure with tools/bgvram.py): fewer or smaller labels")
     return tsets, maps, where
+
+
+def load_budget(path=ROOT / "gfx" / "bg_budget.tsv"):
+    """{tileset index: max tiles}: VRAM room measured with tools/bgvram.py. Absent = the original count."""
+    out = {}
+    if path.exists():
+        for ln in path.read_text(encoding="utf-8").splitlines():
+            if ln.strip() and not ln.startswith("#"):
+                f = ln.split("\t")
+                out[int(f[0])] = int(f[1])
+    return out
 
 
 def apply(rom, orig, rows=None):
@@ -350,6 +389,11 @@ def main():
     p.add_argument("rom")
     p.add_argument("n", type=parse_screen)
     p.add_argument("rect")
+    p = sub.add_parser("ink")
+    p.add_argument("rom")
+    p.add_argument("n", type=parse_screen)
+    p.add_argument("rect")
+    p.add_argument("idx", help="ink indices, comma-separated (any bank)")
     p = sub.add_parser("render")
     p.add_argument("rom")
     p.add_argument("n", type=parse_screen)
@@ -375,11 +419,29 @@ def main():
                       [x + gap + y for x, y in zip(ro, re_)])
             print(Path(a.outdir) / f"{label(n)}.png")
         return 0
-    if a.cmd == "probe":
+    if a.cmd in ("probe", "ink"):
         R = {(g, i): (o, s) for g, i, o, s in res.resources(d)}
         (to, tsz), (mo, msz) = R[(18, a.n[0])], R[(20, a.n[1])]
         ts, mp = Tileset(d[to:to + tsz]), Map(d[mo:mo + msz])
         x0, y0, w, h = (int(v) for v in a.rect.split(","))
+    if a.cmd == "ink":   # bands of rows holding ink, each with its x extent: where to put the English rects
+        want = {int(v) for v in a.idx.split(",")}
+        hit = {}
+        for y in range(y0, y0 + h):
+            for x in range(x0, x0 + w):
+                e = mp.e[(y // 8) * mp.w + x // 8]
+                if e & 0x3FF < len(ts.tiles) and cell_pixels(ts, e)[(y % 8) * 8 + x % 8] in want:
+                    hit.setdefault(y, []).append(x)
+        band = []
+        for y in sorted(hit) + [None]:
+            if band and (y is None or y != band[-1] + 1):
+                xs = [x for b in band for x in hit[b]]
+                print(f"y {band[0]}-{band[-1]} (h {len(band)})  x {min(xs)}-{max(xs)} (w {max(xs) - min(xs) + 1})")
+                band = []
+            if y is not None:
+                band.append(y)
+        return 0
+    if a.cmd == "probe":
         c = Counter()
         for y in range(y0, y0 + h):
             for x in range(x0, x0 + w):

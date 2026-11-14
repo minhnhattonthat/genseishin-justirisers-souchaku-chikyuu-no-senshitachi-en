@@ -16,7 +16,8 @@ class BgTextTest(unittest.TestCase):
     def setUpClass(cls):
         import bgtext
         cls.orig = check_rom.original()
-        cls.rows = bgtext.load_rows()
+        # gfx/bg.tsv may be empty while screens wait on their VRAM budget (gfx/bg_pending.tsv): test a fixture then
+        cls.rows = bgtext.load_rows() or bgtext.load_rows(ROOT / "tests" / "data" / "bg_fixture.tsv")
         rom = bytearray(cls.orig)
         bgtext.apply(rom, cls.orig, cls.rows)
         cls.new = bytes(rom)
@@ -47,6 +48,25 @@ class BgTextTest(unittest.TestCase):
                 except Exception:   # noqa: BLE001 - pairs that are not drawable screens
                     continue
                 self.assertEqual(a, bgtext.render_screen(self.new, (i, i)), f"s{i:04d} changed")
+
+    def test_tile_data_offset(self):
+        # tiles start one byte after the per-tile banks for odd and even counts (VRAM dump of 18[620], nt 326)
+        import bgtext
+        import res
+        R = {(g, i): (o, s) for g, i, o, s in res.resources(self.orig)}
+        for n in (620, 653):   # even / odd tile count; tile 0 is the blank tile
+            o, s = R[(18, n)]
+            ts = bgtext.Tileset(self.orig[o:o + s])
+            self.assertEqual(ts.tiles[0], bytes(32), f"18[{n}] tile 0")
+            self.assertEqual(ts.blob(), self.orig[o:o + len(ts.blob())], f"18[{n}] roundtrip")
+
+    def test_budget_enforced(self):
+        import bgtext
+        big = [dict(r, text="Restore Defaults|Restore Defaults", rect=(8, 40, 200, 40), font="normal")
+               for r in self.rows[:1]]
+        big[0]["screen"] = (620, 620)
+        with self.assertRaises(ValueError):
+            bgtext.redraw(self.orig, big)
 
     def test_rows_parse(self):
         import bgtext

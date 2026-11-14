@@ -1,0 +1,3 @@
+# BG-screen lettering (tools/bgtext.py; format in its docstring). Columns:
+# screen	rect x,y,w,h	text ('|' = new line)	font	ink (a/b/.. bands top to bottom)	shadow (-, N, oN, oN+M)	bg	align[track]	note
+620	128,1,112,30	Pick an action,|then a button.	normal	1	2	0	l	config help こうもく を えらんで / ボタンを おしてください

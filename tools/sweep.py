@@ -165,7 +165,9 @@ def p70_parse(data):
     nt = struct.unpack_from("<H", data, 4)[0]
     npal = 256 if bpp == 8 else 16 * (data[3] + 1)
     po = 6 + 2 * npal
-    start = po + nt + (nt & 1)
+    # Tiles start one byte after the per-tile banks for odd AND even counts (verified against a VRAM dump of the
+    # config screen, 18[620], nt 326: `tools/bgvram.py`). An even count was read one byte early before.
+    start = po + nt + 1
     pal = list(struct.unpack_from(f"<{npal}H", data, 6))
     return pal, data[po:po + nt], data[start:start + 8 * bpp * nt], bpp
 
