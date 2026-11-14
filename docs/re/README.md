@@ -13,6 +13,7 @@ Addresses are for the dump in `rom.sha1` unless a note says otherwise.
 | File | Covers | State |
 |---|---|---|
 | text.md | encoding, font, control codes, master + sub pointer tables, text range, free space | encoding/pointers verified; control-code args guessed |
+| scenes.md | scene machine, scene ids, progress block, warp / debug tool mechanics | verified by warps (credits entry forced) |
 | graphics.md | resource table, Konami LZ, 'fp' container, graphics-text survey + static sweep | table/LZ verified; sweep of sprite groups 16-20 pending ('aS' undecoded) |
 
 Recon helpers: `tools/fontsheet.py` (font sheet), `tools/scan_tables.py` / `tools/chain_tables.py` (message tables),
