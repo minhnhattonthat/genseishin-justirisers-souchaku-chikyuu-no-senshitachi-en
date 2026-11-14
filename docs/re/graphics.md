@@ -130,26 +130,32 @@ no pixel changes outside the rects, other screens on the same tileset unchanged.
   (`work/qa/gfx/budget_check.png`, `work/qa/smoke/final.png`). `bgtext.py ink ROM N rect IDX` prints the ink bands of a rect (where to place the English); bg `cN` clears each
   row to column N's colour (gradient banners). おまけモード = "Bonus Mode".
 
-## Credits (scene 11) format (partly understood, 2026-11-15 (f))
+## Credits (scene 11) format (solved 2026-11-15 (g); writer `tools/credits.py`, rows `gfx/credits.tsv`)
 
-Not a plain 18[n]/20[n] screen, so `bgtext.py` can't letter it yet. Loads (`work/qa/resall/credits/log.txt`): at
-f804 16[700], 18[700], 18[701], 18[702] (all three tilesets), then per roll 20[n] + 19[n] (n = 700 at f804, 701 at
-f2304, 702 at f3504; callers lr 0801E1D7 / 0801E1F3 / 0801EAED / 0801EB07).
-- VRAM (dump `work/qa/credvram`, orig ROM, warp `credits` + `bgcnt.lua --var DUMP=3180`): BG0 only, BG0CNT 0x0204
-  (char base 0x4000 = VRAM tile 512, screen block 0x1000). The three tilesets sit back to back: 18[700] at tiles
-  512-988 (+ its extra tile 989), 18[701] 990-1206, 18[702] 1208-1644. Map entry tile = VRAM tile - 512, palette 2;
-  blank cells are 18[701] tiles 0/1 (entries 0x21DE/0x21DF) during roll 701.
-- 20[70x] (`B2`, header 15x40) is just the linear sequence 0..599 (= a 30x20 screen of distinct slots), not the page.
-- 19[70x] (`a2`, u16 599, then 2700 u16 = 5400 bytes, all three the same size) holds the tile numbers of the roll
-  (values 0/1 blank, else tileset tiles in reading order: 18[701] glyph tiles 2..217 appear in order). Read as a
-  30-wide map it is NOT the screen layout: on the senior-director page the screen has tiles 131-137 in consecutive
-  cells (row 7, cols 3-9) but 19[701] has them at word offsets 1687, 1690, 1691, 1694, 1695, ... (strides 3,1,3,1):
-  the true layout (2 words per cell? another width? code-built) is still open. Next: disassemble the loader at
-  0x0801E1F3 / 0x0801EB07 and the per-frame copy into screen block 0x1000.
-- Each page's text is a run of sequential, unique glyph tiles (row 7: 131..137, blank, 138..140; row 8: 141..152;
-  name 高宮 成光 rows 9-10 cols 17-23 = 153..166). A fallback that needs no layout RE: redraw the pixels of those tiles
-  in place (same tile count, English only on cells that already hold a unique tile), rendering each page from the VRAM
-  map. Tight for long role names; the proper fix is a writer for the 19[n] layout.
+Five rolls, 700..704, each tileset 18[n] + roll 19[n] (16[n] palette-ish, 20[n] is only a linear 0..599 map, `B2`
+15x40). Loads (`work/qa/resall/credits/log.txt`): at f804 16[700], 18[700..702] (three tilesets), then per roll 20[n]
++ 19[n] (700 at f804, 701 at f2304, 702 at f3504; callers lr 0801E1D7 / 0801E1F3 / 0801EAED / 0801EB07); 703/704
+(own tileset header `00 70 31 00`, 704 on a lighter background, index 14) come after the warp's 3900-frame budget.
+- **19[n] layout**: `a2`, u16 599, then **15 x 45 metatiles of 4 u16** (top-left, top-right, bottom-left,
+  bottom-right) = a 30 x 90 tile roll (240 x 720 px) read top to bottom. Values are 18[n] tile numbers: 0 =
+  transparent (rows 0-9 and the first two cells of row 10: the lead-in, kept), 1 = blank, and slot n0 (one past the
+  count) is the resource's extra tile (`Tileset.extra`), used by the last glyph of a roll. (The old "strides 3,1,3,1"
+  puzzle: consecutive screen columns alternate between the two words of a metatile row.)
+- VRAM (dump `work/qa/credvram`, warp `credits` + `bgcnt.lua --var DUMP=3180`): BG0 only, BG0CNT 0x0204 (char base
+  VRAM tile 512, screen block 0x1000). The three tilesets sit back to back: 18[700] at tiles 512-988 (+ extra 989),
+  18[701] 990-1206, 18[702] 1208-1644; the code adds each set's VRAM offset to the roll's tile numbers.
+- **English**: every roll is redrawn from blank (white ink, index 1, on tile 1's colour), re-tiled with dedup and
+  **padded to the original tile count**, so tileset and roll keep their sizes and are written in place (no repoint;
+  `tbl/allowed.txt`) and the back-to-back VRAM layout does not move. Budgets: 700 477, 701 217, 702 437, 703 293,
+  704 162 tiles; `python -X utf8 tools/credits.py count` / `preview` (original | English per roll). Proportional
+  lines fit 700-703 on tile-aligned rows; 704 needs grid lettering. Copyright: "© 2004" of line 1 and all of line 2
+  (English already) are `keep` rects. `tests/test_credits.py`.
+- **おわり page 705** (after roll 704, ~f6750): same format, 170 metatiles, 24 tiles; here tile 0 is the dark
+  background and tile 1 the transparent one (the reverse of the rolls). "The End", 14 tiles.
+- Gotcha: roll 700 with its first line on rows 12-13 showed stale copies of that line's tiles in screen columns 0-1
+  at the top of the screen (f1050-1200); starting on row 16 (the Japanese starts on 15) it is clean, and
+  `credits.py` refuses roll-700 lines above y 137. Rolls 701-703 start on rows 12-14 without it.
+- Checked in the emulator on the en build: `work/qa/credits_en` (warp `credits`, 7200 frames).
 
 ## Graphics-text survey (tour)
 

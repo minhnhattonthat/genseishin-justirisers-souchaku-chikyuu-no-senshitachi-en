@@ -60,7 +60,8 @@ FIXED = [
     ('ending_save', 2, 0, 'area=4 stage=2 %s=1 @clear3' % F58, 'mash60',
      'stage 5-4 to the end: clear, battle won, ending, 2周目 clear-data note, save slots', 10500),
     ('credits', 11, 0, '-', '-',
-     'staff roll (scene 11) FORCED: no natural entry found yet (no constant goto; not attract, not after the ending)', 3000),
+     'staff roll (scene 11) FORCED: no natural entry found yet (no constant goto; not attract, not after the ending); '
+     'rolls 700-704 + The End (705) need ~6900 frames', 6300),
     ('attract_battle', 16, 0, '-', '-', 'attract mode: demo mecha battle (scene 16; title idle ~2300 frames)', 900),
     ('attract_story', 17, 0, '-', '-', 'attract mode: story clip (scene 17), then the title', 900),
 ]

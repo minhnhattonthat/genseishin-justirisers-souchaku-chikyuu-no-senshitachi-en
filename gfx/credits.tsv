@@ -1,0 +1,100 @@
+# Staff roll in English (tools/credits.py; docs/re/graphics.md §Credits). Columns:
+# roll	y (ink centre, px)	x	align	font	text	note
+# Each tileset keeps its original tile count, so lines sit on tile rows (y = row top + 9, 16 px pitch) and roll 704
+# (162 tiles) uses grid lettering (g: one glyph per 8 px cell, letters repeat as whole tiles); 700-703 fit
+# proportional (tools/credits.py count). Roles at x 16, names at x 80; blocks keep roughly the Japanese
+# heights. Names: Western order (D1), Hepburn without macrons; staff-name readings come from the kanji (no official
+# romanization found; docs/status.md lists the uncertain ones).
+700	137	16	l	normal	Original Work	原作
+700	153	16	l	normal	Justiriser Project / TV Tokyo	ジャスティライザープロジェクト・テレビ東京
+700	169	16	l	normal	Based on the TV series	テレビ番組「幻星神ジャスティライザー」より
+700	185	16	l	normal	"Genseishin Justirisers"	
+700	217	16	l	normal	- Cast -	-キャスト- (stacked role / name like the staff: one line each was too wide)
+700	241	16	l	normal	Riser Glen	ライザーグレン
+700	257	80	l	normal	Tatsuya Isaka	伊阪 達也
+700	273	16	l	normal	Riser Gant	ライザーガント
+700	289	80	l	normal	Shunya Isaka	井坂 俊哉
+700	305	16	l	normal	Riser Kageri	ライザーカゲリ
+700	321	80	l	normal	Shiori Kanzaki	神崎 詩織
+700	337	16	l	normal	Zauras	ザウラス
+700	353	80	l	normal	Atsushi Seri	芹 アツシ
+700	369	16	l	normal	Gildoros/Gardias	ギルドロス/ガーディアス
+700	385	80	l	normal	Kosuke Takaguchi	高口 公介
+700	401	16	l	normal	Armor Gunner	アーマーガンナー
+700	417	80	l	normal	Tadashi Wakabayashi	若林 正
+700	433	16	l	normal	Doctor Zora	ドクター・ゾラ
+700	449	80	l	normal	Rei Igarashi	五十嵐 麗
+700	465	16	l	normal	System Voice	システムボイス
+700	481	80	l	normal	Masashi Yabe	矢部 雅史
+700	513	16	l	normal	- Staff -	-スタッフ-
+700	545	16	l	normal	Executive Producer	エグゼクティブプロデューサー
+700	561	80	l	normal	Motoyuki Yoshioka	吉岡 基行
+700	641	16	l	normal	Producers	プロデューサー
+700	657	80	l	normal	Takashi Shitamichi	下道 隆
+700	673	80	l	normal	Hirotaka Reizei	冷泉 弘隆
+701	121	16	l	normal	Directors	ディレクター
+701	137	80	l	normal	Kazunobu Uchida	内田 和伸
+701	153	80	l	normal	Kenichiro Matsumoto	松本 健一郎
+701	185	16	l	normal	Planning Support	企画サポート
+701	201	80	l	normal	Kenichiro Horio	堀尾 健一郎
+701	313	16	l	normal	In Cooperation With	制作協力
+701	329	80	l	normal	Winkysoft Co., Ltd.	株式会社ウィンキーソフト
+701	473	16	l	normal	Senior Director	シニアディレクター
+701	489	80	l	normal	Shigemitsu Takamiya	高宮 成光
+701	609	16	l	normal	Planning	企画
+701	625	80	l	normal	Kayo Buma	武馬 佳代
+701	657	16	l	normal	Scenario	シナリオ
+701	673	80	l	normal	Hidetaka Shirai	白井 英孝
+702	105	16	l	normal	Main Program	メインプログラム
+702	121	80	l	normal	Yasuaki Mori	森 泰昭
+702	145	16	l	normal	Sub Program	サブプログラム
+702	161	80	l	normal	Hirokazu Moriwaki	森脇 弘和
+702	185	16	l	normal	Data	データ
+702	201	80	l	normal	Hidetaka Shirai	白井 英孝
+702	217	80	l	normal	Kayo Buma	武馬 佳代
+702	233	80	l	normal	Naoko Matsubara	松原 奈緒子
+702	289	16	l	normal	Character Graphics	キャラクターグラフィック
+702	305	80	l	normal	Kenichiro Matsumoto	松本 健一郎
+702	321	80	l	normal	Takeshi Shimoyama	下山 剛史
+702	337	80	l	normal	Naoko Matsubara	松原 奈緒子
+702	353	80	l	normal	Gaku Kitada	北田 岳
+702	369	80	l	normal	Toru Abe	阿部 徹
+702	433	16	l	normal	Map Graphics	マップグラフィック
+702	449	80	l	normal	Atsuki Toda	戸田 篤樹
+702	465	80	l	normal	Toshihiro Sakai	酒井 利洋
+702	481	80	l	normal	Hiromasa Morishige	森重 浩正
+702	497	80	l	normal	Kayo Buma	武馬 佳代
+702	529	16	l	normal	Screen Layout	画面レイアウト
+702	545	80	l	normal	Toshihiro Sakai	酒井 利洋
+702	593	16	l	normal	Sound	サウンド
+702	609	80	l	normal	Tatsuya Fujiwara	藤原 達也
+702	625	80	l	normal	Shinji Fujiki	藤木 信次
+702	657	16	l	normal	Winkysoft Support	ウィンキーサポート
+702	673	80	l	normal	Momoko Suzuki	鈴木 桃子
+702	689	80	l	normal	Masahiko Iwasaki	岩崎 昌彦
+703	121	16	l	normal	Voice Recording	音声収録
+703	137	80	l	normal	Toshihisa Furusawa	古澤 利久
+703	153	80	l	normal	Rie Yamaya	山谷 理恵
+703	185	80	l	normal	Sawako Todoroki	等々力 佐和子
+703	196	80	l	small	(Nelke Planning Co., Ltd.)	(株式会社ネルケプランニング)
+703	297	16	l	normal	Product Design	プロダクトデザイン
+703	313	80	l	normal	Takayuki Ito	伊藤 隆行
+703	337	16	l	normal	Debugging	デバッグ
+703	353	80	l	normal	Dreams	ドリームス
+703	473	16	l	normal	Promotion	プロモーション
+703	489	80	l	normal	Ryo Yanai	柳井 亮
+703	505	80	l	normal	Seiko Sakakibara	榊原 聖子
+703	609	16	l	normal	Special Thanks	スペシャルサンクス
+703	625	80	l	normal	Kazumi Kitakami	北上 一三
+703	636	80	l	small	(Konami Corporation)	(コナミ株式会社)
+703	657	80	l	normal	Naoto Ushida (GE)	牛田 直斗 (GE)
+703	673	80	l	normal	Yutaka Otaki (GE)	大滝 裕 (GE)
+704	149	120	c	small	Developed by	制作
+704	169	120	cg	normal	Konami Computer	株式会社コナミコンピュータエンタテインメントジャパン
+704	185	120	cg	normal	Entertainment Japan	
+704	309	120	c	small	Published by	製作
+704	329	120	cg	normal	Konami Corporation	コナミ株式会社
+704	470	10	keep	keep	10,470,50,22	© 2004 of both copyright lines stays
+704	476	62	l	small	Justiriser Project / TV Tokyo	ジャスティライザープロジェクト・テレビ東京
+704	482	0	keep	keep	0,482,240,12	© 2004 KONAMI & Konami Computer Entertainment Japan (English already)
+705	91	200	c	normal	The End	おわり (page 705: centred on the Japanese ink, x 171-228, y 82-100)

@@ -15,3 +15,5 @@ D23570-EFFFFF   free space (0xFF fill, trap-tested): relocated script block
 211D2-211D3     asmpatch: name-tag window x 20 -> 19 (right, y13)
 5FDA0C-5FE9AF   resource group 18 entries (BG tilesets, repointed by tools/bgtext.py)
 740360-741303   resource group 20 entries (BG maps, repointed by tools/bgtext.py)
+70478C-7121C3   staff roll tilesets 18[700..705] (705 = おわり page), rewritten in place at their size (tools/credits.py)
+738494-73F373   staff roll layouts 19[700..705], rewritten in place (tools/credits.py)

@@ -24,7 +24,7 @@ battle_5_win_r2	5	0	area=4 stage=3 stageno=19 event=24 0x03001F58=1 0x03001F4A=1
 battle_lose	5	0	area=0 stage=3 stageno=3 event=4 0x03001F58=1 @sub64	mash90	area 1 battle lost: YOU LOSE, back to character select	4100
 ending	10	0	area=4 stage=3 stageno=19 event=24 0x03001F58=1	mash90	ending (scene 10) entered directly; battle_5_win reaches it the game's way	3300
 ending_save	2	0	area=4 stage=2 0x03001F58=1 @clear3	mash60	stage 5-4 to the end: clear, battle won, ending, 2周目 clear-data note, save slots	11400
-credits	11	0	-	-	staff roll (scene 11) FORCED: no natural entry found yet (no constant goto; not attract, not after the ending)	3900
+credits	11	0	-	-	staff roll (scene 11) FORCED: no natural entry found yet (no constant goto; not attract, not after the ending); rolls 700-704 + The End (705) need ~6900 frames	7200
 attract_battle	16	0	-	-	attract mode: demo mecha battle (scene 16; title idle ~2300 frames)	1800
 attract_story	17	0	-	-	attract mode: story clip (scene 17), then the title	1800
 stage_1_1	2	0	area=0 stage=0 0x03001F58=0	mash60	stage 1-1 via the map after the area 1 card, stage-start event 3.1	7500
