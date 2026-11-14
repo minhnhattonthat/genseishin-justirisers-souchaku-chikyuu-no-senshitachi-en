@@ -60,6 +60,12 @@ Text interpreter reads the message at PCs 0x08007594-0x080077FC (read-watch on t
 - Sub-table 0x1E9843 (384 entries) has 3 entries (16-18) pointing **mid-message, just after a 0x1D** (shared tails):
   the extractor must allow targets after 0x1D, and the inserter may write them as separate strings.
 - 795 distinct message starts in total. Text + tables span **0x1E90C0-0x1FE9F0** (~88 KB; most of it is tables).
+- **Unpacker/packer `tools/textblock.py`** (verified: phase 3 identity build, `build.py --verify`): 40 real
+  sub-tables chained from 0x1E91B8 (master entry 0 points 7 bytes into the first; entries 51-61 = end of block),
+  **794 messages** (0x1F-terminated segments). Sub-table 0x1E9843's entries 305-383 point at the end of its own
+  text (= the next table's start): unused slots, kept as "end" entries. pack() takes any 4-aligned base, so the
+  block can move to free space; only the resource-table word for group 2 (0xD226B4 = master + 4) would need
+  repointing then (check code for other references to 0x081E90C0/0x081E90C4 before relocating).
 
 ## Free space (candidates, not yet trap-tested)
 

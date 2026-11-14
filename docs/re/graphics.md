@@ -54,8 +54,15 @@ bank. Parser: `tools/sweep.py p70_parse`; renderer `tools/bgscreens.py`.
 
 - **Konami flag-bit LZ** at **0x08001CD4** (r0 = dst, r1 = src). `tools/res.py` runs it under unicorn on the ROM's
   code, so decompression is exact; a block counts as LZ when the run returns and consumes the resource's size
-  (groups 4 and 9 only). A recompressor is still needed for phase 5+ (or store edited blocks uncompressed and
-  repoint: the loader decides by caller, not by a header, so check the caller's flag before doing that).
+  (groups 4 and 9 only, 77 blocks).
+- **Format** (read off the disassembly; `tools/klz.py`, verified: its Python decompressor gives the same bytes and
+  consumed length as the ROM's code under unicorn on all 77 blocks): flag bits MSB first, a flag byte fetched
+  between data bytes when the previous is used up. `1` = literal byte; `0 0 a b` + byte o = copy 2..5 from
+  dst-256+o; `0 1` + u16 BE v = offset (v>>3)-8192, length (v&7)+2 (3..9), or v&7 == 0: byte c, c == 0 ends,
+  else length c+1 (2..256). A flag byte 0xFF fetched for a type bit is a fast path for 8 literals (same result).
+- **Compressor** `klz.compress` (optimal parse): lossless on all 77 blocks and every output is smaller than the
+  original (1,124,052 vs 1,153,905 bytes in total), so a redrawn LZ graphic can usually go back in place.
+  `python -X utf8 tools/klz.py test work/orig.gba` (~80 s) runs the full check.
 - BIOS LZ77 hits from `tools/gbacomp.py scan` (text.md) are mostly false positives.
 
 ## Static sweep
