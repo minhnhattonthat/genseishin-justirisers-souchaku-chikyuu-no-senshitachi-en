@@ -1,31 +1,31 @@
 id	slots	jp	en	notes
-1F9521	0	？？？{n}フフフフ…{n}ジャスティライザー‼		
-1F953C	1	ガント{n}この こえ は{n}ドクター・ゾラ…！		
-1F9556	2	ゾラ{n}よくぞ ここまで たどりついた…{n}だが しょせん ムダな あがきだ！		
-1F957E	3	ゾラ{n}すでに ミサイルはっしゃ の{n}じゅんび は かんりょう した！		
-1F95A2	4	ゾラ{n}１じかんご に {n}じんるい は めつぼう する‼		
-1F95BF	5	カゲリ{n}なんですって…⁉		
-1F95CE	6	ガント{n}おまえの おもいどおり には{n}させないぞ ドクター・ゾラ！		
-1F95F3	7	ゾラ{n}おまえたちに とめられるかな？{n}ハハハハ…ハハハハハハ‼		
-1F9616	8	グレン{n}…くっ！ どうすれば{n}ミサイルを とめられるんだ⁉		
-1F9637	9	ガント{n}せいぎょそうち を さがして{n}プログラムを かいじょ するんだ！		
-1F965D	10	カゲリ{n}せいぎょそうち ね{n}わかったわ！		
-1F9673	11	グレン{n}あれが ミサイルの{n}せいぎょそうち か…⁉		
-1F968F	12	カゲリ{n}あれが ミサイルの{n}せいぎょそうち…⁉		
-1F96A9	13	ガント{n}あれが ミサイルの{n}せいぎょそうち か…！		
-1F96C5	14	ガーディアス{n}せいぎょそうち には{n}ゆび１ぽん ふれさせん…‼		
-1F96E8	15	グレン{n}じゃま だ！{n}どけッ‼		
-1F96FA	16	カゲリ{n}そこを どきなさい‼		
-1F970A	17	ガント{n}…じゃま だ{n}どけッ！		
-1F971C	18	ガント{n}まずい…！		
-1F9728	19	ガント{n}プログラムを かいじょ するには{n}じかん が かかりすぎる！		
-1F974C	20	グレン{n}だったら せいぎょそうち そのものを{n}ブッこわして やる‼		
-1F976F	21	カゲリ{n}…ああっ⁉		
-1F977B	22	ゾラ{n}ハハハハッ！{n}バカめ…		
-1F978C	23	ゾラ{n}さいしゅう ぼうえいシステムを{n}さどう させたな！		
-1F97AA	24	ゾラ{n}ミサイルはっしゃ と どうじ に{n}この きちは じばく する！		
-1F97CE	25	グレン{n}な なにッ‼		
-1F97DA	26	ゾラ{n}さらばだ ジャスティライザー{n}ハーッハッハッハ‼		
-1F97F9	27	ガント{n}メインコンピュータを はかい する…{n}ミサイルをとめるには それしかない！		
-1F9826	28	カゲリ{n}じかん が ないわ{n}いそぎましょ！		
+1F9521	0	？？？{n}フフフフ…{n}ジャスティライザー‼	???{n}Fufufufu...{n}Justirisers!!	
+1F953C	1	ガント{n}この こえ は{n}ドクター・ゾラ…！	Gant{n}That voice...{n}Doctor Zora...!	
+1F9556	2	ゾラ{n}よくぞ ここまで たどりついた…{n}だが しょせん ムダな あがきだ！	Zora{n}You did well to make it this far...{n}But your struggle is in vain!	
+1F957E	3	ゾラ{n}すでに ミサイルはっしゃ の{n}じゅんび は かんりょう した！	Zora{n}The missiles are already{n}primed for launch!	
+1F95A2	4	ゾラ{n}１じかんご に {n}じんるい は めつぼう する‼	Zora{n}In one hour,{n}mankind will be wiped out!!	
+1F95BF	5	カゲリ{n}なんですって…⁉	Kageri{n}What did you say...!?	
+1F95CE	6	ガント{n}おまえの おもいどおり には{n}させないぞ ドクター・ゾラ！	Gant{n}We won't let you have{n}your way, Doctor Zora!	
+1F95F3	7	ゾラ{n}おまえたちに とめられるかな？{n}ハハハハ…ハハハハハハ‼	Zora{n}Do you think you can stop me?{n}Hahaha... Hahahahaha!!	
+1F9616	8	グレン{n}…くっ！ どうすれば{n}ミサイルを とめられるんだ⁉	Glen{n}...Ngh! How are we supposed{n}to stop the missiles!?	
+1F9637	9	ガント{n}せいぎょそうち を さがして{n}プログラムを かいじょ するんだ！	Gant{n}Find the control unit{n}and shut down the program!	
+1F965D	10	カゲリ{n}せいぎょそうち ね{n}わかったわ！	Kageri{n}The control unit...{n}Got it!	
+1F9673	11	グレン{n}あれが ミサイルの{n}せいぎょそうち か…⁉	Glen{n}Is that the missiles'{n}control unit...!?	
+1F968F	12	カゲリ{n}あれが ミサイルの{n}せいぎょそうち…⁉	Kageri{n}Is that the missiles'{n}control unit...!?	
+1F96A9	13	ガント{n}あれが ミサイルの{n}せいぎょそうち か…！	Gant{n}So that is the missiles'{n}control unit...!	
+1F96C5	14	ガーディアス{n}せいぎょそうち には{n}ゆび１ぽん ふれさせん…‼	Gardias{n}I won't let you lay a single{n}finger on the control unit...!!	
+1F96E8	15	グレン{n}じゃま だ！{n}どけッ‼	Glen{n}You're in the way!{n}Move it!!	
+1F96FA	16	カゲリ{n}そこを どきなさい‼	Kageri{n}Get out of my way!!	
+1F970A	17	ガント{n}…じゃま だ{n}どけッ！	Gant{n}...You're in the way.{n}Move!	
+1F971C	18	ガント{n}まずい…！	Gant{n}This is bad...!	
+1F9728	19	ガント{n}プログラムを かいじょ するには{n}じかん が かかりすぎる！	Gant{n}Shutting down the program{n}will take far too long!	
+1F974C	20	グレン{n}だったら せいぎょそうち そのものを{n}ブッこわして やる‼	Glen{n}Then I'll just smash{n}the control unit itself!!	
+1F976F	21	カゲリ{n}…ああっ⁉	Kageri{n}...Oh no!?	
+1F977B	22	ゾラ{n}ハハハハッ！{n}バカめ…	Zora{n}Hahahaha!{n}Fools...	
+1F978C	23	ゾラ{n}さいしゅう ぼうえいシステムを{n}さどう させたな！	Zora{n}You've triggered the{n}final defense system!	
+1F97AA	24	ゾラ{n}ミサイルはっしゃ と どうじ に{n}この きちは じばく する！	Zora{n}The moment the missiles launch,{n}this base will self-destruct!	
+1F97CE	25	グレン{n}な なにッ‼	Glen{n}Wh-what!!	
+1F97DA	26	ゾラ{n}さらばだ ジャスティライザー{n}ハーッハッハッハ‼	Zora{n}Farewell, Justirisers!{n}Haaahahaha!!	
+1F97F9	27	ガント{n}メインコンピュータを はかい する…{n}ミサイルをとめるには それしかない！	Gant{n}Destroy the main computer...{n}It's our only way to stop them!	
+1F9826	28	カゲリ{n}じかん が ないわ{n}いそぎましょ！	Kageri{n}We're out of time!{n}Let's hurry!	
 1F983D	29-1024	開発中		placeholder: 'in development', fills an unused sub-table

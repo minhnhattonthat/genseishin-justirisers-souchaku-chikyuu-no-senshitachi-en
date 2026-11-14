@@ -1,44 +1,44 @@
 id	slots	jp	en	notes
-1FC664	0	 {n}{se:1600}げんせいじゅう ライゼロス{n}しょうかん‼		
-1FC67F	1	 {n}{se:1200}うわあぁぁぁぁっ…‼		
-1FC691	2	 {n}{se:1201}きゃあぁぁぁぁぁぁ‼		
-1FC6A2	3	 {n}{se:1202}うわあぁぁぁぁーっ‼		
-1FC6B4	4	 {n}{se:1100}うわああっ！		
-1FC6C1	5	 {n}{se:1101}きゃああっ！		
-1FC6CE	6	 {n}{se:1102}ぐわああっ！		
-1FC6DB	7	 {n}{se:3181}うわっ！		
-1FC6E6	8	 {n}{se:3C81}キャッ！		
-1FC6F1	9	 {n}{se:4681}クッ！		
-1FC6FB	10	 {n}{se:1900}スマッシュクロー‼		
-1FC70C	11	 {n}{se:1701}スマッシュクロー‼		
-1FC71D	12	 {n}{se:1702}スマッシュクロー‼		
-1FC72E	13	 {n}{se:0B00}とどめだッ！{n}{se:1900}スマッシュクロー‼		
-1FC74A	14	 {n}{se:0C01}おわりよっ！{n}{se:1701}スマッシュクロー‼		
-1FC766	15	 {n}{se:0B02}フィニッシュだ！{n}{se:1702}スマッシュクロー‼		
-1FC784	16	 {n}{se:1B00}テイルスマッシャー‼		
-1FC796	17	 {n}{se:1901}テイルスマッシャー‼		
-1FC7A8	18	 {n}{se:1902}テイルスマッシャー‼		
-1FC7BA	19	 {n}{se:0B00}とどめだッ！{n}{se:1B00}テイルスマッシャー‼		
-1FC7D7	20	 {n}{se:0C01}おわりよっ！{n}{se:1901}テイルスマッシャー‼		
-1FC7F4	21	 {n}{se:0B02}フィニッシュだ！{n}{se:1902}テイルスマッシャー‼		
-1FC813	22	 {n}{se:1C00}ゼロスクラッシャー‼		
-1FC825	23	 {n}{se:1A01}ゼロスクラッシャー‼		
-1FC837	24	 {n}{se:1A02}ゼロスクラッシャー‼		
-1FC849	25	 {n}{se:0B00}とどめだッ！{n}{se:1C00}ゼロスクラッシャー‼		
-1FC866	26	 {n}{se:0C01}おわりよっ！{n}{se:1A01}ゼロスクラッシャー‼		
-1FC883	27	 {n}{se:0B02}フィニッシュだ！{n}{se:1A02}ゼロスクラッシャー‼		
-1FC8A2	28	 {n}{se:1A00}ゼロスキャノン‼		
-1FC8B1	29	 {n}{se:1801}ゼロスキャノン‼		
-1FC8C0	30	 {n}{se:1802}ゼロスキャノン‼		
-1FC8CF	31	 {n}{se:0B00}とどめだッ！{n}{se:1A00}ゼロスキャノン‼		
-1FC8E9	32	 {n}{se:0C01}おわりよっ！{n}{se:1801}ゼロスキャノン‼		
-1FC903	33	 {n}{se:0B02}フィニッシュだ！{n}{se:1802}ゼロスキャノン‼		
-1FC91F	34	 {n}{se:0100}いくぜッ‼		
-1FC92B	35	 {n}{se:0B00}とどめだッ‼		
-1FC938	36	 {n}{se:1D00}ライザーセイバー‼		
-1FC94A	37	 {n}{se:0B00}とどめだッ！{n}{se:1D00}ライザーセイバー‼		
-1FC967	38	 {n}{se:1F00}ライザーバーン‼		
-1FC978	39	 {n}{se:0B00}とどめだッ！{n}{se:1F00}ライザーバーン‼		
-1FC994	40	 {n}{se:1E00}メガヒートスラッシュ‼		
-1FC9A7	41	 {n}{se:0B00}とどめだッ！{n}{se:1E00}メガヒートスラッシュ‼		
+1FC664	0	 {n}{se:1600}げんせいじゅう ライゼロス{n}しょうかん‼	 {n}{se:1600}I summon you,{n}Genseijuu Raizeros!!	
+1FC67F	1	 {n}{se:1200}うわあぁぁぁぁっ…‼	 {n}{se:1200}Waaaaaaah...!!	
+1FC691	2	 {n}{se:1201}きゃあぁぁぁぁぁぁ‼	 {n}{se:1201}Kyaaaaaaaah!!	
+1FC6A2	3	 {n}{se:1202}うわあぁぁぁぁーっ‼	 {n}{se:1202}Uwaaaaaagh!!	
+1FC6B4	4	 {n}{se:1100}うわああっ！	 {n}{se:1100}Waaagh!	
+1FC6C1	5	 {n}{se:1101}きゃああっ！	 {n}{se:1101}Kyaaah!	
+1FC6CE	6	 {n}{se:1102}ぐわああっ！	 {n}{se:1102}Gwaaagh!	
+1FC6DB	7	 {n}{se:3181}うわっ！	 {n}{se:3181}Whoa!	
+1FC6E6	8	 {n}{se:3C81}キャッ！	 {n}{se:3C81}Kyaa!	
+1FC6F1	9	 {n}{se:4681}クッ！	 {n}{se:4681}Ngh!	
+1FC6FB	10	 {n}{se:1900}スマッシュクロー‼	 {n}{se:1900}Smash Claw!!	
+1FC70C	11	 {n}{se:1701}スマッシュクロー‼	 {n}{se:1701}Smash Claw!!	
+1FC71D	12	 {n}{se:1702}スマッシュクロー‼	 {n}{se:1702}Smash Claw!!	
+1FC72E	13	 {n}{se:0B00}とどめだッ！{n}{se:1900}スマッシュクロー‼	 {n}{se:0B00}Time to finish this!{n}{se:1900}Smash Claw!!	
+1FC74A	14	 {n}{se:0C01}おわりよっ！{n}{se:1701}スマッシュクロー‼	 {n}{se:0C01}It's over!{n}{se:1701}Smash Claw!!	
+1FC766	15	 {n}{se:0B02}フィニッシュだ！{n}{se:1702}スマッシュクロー‼	 {n}{se:0B02}This is the finish!{n}{se:1702}Smash Claw!!	
+1FC784	16	 {n}{se:1B00}テイルスマッシャー‼	 {n}{se:1B00}Tail Smasher!!	
+1FC796	17	 {n}{se:1901}テイルスマッシャー‼	 {n}{se:1901}Tail Smasher!!	
+1FC7A8	18	 {n}{se:1902}テイルスマッシャー‼	 {n}{se:1902}Tail Smasher!!	
+1FC7BA	19	 {n}{se:0B00}とどめだッ！{n}{se:1B00}テイルスマッシャー‼	 {n}{se:0B00}Time to finish this!{n}{se:1B00}Tail Smasher!!	
+1FC7D7	20	 {n}{se:0C01}おわりよっ！{n}{se:1901}テイルスマッシャー‼	 {n}{se:0C01}It's over!{n}{se:1901}Tail Smasher!!	
+1FC7F4	21	 {n}{se:0B02}フィニッシュだ！{n}{se:1902}テイルスマッシャー‼	 {n}{se:0B02}This is the finish!{n}{se:1902}Tail Smasher!!	
+1FC813	22	 {n}{se:1C00}ゼロスクラッシャー‼	 {n}{se:1C00}Zeros Crusher!!	
+1FC825	23	 {n}{se:1A01}ゼロスクラッシャー‼	 {n}{se:1A01}Zeros Crusher!!	
+1FC837	24	 {n}{se:1A02}ゼロスクラッシャー‼	 {n}{se:1A02}Zeros Crusher!!	
+1FC849	25	 {n}{se:0B00}とどめだッ！{n}{se:1C00}ゼロスクラッシャー‼	 {n}{se:0B00}Time to finish this!{n}{se:1C00}Zeros Crusher!!	
+1FC866	26	 {n}{se:0C01}おわりよっ！{n}{se:1A01}ゼロスクラッシャー‼	 {n}{se:0C01}It's over!{n}{se:1A01}Zeros Crusher!!	
+1FC883	27	 {n}{se:0B02}フィニッシュだ！{n}{se:1A02}ゼロスクラッシャー‼	 {n}{se:0B02}This is the finish!{n}{se:1A02}Zeros Crusher!!	
+1FC8A2	28	 {n}{se:1A00}ゼロスキャノン‼	 {n}{se:1A00}Zeros Cannon!!	
+1FC8B1	29	 {n}{se:1801}ゼロスキャノン‼	 {n}{se:1801}Zeros Cannon!!	
+1FC8C0	30	 {n}{se:1802}ゼロスキャノン‼	 {n}{se:1802}Zeros Cannon!!	
+1FC8CF	31	 {n}{se:0B00}とどめだッ！{n}{se:1A00}ゼロスキャノン‼	 {n}{se:0B00}Time to finish this!{n}{se:1A00}Zeros Cannon!!	
+1FC8E9	32	 {n}{se:0C01}おわりよっ！{n}{se:1801}ゼロスキャノン‼	 {n}{se:0C01}It's over!{n}{se:1801}Zeros Cannon!!	
+1FC903	33	 {n}{se:0B02}フィニッシュだ！{n}{se:1802}ゼロスキャノン‼	 {n}{se:0B02}This is the finish!{n}{se:1802}Zeros Cannon!!	
+1FC91F	34	 {n}{se:0100}いくぜッ‼	 {n}{se:0100}Here I go!!	
+1FC92B	35	 {n}{se:0B00}とどめだッ‼	 {n}{se:0B00}Time to finish this!!	
+1FC938	36	 {n}{se:1D00}ライザーセイバー‼	 {n}{se:1D00}Riser Saber!!	
+1FC94A	37	 {n}{se:0B00}とどめだッ！{n}{se:1D00}ライザーセイバー‼	 {n}{se:0B00}Time to finish this!{n}{se:1D00}Riser Saber!!	
+1FC967	38	 {n}{se:1F00}ライザーバーン‼	 {n}{se:1F00}Riser Burn!!	
+1FC978	39	 {n}{se:0B00}とどめだッ！{n}{se:1F00}ライザーバーン‼	 {n}{se:0B00}Time to finish this!{n}{se:1F00}Riser Burn!!	
+1FC994	40	 {n}{se:1E00}メガヒートスラッシュ‼	 {n}{se:1E00}Mega Heat Slash!!	
+1FC9A7	41	 {n}{se:0B00}とどめだッ！{n}{se:1E00}メガヒートスラッシュ‼	 {n}{se:0B00}Time to finish this!{n}{se:1E00}Mega Heat Slash!!	
 1FC9C5	42-1024	開発中		placeholder: 'in development', fills an unused sub-table

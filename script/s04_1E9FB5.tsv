@@ -9,5 +9,5 @@ id	slots	jp	en	notes
 1EA3F4	295	{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}{sp12}		nontext: no text (include template or spacer row); kept as is
 1EA405	296	{sp12}―	{sp12}-	
 1EA40A	297	？？	??	
-1EA40F	298	{g135}		
+1EA40F	298	{g135}	{g135}	
 1EA412	299-511	エラーコード		placeholder: 'error code', fills unused slots

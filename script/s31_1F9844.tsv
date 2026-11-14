@@ -1,54 +1,54 @@
 id	slots	jp	en	notes
-1FA046	0	グレン{n}じかん が ない…{n}いそごう！		
-1FA05C	1	カゲリ{n}じかん が ない…{n}いそがなきゃ！		
-1FA074	2	ガント{n}じかん が ない…{n}いそごう！		
-1FA08A	3	ガント{n}メインコンピュータは{n}みつかったか？		
-1FA0A3	4	カゲリ{n}いいえ…{n}どこにも なかったわ		
-1FA0B8	5	グレン{n}つまり…{n}この さきに あるってことだ！		
-1FA0D3	6	グレン{n}メインコンピュータは{n}みつかったか？		
-1FA0EC	7	ガント{n}いや{n}どこにも みあたらない…！		
-1FA103	8	カゲリ{n}だったら…{n}この さきに きっと あるはずよ！		
-1FA121	9	カゲリ{n}メインコンピュータは{n}みつかった？		
-1FA139	10	グレン{n}いや{n}どこにも みあたらねえ！		
-1FA14E	11	ガント{n}ということは…{n}この さきに きっと あるはずだ！		
-1FA16E	12	カゲリ{n}…翔太⁉		
-1FA17B	13	グレン{n}…ユカ⁉		
-1FA186	14	カゲリ{n}…直也さん⁉		
-1FA195	15	グレン{n}あれが メインコンピュータか…⁉		
-1FA1AD	16	カゲリ{n}あれが メインコンピュータね…⁉		
-1FA1C5	17	ガント{n}あれが メインコンピュータか！		
-1FA1DB	18	ゾラ{n}きたか…{n}ジャスティライザー‼		
-1FA1F1	19	ゾラ{n}われわれの けいかくを{n}じゃま する もの には…		
-1FA20F	20	ゾラ{n}めつぼう あるのみ‼		
-1FA21E	21	グレン{n}ドクター・ゾラ！{n}けっちゃくを つけてやるッ‼		
-1FA23E	22	カゲリ{n}ドクター・ゾラ！{n}けっちゃくを つけるわよ‼		
-1FA25D	23	ガント{n}ドクター・ゾラ！{n}けっちゃくを つけてやる‼		
-1FA27C	24	ゾラ{n}フン…！		
-1FA286	25	ゾラ{n}きさま の わざ など{n}つうよう する ものかッ‼		
-1FA2A4	26	ゾラ{n}…しまった‼{n}メインコンピュータが…		
-1FA2BE	27	ゾラ{n}な なんという ことだ！{n}おのれ…おのれええッ ゆるさんぞ‼		
-1FA2E3	28	ゾラ{n}いでよ ライノスレイブ‼		
-1FA2F4	29	ゾラ{n}ライノスレイブよ{n}ジャスティライザーを たおせ！		
-1FA312	30	ゾラ{n}たっぷりと くるしめてから{n}じごくへ おくって やるのだ‼		
-1FA334	31	グレン{n}ドクター・ゾラ‼		
-1FA344	32	ガント{n}おまえの たくらみ も{n}ここまでだ‼		
-1FA35C	33	カゲリ{n}かんねん しなさい！		
-1FA36C	34	カゲリ{n}ドクター・ゾラ‼		
-1FA37C	35	ガント{n}おまえの たくらみ も{n}ここまでだ‼		
-1FA394	36	グレン{n}かんねん しやがれ‼		
-1FA3A4	37	ガント{n}ドクター・ゾラ‼		
-1FA3B4	38	グレン{n}おまえの たくらみも{n}ここまでだ‼		
-1FA3CB	39	カゲリ{n}かんねん しなさい！		
-1FA3DB	40	ゾラ{n}ええい こうなったら…！		
-1FA3ED	41	ゾラ{n}いでよ！{n}きょだい かいじゅう トロイドン‼		
-1FA409	42	ゾラ{n}この きち もろとも…{n}ジャスティライザーを ほろぼすのだ‼		
-1FA42E	43	グレン{n}…ユカ！ 直也！{n}いくぜッ‼		
-1FA447	44	カゲリ{n}翔太！ 直也さん！{n}いくわよ‼		
-1FA462	45	ガント{n}翔太！ ユカ！{n}いくぞ‼		
-1FA478	46	ゾラ{n}ジャスティライザーめ！{n}こんかい は まけを みとめてやる…		
-1FA49D	47	ゾラ{n}だが…{n}おぼえて いろ！		
-1FA4AF	48	ゾラ{n}われわれの あらたな さくせん は{n}ちゃくちゃく と すすんでいるのだ…		
-1FA4D8	49	ゾラ{n}{se:010A}ハーッハッハッハッハ‼		
-1FA4EC	50	ゾラ{n}おのれ ジャスティライザーめ{n}こしゃくな…！		
-1FA509	51	ゾラ{n}だが このままおわる{n}トロイドンでは ないぞッ‼		
+1FA046	0	グレン{n}じかん が ない…{n}いそごう！	Glen{n}We're running out of time...{n}Let's hurry!	
+1FA05C	1	カゲリ{n}じかん が ない…{n}いそがなきゃ！	Kageri{n}We're running out of time...{n}We have to hurry!	
+1FA074	2	ガント{n}じかん が ない…{n}いそごう！	Gant{n}There's no time...{n}Let's hurry!	
+1FA08A	3	ガント{n}メインコンピュータは{n}みつかったか？	Gant{n}Did you find{n}the main computer?	
+1FA0A3	4	カゲリ{n}いいえ…{n}どこにも なかったわ	Kageri{n}No...{n}It wasn't anywhere.	
+1FA0B8	5	グレン{n}つまり…{n}この さきに あるってことだ！	Glen{n}Which means...{n}it's gotta be up ahead!	
+1FA0D3	6	グレン{n}メインコンピュータは{n}みつかったか？	Glen{n}Did you find{n}the main computer?	
+1FA0EC	7	ガント{n}いや{n}どこにも みあたらない…！	Gant{n}No.{n}I couldn't find it anywhere...!	
+1FA103	8	カゲリ{n}だったら…{n}この さきに きっと あるはずよ！	Kageri{n}Then...{n}it must be up ahead!	
+1FA121	9	カゲリ{n}メインコンピュータは{n}みつかった？	Kageri{n}Did you find{n}the main computer?	
+1FA139	10	グレン{n}いや{n}どこにも みあたらねえ！	Glen{n}Nope.{n}Couldn't find it anywhere!	
+1FA14E	11	ガント{n}ということは…{n}この さきに きっと あるはずだ！	Gant{n}Which means...{n}it must surely be up ahead!	
+1FA16E	12	カゲリ{n}…翔太⁉	Kageri{n}...Shota!?	
+1FA17B	13	グレン{n}…ユカ⁉	Glen{n}...Yuka!?	
+1FA186	14	カゲリ{n}…直也さん⁉	Kageri{n}...Naoya-san!?	
+1FA195	15	グレン{n}あれが メインコンピュータか…⁉	Glen{n}Is that the main computer...!?	
+1FA1AD	16	カゲリ{n}あれが メインコンピュータね…⁉	Kageri{n}So that's the main computer...!?	
+1FA1C5	17	ガント{n}あれが メインコンピュータか！	Gant{n}So that is the main computer!	
+1FA1DB	18	ゾラ{n}きたか…{n}ジャスティライザー‼	Zora{n}So you've come...{n}Justirisers!!	
+1FA1F1	19	ゾラ{n}われわれの けいかくを{n}じゃま する もの には…	Zora{n}For those who would{n}interfere with our plans...	
+1FA20F	20	ゾラ{n}めつぼう あるのみ‼	Zora{n}there is only annihilation!!	
+1FA21E	21	グレン{n}ドクター・ゾラ！{n}けっちゃくを つけてやるッ‼	Glen{n}Doctor Zora!{n}Let's settle this!!	
+1FA23E	22	カゲリ{n}ドクター・ゾラ！{n}けっちゃくを つけるわよ‼	Kageri{n}Doctor Zora!{n}This ends now!!	
+1FA25D	23	ガント{n}ドクター・ゾラ！{n}けっちゃくを つけてやる‼	Gant{n}Doctor Zora!{n}We'll settle this here!!	
+1FA27C	24	ゾラ{n}フン…！	Zora{n}Hmph...!	
+1FA286	25	ゾラ{n}きさま の わざ など{n}つうよう する ものかッ‼	Zora{n}As if your little tricks{n}could ever work on me!!	
+1FA2A4	26	ゾラ{n}…しまった‼{n}メインコンピュータが…	Zora{n}...No!!{n}The main computer...	
+1FA2BE	27	ゾラ{n}な なんという ことだ！{n}おのれ…おのれええッ ゆるさんぞ‼	Zora{n}Wh-what have you done!{n}Curse you... CURSE YOU!!{p}I will never forgive this!!	
+1FA2E3	28	ゾラ{n}いでよ ライノスレイブ‼	Zora{n}Come forth, Rhinoslave!!	
+1FA2F4	29	ゾラ{n}ライノスレイブよ{n}ジャスティライザーを たおせ！	Zora{n}Rhinoslave!{n}Destroy the Justirisers!	
+1FA312	30	ゾラ{n}たっぷりと くるしめてから{n}じごくへ おくって やるのだ‼	Zora{n}Make them suffer long and hard,{n}then send them to hell!!	
+1FA334	31	グレン{n}ドクター・ゾラ‼	Glen{n}Doctor Zora!!	
+1FA344	32	ガント{n}おまえの たくらみ も{n}ここまでだ‼	Gant{n}Your schemes end{n}right here!!	
+1FA35C	33	カゲリ{n}かんねん しなさい！	Kageri{n}Give it up!	
+1FA36C	34	カゲリ{n}ドクター・ゾラ‼	Kageri{n}Doctor Zora!!	
+1FA37C	35	ガント{n}おまえの たくらみ も{n}ここまでだ‼	Gant{n}Your schemes end{n}right here!!	
+1FA394	36	グレン{n}かんねん しやがれ‼	Glen{n}Give it up already!!	
+1FA3A4	37	ガント{n}ドクター・ゾラ‼	Gant{n}Doctor Zora!!	
+1FA3B4	38	グレン{n}おまえの たくらみも{n}ここまでだ‼	Glen{n}Your schemes end{n}right here!!	
+1FA3CB	39	カゲリ{n}かんねん しなさい！	Kageri{n}Give it up!	
+1FA3DB	40	ゾラ{n}ええい こうなったら…！	Zora{n}Bah, if it comes to this...!	
+1FA3ED	41	ゾラ{n}いでよ！{n}きょだい かいじゅう トロイドン‼	Zora{n}Come forth!{n}Giant monster Troidon!!	
+1FA409	42	ゾラ{n}この きち もろとも…{n}ジャスティライザーを ほろぼすのだ‼	Zora{n}Destroy the Justirisers...{n}along with this whole base!!	
+1FA42E	43	グレン{n}…ユカ！ 直也！{n}いくぜッ‼	Glen{n}...Yuka! Naoya!{n}Let's go!!	
+1FA447	44	カゲリ{n}翔太！ 直也さん！{n}いくわよ‼	Kageri{n}Shota! Naoya-san!{n}Here we go!!	
+1FA462	45	ガント{n}翔太！ ユカ！{n}いくぞ‼	Gant{n}Shota! Yuka!{n}Let's go!!	
+1FA478	46	ゾラ{n}ジャスティライザーめ！{n}こんかい は まけを みとめてやる…	Zora{n}Justirisers!{n}This time, I admit defeat...	
+1FA49D	47	ゾラ{n}だが…{n}おぼえて いろ！	Zora{n}But...{n}you'll regret this!	
+1FA4AF	48	ゾラ{n}われわれの あらたな さくせん は{n}ちゃくちゃく と すすんでいるのだ…	Zora{n}Our new operation is already{n}moving steadily forward...	
+1FA4D8	49	ゾラ{n}{se:010A}ハーッハッハッハッハ‼	Zora{n}{se:010A}Haaahahahahaha!!	
+1FA4EC	50	ゾラ{n}おのれ ジャスティライザーめ{n}こしゃくな…！	Zora{n}Curse you, Justirisers...{n}Insolent pests...!	
+1FA509	51	ゾラ{n}だが このままおわる{n}トロイドンでは ないぞッ‼	Zora{n}But Troidon will not{n}go down so easily!!	
 1FA526	52-1024	開発中		placeholder: 'in development', fills an unused sub-table
