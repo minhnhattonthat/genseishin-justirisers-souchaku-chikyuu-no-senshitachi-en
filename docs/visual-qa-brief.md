@@ -41,6 +41,9 @@ Standing non-bugs, `ok`:
   later state, a fight with the player pinned at full HP);
 - the HUD bar of stage screens (`L+R = Use Skill`, life/ammo counters) is not cropped into the message-viewer
   sheets;
+- triaged against the original (session (j)): the save card's "Normal" badge filling its face edge to edge (no
+  shorter wording allowed, decision D11) as long as it reads; a name plate spanning its card corner to corner as
+  the Japanese one does; "Genseishin" starting at the screen edge on the battle choice (the original starts there);
 - the `▲`/`↵` page-wait arrow at the box's lower right;
 - a short last line that is its own phrase ("Be careful, / Naoya!", "Fufufufu... / Justirisers!"): the script breaks
   there on purpose, as the Japanese does (vocative or exclamation on its own line). Only a word pushed down by a
