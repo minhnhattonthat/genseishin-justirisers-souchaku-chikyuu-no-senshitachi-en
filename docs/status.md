@@ -15,11 +15,14 @@ Updated at the end of every session. Keep it to what the next session needs; his
     to `work/qa/old_v2/`, full `bash tools/final_tour.sh` started on 050ac249 (log `work/qa/final_tour_run.log`).
     **Claude Code stopped it for low system memory** during step `tour` (~81 of 87 scenes; tour_adv, msgview, gfx,
     inkcheck and sheets not run); orphans killed. Free memory was ~1-1.5 GB with other projects' emulators running.
-  - **Next:** `rm -rf work/qa/final/tour` and `bash tools/final_tour.sh` again (full, all steps) when the machine has
-    memory free; when it ends (ALLDONE): textcover 0 failing; `qa_gate.py init` both manifests with `--build`
-    (`work/qa/manifest.tsv` over work/qa/final `*sheet*.png`; `work/qa/final/gfx/manifest.tsv` over the gfx shots, see
-    final_sheets.sh header); `qa_gate.py todo --out-dir work/qa/chunks4`, `tools/qa_codex.py ... --prefix d_` on the
-    changed sheets; both gates exit 0; then `python -X utf8 tools/release.py`.
+  - **Re-tour done on 050ac249** (second try, `JOBS=1`; an orphan of the first run finished tour_adv/msgview on the
+    same build, every log is newer than the build): tour 87/87, tour_adv 59/59, gfxshots 57 (0 missing), inkcheck
+    7/0 failing, **textcover 621 shown, 170 waived, 0 failing**. Sheets regenerated; both manifests re-initialised
+    with `--build`: 721 of 727 tour sheets and 13 of 57 gfx shots need new verdicts.
+  - **Next:** codex verdicts running: `tools/qa_codex.py work/qa/final/gfx/chunks4/chunk_*.txt --verdicts
+    work/qa/final/gfx/verdicts --brief work/qa/final/gfx/brief.md --prefix gd_`, then `tools/qa_codex.py
+    work/qa/chunks4/chunk_*.txt --jobs 2 --prefix d_` (logs `work/qa/codex_gfx4.log`, `work/qa/codex_d.log`; done
+    chunks are skipped on a rerun). Then both `qa_gate.py check` exit 0, then `python -X utf8 tools/release.py`.
 - **Session 2026-11-15 (l): phase 8 done.**
   - Codex verdicts on the last chunks (`work/qa/chunks2` 006..013): 222 ok, 1 issue: `tour_adv/clear_1_2/sheet_2`
     frame f3720 = green stripes of garbage tiles (first frames of the points screen, scene 6 sub 1, palette fade-in).
