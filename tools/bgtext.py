@@ -429,12 +429,68 @@ def load_spare(path=BUDGET):
     return out
 
 
+VARIANTS = ROOT / "gfx" / "bg_variants.tsv"
+
+
+def load_variants(path=VARIANTS):
+    """-> [(V, B, {old index: new index})]: tileset 18[V] is a recoloured copy of 18[B] (gfx/bg_variants.tsv: V, B,
+    'a>b,..' index swaps, note), e.g. the stage bar's bright 'L+R = Use Skill' 18[625] of the grey 18[655]."""
+    out = []
+    for f in _budget_rows(Path(path)):
+        swap = dict(tuple(int(v) for v in p.split(">")) for p in f[2].split(","))
+        out.append((int(f[0]), int(f[1]), swap))
+    return out
+
+
+def derive_variants(d, tsets, maps, rows, variants=None):
+    """For each variant V of a redrawn base B: a copy of the new 18[B] where every tile still equal to the original
+    18[B] keeps 18[V]'s own tile, and every rewritten or appended tile takes B's new pixels with the index swaps
+    applied inside the rects of B's rows only (the stage bar's grey bottom edge shares the label's cells and must
+    stay grey). -> {18[V] offset: Tileset}. 18[V] must match 18[B] outside the swapped tiles (palette, banks, count)."""
+    R = {(g, i): (o, s) for g, i, o, s in res.resources(d)}
+    out = {}
+    for v, b, swap in (load_variants() if variants is None else variants):
+        (bo, bs), (vo, vs) = R[(18, b)], R[(18, v)]
+        if bo not in tsets:
+            continue
+        inrect = {}   # new tile -> pixel indices (0-63) that lie inside a row's rect in some cell drawing it
+        for r in rows:
+            if r["screen"][0] != b:
+                continue
+            mp = maps[R[(20, r["screen"][1])][0]]
+            x0, y0, w, h = r["rect"]
+            for cy in range(y0 // 8, (y0 + h - 1) // 8 + 1):
+                for cx in range(x0 // 8, (x0 + w - 1) // 8 + 1):
+                    e = mp.e[cy * mp.w + cx]
+                    if e & 0x0C00:
+                        raise ValueError(f"bg_variants: flipped cell {cx},{cy} in 18[{b}]'s rect")
+                    inrect.setdefault(e & 0x3FF, set()).update(
+                        k for k in range(64) if x0 <= 8 * cx + k % 8 < x0 + w and y0 <= 8 * cy + k // 8 < y0 + h)
+        ob, ov, nb = Tileset(d[bo:bo + bs]), Tileset(d[vo:vo + vs]), tsets[bo]
+        if (ob.pal, ob.tpal, ob.n0) != (ov.pal, ov.tpal, ov.n0):
+            raise ValueError(f"bg_variants: 18[{v}] is not a recoloured 18[{b}]")
+        new = Tileset(d[vo:vo + vs])
+        new.tpal = list(nb.tpal)
+        new.tiles = []
+        for t, tile in enumerate(nb.tiles):
+            if t < ob.n0 and tile == ob.tiles[t]:
+                new.tiles.append(ov.tiles[t])
+            else:
+                ks = inrect.get(t, set())
+                px = [swap.get(p, p) if k in ks else p
+                      for k, p in enumerate(tile[i // 2] >> 4 if i & 1 else tile[i // 2] & 15 for i in range(64))]
+                new.tiles.append(Tileset.encode(px))
+        out[vo] = new
+    return out
+
+
 def apply(rom, orig, rows=None):
     """Write every redrawn tileset/map into free space and repoint groups 18/20. -> written ranges."""
     rows = load_rows() if rows is None else rows
     if not rows:
         return []
     tsets, maps, _ = redraw(bytes(orig), rows)
+    tsets.update(derive_variants(bytes(orig), tsets, maps, rows))
     gs = res.groups(bytes(orig))
     out, a = [], GFX_FREE
     for group, objs in ((18, tsets), (20, maps)):

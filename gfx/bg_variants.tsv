@@ -1,0 +1,6 @@
+# Tilesets that are recoloured copies of another (tools/bgtext.py derive_variants): variant	base	swaps	note
+# The variant is rebuilt from the redrawn base: unchanged tiles keep the variant's own bytes, rewritten tiles take
+# the base's new pixels with the index swaps, and 18[variant] is repointed like any redrawn tileset.
+625	655	4>3	stage bar, bright "L+R = Use Skill" (skill usable; game over loads 18[656] then 18[626]): ink grey 4 -> white 3
+626	656	5>3	same, Kageri (18[656]'s palette has grey at 5, dark at 4)
+627	657	5>3	same, Gant
