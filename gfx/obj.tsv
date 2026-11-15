@@ -3,8 +3,8 @@
 # sprite = group-17 index (frame = its frame, rect relative to the frame's bounding box), or bg5:T:M = BG tileset
 # 5[T] + map 5[M] (frame unused, rect in map pixels). font normal/small, or glow:F = the white backing generated
 # from frame F. ink/shadow/bg are hex palette indices; shadow oN,M,.. = outline N then rings M..; align l/c/r, b bold, -1 tracking.
-601	2	0,0,64,16	New Game	small	9/A/B/B/A/9/9	o8	0	cb	top menu はじめから
-601	3	0,0,64,16	-	glow:2	-	-	0	c	top menu はじめから backing
+601	2	0,0,63,16	New Game	small	9/A/B/B/A/9/9	o8	0	cb	(63 wide: the menu window shows the left item's column 63 at x 88, keep it empty) top menuはじめから
+601	3	0,0,63,16	-	glow:2	-	-	0	c	top menuはじめから backing
 601	4	0,0,64,16	Continue	small	9/A/B/B/A/9/9	o8	0	cb	top menu つづきから
 601	5	0,0,64,16	-	glow:4	-	-	0	c	top menu つづきから backing
 545	0	0,0,80,24		small	-	-	0	c	clear the whole plate (no OBJ over its corners)
