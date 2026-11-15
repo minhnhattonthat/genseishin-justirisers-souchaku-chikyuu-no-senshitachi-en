@@ -2,8 +2,30 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 8. QA in the emulator: in progress (phase 7 done 2026-11-15). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 b9034870... (text + BG lettering + staff roll + OBJ sprites + title + **area chapter cards**), check ok. Session (j) fixed every graphics issue of session (i); what is left is the re-tour on this build and its verdicts (Next below).
-- **Session 2026-11-15 (k), read first:** build b9034870 rebuilt and unchanged, check ok (66 tests), smoke ok.
+- **Phase:** 8. QA in the emulator: in progress, only Codex verdicts on 223 sheets left (phase 7 done 2026-11-15). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 **a2ecdeb4...**, check ok (67 tests), smoke ok.
+- **Session 2026-11-15 (k), part 2, read first:**
+  - **Re-tour complete on a2ecdeb4**: tour 87/87 + tour_adv 59/59 + msgview (default, s01/s03) + gfxshots (57 shots,
+    0 missing) + inkcheck (7 rows, 0 failing) + textcover (621 shown, 170 waived, 0 failing). Most of it ran on
+    b9034870; the build then changed only 18[641] (status), 4[6] (intertitle) and 17[601] (top menu), and the scenes
+    loading them (top_menu, top_menu_continue, status, status_kageri, status_gant, story_intro; tour_adv
+    story_intro) were rerun on a2ecdeb4. msgview runs show only stage 1-1 text, unaffected.
+  - Contact sheets: **`tools/final_sheets.sh`** (now also the last step of `final_tour.sh`): 713 sheets.
+    `work/qa/manifest.tsv` initialised with `--build` a2ecdeb4.
+  - **Gfx gate passes**: `qa_gate.py check work/qa/final/gfx/manifest.tsv work/qa/final/gfx/verdicts` exit 0 (57 ok).
+  - **Sheet gate: 490 ok, 0 not ok, 223 without a verdict.** Claude Code stopped the Codex run for low system
+    memory. **Next:** `python -X utf8 tools/qa_codex.py work/qa/chunks2/chunk_*.txt --jobs 2 --prefix a_` (done
+    chunks are skipped: a_chunk_000..005 exist; 006..013 left), then `qa_gate.py check work/qa/manifest.tsv
+    work/qa/verdicts` must exit 0 = phase 8 done. If a sheet gets `issue`, fix, rerun its scene, rerun
+    `final_sheets.sh`, re-init the manifest with `--build`, and run `qa_gate.py todo` into a new chunk dir with a
+    new `--prefix` (chunk names repeat between todo runs; qa_codex skips by file name).
+  - Fixed from the tour verdicts: **status names** (they ran to x 239 over the circuit art): grid names now end at
+    x 232, Kageri Striker proportional with a double space; clear strips for the old names' tails at x 232-239.
+    18[641] budget **495** (`gfx/bg_budget.tsv`: VRAM 460 is the extra tile, 461-511 is the paused stage's map,
+    rewritten on leaving the status screen; description text starts at 512), spare tile 351.
+    **Intro intertitle** それから 四五〇ねん… = LZ picture **4[6]** (not in the survey before): "450 years later..."
+    (`gfx/obj.tsv` `pic4:6`; `objtext.load_pic` decompresses/recompresses LZ pictures in place; test added; shot
+    `intertitle`). **Top menu Continue** off-centre after session (j)'s column-63 fix: rects 62 wide (inkcheck 11/10).
+- **Session 2026-11-15 (k), part 1:** build b9034870 rebuilt and unchanged, check ok (66 tests), smoke ok.
   - An orphaned `final_tour.sh` of session (j) was still running and failing every scene (exit 0xC0000142 =
     MesenCE could not start for low memory): killed. Other projects' agents keep ~6 MesenCE instances (~4 GB) on the
     machine, free memory ~1-3 GB of 16.
