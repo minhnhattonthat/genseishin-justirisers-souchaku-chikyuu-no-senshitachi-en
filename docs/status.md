@@ -21,6 +21,10 @@ Updated at the end of every session. Keep it to what the next session needs; his
     Japanese; `continue_kageri` complete; `choice` as the original. Judge these ok in the gfx verdicts.
   - Re-tour driver promoted to **`tools/final_tour.sh`** (tour + tour_adv + msgview default and s01/s03 +
     gfxshots + inkcheck). Old run moved to `work/qa/old_v1/` (with the old manifest, chunks, verdicts).
+  - **The re-tour was stopped by Claude Code for low system memory** after 20 of 87 tour scenes (8 MesenCE
+    instances were running on the machine, other agents' included). Partial output in `work/qa/final/tour`: delete
+    `work/qa/final/tour` and rerun `bash tools/final_tour.sh` in full when memory allows (run it in the foreground
+    or with fewer other emulators; `--jobs 2` is already the minimum that finished before).
 - **Session 2026-11-15 (i): final re-tour started; one big gap found (area chapter cards).**
   - **Runs on build 5421be81** (`work/qa/final/`): `tour` (all warps, textcover probe, states regenerated in
     `work/states/`; driver `work/final_tour.sh`), `tour_adv` (59 story warps, ADVANCE=40 GOD=1, +2500 frames),
