@@ -52,3 +52,8 @@ cred_704c	credits	f006540	-	2	cred:704	"Published by" page
 cred_704d	credits	f006960	-	2	cred:704	closing copyright page
 cred_705	credits	f007200	-	2	cred:705	"The End"
 zakoul_other	-	-	-	-	obj:648[0],obj:648[1],obj:648[2],obj:662[0],obj:662[1],obj:662[2]	Zakoul plates in sprites 648 / 662: no warp loads them (reslog over the 78 warps, work/qa/resall); all six frames read "Zakoul" (red / blue / green) in `objtext.py render 648 662 --rom build/justirisers_en.gba` (2026-11-15)
+card_1	story_intro	f004260	0,8,240,104	2	card:207,card:208	area card "Area 1" / "Here Come the Justirisers!" over the heroes (the original frame differs in timing: its card is at f3660-3720)
+card_2	battle_1_win	f005580	0,8,240,104	2	card:209,card:210	area card "Area 2" / "Infiltrate! The Den of Schemes" (fading in or out)
+card_3	battle_2_win	f004200	0,8,240,104	2	card:211,card:212	area card "Area 3" / "Pursuit! Race Across the Wasteland!"
+card_4	battle_3_win	f003780	0,8,240,104	2	card:213,card:214	area card "Area 4" / "Menace! The Bewitching Cyber Knight"
+card_5	battle_4_win	f003960	0,8,240,104	2	card:215,card:216	area card "Area 5" / "Showdown! Secret Underground Base"

@@ -7,7 +7,7 @@ gfx/shots.tsv: id, scene, frame (f001560 or final), crop x,y,w,h (or -), zoom, r
 shot proves), expect (the English the shot must show). Each id gives OUT/<id>.png = the English frame beside the
 original ROM's same frame (when the jp tour has it), cropped and zoomed with the skill's sheet.py. Also writes
 OUT/brief.md = docs/visual-qa-brief.md + the expected text per id, for tools/qa_codex.py --brief, and checks
-that every screen/sprite/roll of gfx/bg.tsv, gfx/obj.tsv and gfx/credits.tsv is named in some shot's rows
+that every screen/sprite/roll/card layer of gfx/bg.tsv, gfx/obj.tsv, gfx/credits.tsv and gfx/cards.tsv is named in some shot's rows
 column (exit 1 if one is not, or a frame is missing). A row with scene `-` marks keys no warp reaches (expect
 says why and how they were checked instead).
 """
@@ -40,6 +40,8 @@ def gfx_keys():
         keys.add('obj:' + r[0] if ':' in r[0] else 'obj:%s[%s]' % (r[0], r[1]))
     for r in rows(os.path.join(ROOT, 'gfx', 'credits.tsv')):
         keys.add('cred:' + r[0])
+    for r in rows(os.path.join(ROOT, 'gfx', 'cards.tsv')):
+        keys.add('card:' + r[0])
     return keys
 
 
