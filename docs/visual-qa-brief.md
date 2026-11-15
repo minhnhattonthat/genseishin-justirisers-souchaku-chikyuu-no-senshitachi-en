@@ -32,8 +32,15 @@ Standing non-bugs, `ok`:
   their own small windows: the tag window shows the string, the box shows leftover text of an earlier message,
   and the background can fill with a repeated tile pattern while such a code runs outside its window. For s03
   judge only the name-tag text;
-- the HUD line at the bottom of stage screens (`L+R=...` in Japanese, life/ammo counters) is BG graphics, tracked
-  separately in `docs/status.md`; it is not cropped into the message-viewer sheets;
+- **tour runs** (ids starting `tour/` or `tour_adv/`): full 240x160 frames of one warp from a cold boot, in time
+  order. Menus, titles, stage bars, name plates and credits are now English graphics too, so Japanese lettering in
+  a menu, header, button, name plate or badge **is** an issue. Not an issue: Japanese on stage-background scenery
+  (shop signs, posters, building lettering in the street stages; deliberately left), the game's own logo artwork
+  (Konami / series logo, the title's ジャスティライザー logo, the attract clips' character cards with a katakana
+  name logo above its printed romaji such as "RISER GANT"), and debug-warp artefacts (a frame of the previous scene, a scene jumping straight to a
+  later state, a fight with the player pinned at full HP);
+- the HUD bar of stage screens (`L+R = Use Skill`, life/ammo counters) is not cropped into the message-viewer
+  sheets;
 - the `▲`/`↵` page-wait arrow at the box's lower right;
 - a short last line that is its own phrase ("Be careful, / Naoya!", "Fufufufu... / Justirisers!"): the script breaks
   there on purpose, as the Japanese does (vocative or exclamation on its own line). Only a word pushed down by a

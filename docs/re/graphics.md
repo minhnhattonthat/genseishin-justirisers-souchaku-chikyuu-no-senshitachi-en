@@ -230,6 +230,7 @@ Routes: `tools/routes/boot.txt` + menu routes in `tools/routes/survey_*.txt`; ma
 | Unknown | ジャスティライザー fragments / small katakana | BG screens s0207-s0216, s0670-s0673 | identify by warp in phase 2 |
 | Stage backgrounds | shop signs with small Japanese lettering (sweep: 9.0008, 9.0021, 9.0022, 9.0024, 9.0030, 9.0036, 9.0037; "CRASH" sign 9.0003 English) | BG, group 9 LZ | decide per sign (scenery; low priority) |
 | Boot/title logos | 5.0019 ジャスティライザー logo art, 5.0000 stylised lettering | group 5 | keep logo (D5) |
+| Attract/intro character cards | ライザーグレン / ライザーガント ... logo lettering over the suit art, official romaji "RISER GANT" etc. printed under it (seen in the `game_over` run's return to the attract clips, ~f4440) | picture | keep: character logo art that already carries its English name (D5; found in the 2026-11-15 final tour) |
 
 | Not yet seen in-game | game over, stage clear / results, areas 2+, boss names, ending, credits | static rows above | confirm each by warping in phase 2 |
 

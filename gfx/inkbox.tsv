@@ -1,0 +1,9 @@
+# Centred choice / menu boxes measured with the skill's inkbox.py (tools/inkcheck.py; phase 8 done-when).
+# id	scene	frame	rects (x,y,w,h;..: inside each box, clear of its border)	extra inkbox args	note
+yes_no	data_save_slots	final	62,90,44,12	--bg 40,69,54 --diff 60	overwrite prompt Yes button (dark green face)
+yes_no_2	data_save_slots	final	134,90,44,12	--bg 202,166,101 --diff 60	overwrite prompt No button (highlighted face)
+mode3	mode_select	final	53,50,38,26;101,50,38,26;149,50,38,26	--vert	Kids / Normal / Hard button faces
+mode4	mode_bonus	final	30,50,38,26;78,50,38,26;126,50,38,26;174,50,38,26	--vert	Kids / Normal / Hard / Bonus faces
+top_new	top_menu	final	80,121,80,14	-	New Game backing between the carousel arrows
+top_continue	top_menu_continue	final	80,121,80,14	-	Continue backing between the carousel arrows
+choice	battle_choice	f001500	50,137,140,14	-	"Which will you use?" strip

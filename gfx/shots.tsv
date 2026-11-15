@@ -1,0 +1,54 @@
+# Zoomed cold-boot shots of every graphics-text row (tools/gfxshots.py; phase 8 done-when). Tab-separated:
+# id	scene (warp in tools/debug/scenes.gba.txt, '-' = no warp shows it)	frame	crop x,y,w,h or -	zoom	rows (bg:N[:M], obj:S[F] / obj:bg5:.. / obj:pic5:.., cred:N)	expect
+title	title	final	-	2	obj:pic5:20	title: subtitle "Souchaku!" / "Warriors of Earth" under the logo, copyright line "© 2004 Justiriser Project / TV Tokyo"
+top_new	top_menu	final	0,96,240,40	3	obj:601[2],obj:601[3]	top menu carousel item "New Game" on its white backing, arrows either side
+top_continue	top_menu_continue	final	0,96,240,40	3	obj:601[4],obj:601[5]	top menu carousel item "Continue" on its white backing
+mode3	mode_select	final	0,0,240,96	2	bg:653,bg:653:654	header "Choose a mode", buttons "Kids" / "Normal" / "Hard" (Normal highlighted)
+mode3_kids	mode_kids	final	0,0,240,96	2	bg:653:654	buttons "Kids" (highlighted) / "Normal" / "Hard"
+mode4	mode_bonus	final	0,0,240,96	2	bg:659,bg:659:660	header "Choose a mode", four buttons "Kids" / "Normal" / "Hard" / "Bonus" (Bonus highlighted)
+config	options	final	-	2	bg:620	"Config" header, "Pick an action, then a button.", rows Attack / Jump / Guard / Swap Weapon / Restore Defaults / Done
+load	data_load	final	-	2	bg:647:648,bg:647:649	"Load Data" header, legend OK / Pick / Back / Erase, "Erase Data" button, file card "Stage 1-1"
+save	data_save_slots	f001080	-	2	bg:647,obj:646[0],obj:646[9]	"Save Data" header, legend, "Erase Data", file card "Stage 1-1" with badge "Normal" and plate "Riser Glen"
+save_prompt	data_save_slots	final	40,80,160,60	3	obj:bg5:0:3	overwrite prompt "Overwrite the saved data?" with buttons "Yes" / "No"
+save_hard	data_save_hard	final	80,30,90,120	3	obj:646[10]	save card badge "Hard"
+save_kids	data_save_kids	final	80,30,90,120	3	obj:646[11],obj:646[1]	save card badge "Kids", plate "Riser Kageri"
+save_bonus	data_save_bonus	final	80,30,90,120	3	obj:646[12],obj:646[13],obj:646[14],obj:646[15]	save card badge "Bonus", plate "Zakoul" (Bonus mode plays as Zakoul; frames 13-15 are the same plate per character slot, one shown)
+save_gant	data_save_gant	final	80,30,90,120	3	obj:646[2]	save card badge "Normal", plate "Riser Gant"
+chars	char_select	final	-	2	bg:600,bg:600:602,obj:545[0]	"Character Select" header, legend Pick / OK, "Arms" / "Skill", "Glen Sword" / "Raging Flame", plate "Riser Glen"
+chars_kageri	char_select_kageri	final	-	2	bg:600:602,obj:545[1]	plate "Riser Kageri", "Kageri Striker" / "Phantom Crush"
+chars_gant	char_select_gant	final	-	2	bg:600:602,obj:545[2]	plate "Riser Gant", "Gant Slugger" / "Versus Cannon"
+continue	continue	final	-	2	bg:632,obj:630[0],bg:655:625	continue screen: plate "Riser Glen", legend Pick / OK; stage bar "L+R = Use Skill"
+continue_kageri	continue_kageri	final	60,40,180,80	3	obj:630[1]	plate "Riser Kageri"
+continue_gant	continue_gant	final	60,40,180,80	3	obj:630[2]	plate "Riser Gant"
+points	points	final	-	2	bg:618,bg:618:619	"Clear Points" header, Action Points / Hit Bonus / Item Points / Total / Grand Total
+pause	pause	final	-	2	bg:633,bg:655:625	PAUSE menu "Resume Game" / "Give Up" / "Status"; stage bar "L+R = Use Skill"
+status	status	final	-	2	bg:641	"Status" header, "Riser Glen", "Arms" / "Skill", "Glen Sword" / "Raging Flame"
+status_kageri	status_kageri	final	-	2	bg:641:642	"Status", "Riser Kageri", "Kageri Striker" / "Phantom Crush"
+status_gant	status_gant	final	-	2	bg:641:643	"Status", "Riser Gant", "Gant Slugger" / "Versus Cannon"
+bar_kageri	status_kageri	f001500	0,140,240,20	3	bg:656:626	Kageri's stage bar "L+R = Use Skill"
+bar_gant	status_gant	f001500	0,140,240,20	3	bg:657:627	Gant's stage bar "L+R = Use Skill"
+bar_gameover	game_over	f004140	0,140,240,20	3	bg:656:626	stage bar "L+R = Use Skill" (game-over run)
+map	clear_1_1	f001200	-	2	bg:608,bg:608:609	stage map: "Stage" label, "World Map" label
+choice	battle_choice	f001500	-	2	bg:629,bg:629:630,bg:629:631	round-2 choice: "Genseishin Kenriser", "Genseijuu Raizeros", prompt "Which will you use?"
+hints	attract_battle	final	-	2	obj:633[2],obj:633[46]	battle hints "Mash B!" and "Ⓐ Button: Attack!"
+unlock	ending	f002940	-	2	bg:651	"Congratulations", "Genseishin Kenriser / is now available!"
+cred_700a	credits	f001140	-	2	cred:700	staff roll page (roll 700): Original Work and following roles, names in Latin letters
+cred_700b	credits	f001440	-	2	cred:700	staff roll (roll 700, next page)
+cred_700c	credits	f001740	-	2	cred:700	staff roll (roll 700, next page)
+cred_701a	credits	f002100	-	2	cred:701	staff roll (roll 701)
+cred_701b	credits	f002340	-	2	cred:701	staff roll (roll 701, next page)
+cred_702a	credits	f002640	-	2	cred:702	staff roll (roll 702)
+cred_702b	credits	f003000	-	2	cred:702	staff roll (roll 702, next page)
+cred_702c	credits	f003240	-	2	cred:702	staff roll (roll 702, next page)
+cred_702d	credits	f003900	-	2	cred:702	staff roll (roll 702, next page)
+cred_702e	credits	f004140	-	2	cred:702	staff roll (roll 702, next page)
+cred_703a	credits	f004440	-	2	cred:703	staff roll (roll 703)
+cred_703b	credits	f004740	-	2	cred:703	staff roll (roll 703, next page)
+cred_703c	credits	f005100	-	2	cred:703	staff roll (roll 703, next page)
+cred_703d	credits	f005400	-	2	cred:703	staff roll (roll 703, next page)
+cred_704a	credits	f005640	-	2	cred:704	staff roll (roll 704): "Special Thanks"
+cred_704b	credits	f005940	-	2	cred:704	"Developed by" page
+cred_704c	credits	f006540	-	2	cred:704	"Published by" page
+cred_704d	credits	f006960	-	2	cred:704	closing copyright page
+cred_705	credits	f007200	-	2	cred:705	"The End"
+zakoul_other	-	-	-	-	obj:648[0],obj:648[1],obj:648[2],obj:662[0],obj:662[1],obj:662[2]	Zakoul plates in sprites 648 / 662: no warp loads them (reslog over the 78 warps, work/qa/resall); all six frames read "Zakoul" (red / blue / green) in `objtext.py render 648 662 --rom build/justirisers_en.gba` (2026-11-15)

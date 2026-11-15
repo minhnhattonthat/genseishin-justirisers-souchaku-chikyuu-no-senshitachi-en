@@ -2,6 +2,7 @@
 # name	scene	sub	pokes	presses	note	frames
 title	0	4	-	-	PUSH START title (scene 0 sub 4 with its scene-15 helper)	1300
 top_menu	0	4	-	150 -;6 start;150 -	title logo + the ◀ はじめから ▶ carousel menu (one item shown; つづきから / OPTION by left/right) (Start on the title)	1400
+top_menu_continue	0	4	-	150 -;6 start;150 -;6 right;90 -	top menu carousel moved to つづきから	1500
 mode_select	1	16	-	-	モードを えらんでください: kids / normal / hard (scene 1 sub 16-17)	1500
 mode_kids	1	16	-	150 -;6 left;60 -	mode select, cursor on キッズモード (its description line)	1600
 mode_hard	1	16	-	150 -;6 right;60 -	mode select, cursor on ハードモード (its description line)	1600
@@ -11,6 +12,14 @@ options	9	0	-	-	OPTION / config screen (BG s0620)	1500
 data_load	8	0	-	-	つづきから: data load screen	1500
 data_save	7	0	0x03001F58=1	-	save menu after a stage: next stage / save (scene 7 sub 18)	1500
 data_save_slots	7	0	0x03001F58=1	120 -;6 down;40 -;6 a;200 -;6 a;150 -	data save slot screen, then A on File01: overwrite prompt (when the slot holds data)	1900
+data_save_hard	7	0	0x03001F58=1 0x03001F4B=1	120 -;6 down;40 -;6 a;200 -;6 a;150 -;6 left;30 -;6 a;300 -;6 a;200 -	save card with the Hard badge	1800
+data_save_kids	7	0	0x03001F58=1 0x03001F4B=2 char=1	120 -;6 down;40 -;6 a;200 -;6 a;150 -;6 left;30 -;6 a;300 -;6 a;200 -	save card with the Kids badge, Riser Kageri plate	1800
+data_save_bonus	7	0	0x03001F58=1 0x03001F4B=3 char=2	120 -;6 down;40 -;6 a;200 -;6 a;150 -;6 left;30 -;6 a;300 -;6 a;200 -	save card with the Bonus badge, char=2 (shows the Zakoul plate)	1800
+data_save_gant	7	0	0x03001F58=1 0x03001F4B=0 char=2	120 -;6 down;40 -;6 a;200 -;6 a;150 -;6 left;30 -;6 a;300 -;6 a;200 -	save card with the Normal badge, Riser Gant plate	1800
+char_select_kageri	3	0	area=0 stage=0 0x03001F58=1	150 -;6 right;150 -	character select moved to Riser Kageri (name plate, weapon names)	1500
+char_select_gant	3	0	area=0 stage=0 0x03001F58=1	150 -;6 right;150 -;6 right;150 -	character select moved to Riser Gant (name plate, weapon names)	1600
+continue_kageri	2	0	area=0 stage=0 0x03001F58=1 char=1 @sub48 @hold	mash60	continue screen with Riser Kageri	4500
+continue_gant	2	0	area=0 stage=0 0x03001F58=1 char=2 @sub48 @hold	mash60	continue screen with char=2 (the save card shows Zakoul for char=2)	4500
 points	6	0	0x03001F58=1	-	stage clear points screen (scene 6)	1500
 char_select	3	0	area=0 stage=0 0x03001F58=1	-	character select (scene 3), stage 1-2	1500
 pause	2	0	area=0 stage=0 0x03001F58=1 @pause	mash60	pause menu in stage 1-2 (PAUSE, ゲームを つづける / リタイア / ステータス)	4500
