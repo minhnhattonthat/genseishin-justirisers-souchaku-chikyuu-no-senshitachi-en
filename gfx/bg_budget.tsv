@@ -11,7 +11,14 @@
 600	496	131-136,143-148	vram dump work/qa/gfx/bgcnt_cs (char_select f1450) + work/qa/gfx/w489
 # 18[641] status: VRAM 16-459 = the set, and the description text window draws its glyphs from tile 460 on: a 547-tile
 # build showed Gant's labels overwritten by the description (work/qa/gfx/status_en3.png). Original count (444) stands.
-641	444	-	vram dump work/qa/gfx/bgcnt_status (bgvram: next used 460) + build test work/qa/gfx/status_en3.png
+# Spare: tile 351 (3 stray pixels) is referenced by none of 20[638..644] nor by the live map in the dump; 424-443 are
+# not spares although no 20[] map holds them: the code writes them into the map as the x05/x00 counter digits.
+# 445 (2026-11-15 (k)): VRAM 460 is the set's extra tile, not the description (that starts at 512, cells (1..28,15..18)).
+# VRAM 461-511 = screen block 7 = the paused stage's BG map (08008FC8 at f1146), which the original copy (080057F6,
+# f2317, VRAM 16-460) already clobbers from 448, and leaving the status screen rewrites it (08008FC8 at f137 from
+# work/states/status_kageri.mss, B: work/qa/status_ret). No live map of the status screen uses VRAM 461-511, so the
+# set may grow to 495 tiles (its extra tile at 511). Watches work/qa/gfx/w461b, w16 (status_kageri, work/orig.gba).
+641	495	351	vram dump work/qa/gfx/bgcnt_status (bgvram: next used 460) + build test work/qa/gfx/status_en3.png
 # 18[608] stage map: BG0/BG1 char block 3, the set at VRAM 1536-1689 (slot 154 = 1690 is referenced past the end),
 # VRAM 1691-1791 all zero on the map (dump f1250) and written only by the tileset loader (watch.lua 0x0600D340-0x0600DFFF
 # over stage_1_1 to f2200); 1792+ holds other data, so 200 keeps well below it.

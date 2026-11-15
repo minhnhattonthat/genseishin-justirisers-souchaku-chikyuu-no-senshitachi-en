@@ -162,8 +162,9 @@ def load_rows(path=TSV):
         if r[0].startswith("bg5:"):
             _, t, m = r[0].split(":")
             target = ("bg5", int(t), int(m))
-        elif r[0].startswith("pic5:"):
-            target = ("pic5", int(r[0][5:]), 0)
+        elif r[0].startswith("pic"):   # picG:N = 8bpp picture G[N] (5[20] title, 4[6] intro intertitle; LZ allowed)
+            g, _, n = r[0][3:].partition(":")
+            target = ("pic" + g, int(n), 0)
         else:
             target = ("obj", int(r[0]), int(r[1]))
         al = r[8] or "c"
@@ -524,12 +525,21 @@ def scaled_text(canvas, row, fonts, scale):
         canvas[(px, py)] = bands[b]
 
 
+def load_pic(d, g, n):
+    """-> (Pic, offset, size, lz) of picture G[n]; an LZ resource (intro stills, group 4) is decompressed."""
+    import klz
+    o, s = resource(d, n, g)
+    lz = d[o] == 0xFF
+    return Pic(klz.decompress(d[o:o + s])[0] if lz else d[o:o + s]), o, s, lz
+
+
 def redraw_pic(d, rows, fonts):
-    """Title picture 5[n]: rows drawn on its 8bpp canvas, touched cells re-encoded; new tiles may only take the old
-    tiles of the touched cells (the count and size stay). -> (offset, blob)."""
-    n = rows[0]["target"][1]
-    o, s = resource(d, n, 5)
-    pic = Pic(d[o:o + s])
+    """Picture G[n] (title 5[20], intro stills 4[n]): rows drawn on its 8bpp canvas, touched cells re-encoded; new
+    tiles may only take the old tiles of the touched cells (the count and size stay). An LZ picture is compressed
+    again and must fit its old resource. -> (offset, blob)."""
+    import klz
+    g, n = int(rows[0]["target"][0][3:]), rows[0]["target"][1]
+    pic, o, s, lz = load_pic(d, g, n)
     canvas = pic.canvas()
     before = dict(canvas)
     for r in rows:
@@ -555,7 +565,7 @@ def redraw_pic(d, rows, fonts):
         enc = bytes(canvas[(8 * cx + i % 8, 8 * cy + i // 8)] for i in range(64))
         if enc not in index:
             if not free:
-                raise ValueError(f"5[{n}]: out of tiles (the redraw needs more unique tiles than it frees)")
+                raise ValueError(f"{g}[{n}]: out of tiles (the redraw needs more unique tiles than it frees)")
             t = free.pop(0)
             pic.tiles[t] = enc
             index[enc] = t
@@ -563,7 +573,11 @@ def redraw_pic(d, rows, fonts):
         pic.e[k] = (pic.e[k] & 0xFC00) | index[enc]
     b = pic.blob()
     if len(b) != pic.size:
-        raise ValueError(f"5[{n}]: size changed")
+        raise ValueError(f"{g}[{n}]: size changed")
+    if lz:
+        b = klz.compress(b)
+        if len(b) > s:
+            raise ValueError(f"{g}[{n}]: {len(b)} bytes compressed > {s} (the resource's room)")
     return o, b
 
 
@@ -589,7 +603,7 @@ def apply(rom, orig, rows=None):
         for o, b in redraw_bg5(d, [r for r in bg if r["target"] == key], fonts):
             rom[o:o + len(b)] = b
             out.append((o, o + len(b)))
-    pics = [r for r in rows if r["target"][0] == "pic5"]
+    pics = [r for r in rows if r["target"][0].startswith("pic")]
     for key in sorted({r["target"] for r in pics}):
         o, b = redraw_pic(d, [r for r in pics if r["target"] == key], fonts)
         rom[o:o + len(b)] = b
@@ -665,9 +679,8 @@ def preview(d, outdir, zoom):
             if key[0] == "obj":
                 sp, _ = load(src, key[1])
                 pair.append(sp.rgb_canvas(key[2]))
-            elif key[0] == "pic5":
-                o, s = resource(src, key[1], 5)
-                pic = Pic(src[o:o + s])
+            elif key[0].startswith("pic"):
+                pic = load_pic(src, int(key[0][3:]), key[1])[0]
                 pal = struct.unpack_from("<256H", pic.mid)
                 c = pic.canvas()
                 pair.append([bytearray(b"".join(rgb(pal[c[(x, y)]]) for x in range(8 * pic.w)))

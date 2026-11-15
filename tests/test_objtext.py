@@ -87,6 +87,24 @@ class ObjTextTest(unittest.TestCase):
         self.assertTrue(any(ca[p] != cb[p] for p in ca))
         self.assertEqual([p for p in ca if ca[p] != cb[p] and not y0 <= p[1] < y1], [])   # logo, 2nd copyright line
 
+    def test_lz_picture_recompressed_in_place(self):
+        """Intro intertitle 4[6]: LZ again, inside the old resource, same header/palette/tile count, and only the
+        lettering rows' rects change."""
+        import objtext
+        rows = [r for r in self.rows if r["target"][0] == "pic4"]
+        self.assertTrue(rows)
+        for n in sorted({r["target"][1] for r in rows}):
+            a, o, s, lz = objtext.load_pic(self.orig, 4, n)
+            b, o2, s2, lz2 = objtext.load_pic(self.new, 4, n)
+            self.assertTrue(lz and lz2)
+            self.assertEqual((o, s), (o2, s2))
+            self.assertEqual((a.head, a.mid, a.nt), (b.head, b.mid, b.nt))
+            ca, cb = a.canvas(), b.canvas()
+            rects = [r["rect"] for r in rows if r["target"][1] == n]
+            inside = lambda p: any(x <= p[0] < x + w and y <= p[1] < y + h for x, y, w, h in rects)   # noqa: E731
+            self.assertTrue(any(ca[p] != cb[p] for p in ca))
+            self.assertEqual([p for p in ca if ca[p] != cb[p] and not inside(p)], [])
+
 
 if __name__ == "__main__":
     unittest.main()

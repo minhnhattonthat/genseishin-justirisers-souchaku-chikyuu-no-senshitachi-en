@@ -29,3 +29,4 @@ D23570-EFFFFF   free space (0xFF fill, trap-tested): relocated script block
 628B4C-62DE8F   area card tilesets 18[207..216] (エリアN headers + chapter titles), in place (tools/cards.py)
 72B048-72BC53   area card metatile sets 19[207..216], in place (tools/cards.py)
 2C15F4-2CB12F   title picture 5[20] (subtitle + copyright line 1), rewritten in place (tools/objtext.py)
+2329BA-232ED6   intro intertitle picture 4[6] (LZ), recompressed in place (tools/objtext.py)

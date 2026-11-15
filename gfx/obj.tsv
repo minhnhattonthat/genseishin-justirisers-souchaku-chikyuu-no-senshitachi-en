@@ -47,3 +47,5 @@ pic5:20	0	24,73,200,29	Souchaku!	normal*2	59/53/57/5F/66/6E	o4A,40	-	cb	title su
 pic5:20	0	24,102,200,20	Warriors of Earth	normal	59/53/57/5F/66/6E	o4A,40,4A	-	cb	title subtitle 地球の戦士たち
 pic5:20	0	34,138,206,10		small	-	-	inpaint:75-75	c	title copyright line 1: clear ジャスティライザープロジェクト・テレビ東京
 pic5:20	0	36,140,204,8	Justiriser Project / TV Tokyo	small	4B	-	-	l	title copyright line 1 (line 2 is English already)
+pic4:6	0	96,16,56,128	 	small	-	-	11	c	intro intertitle: clear the vertical それから 四五〇ねん… (black = index 0x11)
+pic4:6	0	0,72,240,16	450 years later...	normal	1	-	-	c	intro intertitle それから 四五〇ねん… (after the Sengoku-era battle; next page "Then Doctor Zora...")

@@ -1,6 +1,7 @@
 # Zoomed cold-boot shots of every graphics-text row (tools/gfxshots.py; phase 8 done-when). Tab-separated:
 # id	scene (warp in tools/debug/scenes.gba.txt, '-' = no warp shows it)	frame	crop x,y,w,h or -	zoom	rows (bg:N[:M], obj:S[F] / obj:bg5:.. / obj:pic5:.., cred:N)	expect
 title	title	final	-	2	obj:pic5:20	title: subtitle "Souchaku!" / "Warriors of Earth" under the logo, copyright line "© 2004 Justiriser Project / TV Tokyo"
+intertitle	story_intro	f003120	-	2	obj:pic4:6	intro intertitle "450 years later..." centred on black (the original shows a vertical それから 四五〇ねん…; its frame differs in timing: f2640-2760)
 top_new	top_menu	final	0,96,240,40	3	obj:601[2],obj:601[3]	top menu carousel item "New Game" on its white backing, arrows either side
 top_continue	top_menu_continue	final	0,96,240,40	3	obj:601[4],obj:601[5]	top menu carousel item "Continue" on its white backing
 mode3	mode_select	final	0,0,240,96	2	bg:653,bg:653:654	header "Choose a mode", buttons "Kids" / "Normal" / "Hard" (Normal highlighted)

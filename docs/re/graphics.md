@@ -231,7 +231,7 @@ Routes: `tools/routes/boot.txt` + menu routes in `tools/routes/survey_*.txt`; ma
 | Mode select | description 「ふつうの モードです」 etc. | text (0x1E9F5D) | script |
 | Story | dialogue box frame | OBJ, ROM 0x5EAC78 (group 17) | no text |
 | Story | speaker name plate (e.g. ザウラス, bottom-right of the box) | OBJ 'aS' 17.0545, 17.0630, 17.0646 (katakana name labels) | translate (every speaker) |
-| Story | vertical narration 「それから 四五〇〇年…」 | BG | check: script or graphic |
+| Story | vertical narration 「それから 四五〇ねん…」 | picture 4[6] (LZ 8bpp still, same layout as 5[20]; intro stills are 4[3..8]) | done: "450 years later..." (gfx/obj.tsv `pic4:6`, recompressed in place: objtext.load_pic) |
 | Story | area card 「エリア1」 + 「『ジャスティライザー とうじょう!』」 | BG over still | check source; one per area |
 | Stage map | header ぜんたいマップ, banner ステージ 1-1, クリアポイント, counters | BG screens s0607, s0617, s0618 | translate |
 | Character select | header キャラクターセレクト, ぶき, ひっさつわざ, legend ✚=せんたく Ⓐ=けってい; STR/DEF/SPD/HP/EN English | BG screen s0510 | translate |
