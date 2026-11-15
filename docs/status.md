@@ -2,8 +2,26 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 9. Release in progress: story pass and polish done, re-tour on the new build running. Last build: 2026-11-15 `build/justirisers_en.gba` sha1 **050ac249...**, check ok (67 tests).
-- **Session 2026-11-15 (m), read first: phase 9.**
+- **Phase:** 9. Release done: v1.0 zip built and verified (`release/v1.0/Genseishin_Justirisers_EN_v1.0.zip`,
+  patch sha1 4cd30fb2..., patched ROM CRC32 1879B614 / sha1 **08de8273...**). Publishing (`gh release create`, repo
+  visibility) is the user's call. Last build: 2026-11-15 `build/justirisers_en.gba` sha1 08de8273, check ok (70 tests),
+  smoke ok, `tools/release.py` exit 0 (every gate: visual 717, gfx 58, story 8, textcover 0 failing, polish, README).
+- **Session 2026-11-15 (m), part 2:** codex verdicts on the re-tour found two real graphics bugs, both fixed:
+  - **Attract-mode title** (after the story clip, before the real title 5[20]) still showed 装着!地球の戦士たち and
+    the Japanese copyright: BG layers 18[247] (maps 20[247]/20[248]) and 18[245], new writer `tools/attract.py` +
+    `gfx/attract.tsv` + `tests/test_attract.py`, shot `attract_title` (docs/re/graphics.md §Attract title).
+  - **Char-select arrow highlights** 20[603]/20[604] were missing from `gfx/bg_pairs.tsv` (tiles recycled into
+    letter fragments for a few frames on a hero switch): listed; `tools/pairsweep.py` + a reslog check found no
+    other gap.
+  - Other issue verdicts judged by the controller (`work/qa/verdicts/e_controller.tsv`): mode_bonus description
+    crossfade = the game's own (original overlaps the same way); clear_5_3 lingering portrait / garbage tiles =
+    warp.lua's TIMEOUT81 forcing the post-clear event to end mid-dialogue (the original plays it out with slow A).
+    Stale manifest entries for sheet pages the rerun no longer makes were dropped.
+  - Only the scenes these changes touch were rerun on 08de8273 (attract_story, char_select*, continue*, plus
+    stage_2_3/status/pause); runs are not frame-exact between emulator runs (boot timing shifts), so their sheets got
+    fresh codex verdicts (all ok). Text unchanged since 050ac249, so string addresses and textcover logs hold.
+  - `tools/final_tour.sh` takes `JOBS=1` for low-memory machines.
+- **Session 2026-11-15 (m), part 1: phase 9.**
   - Done: `docs/style-reference.md`; story pass (`tools/pairs.py --chapters work/qa/story/chapters`, 8 chapters,
     `tools/story_codex.py` = read-only codex per chapter, brief `docs/story-reviewer-brief.md`, reports
     `work/qa/story/reports/{a,b,c}_*.md`): one Important (1F0FC6) fixed, Minors fixed or waived; `qa_gate.py check
@@ -19,10 +37,7 @@ Updated at the end of every session. Keep it to what the next session needs; his
     same build, every log is newer than the build): tour 87/87, tour_adv 59/59, gfxshots 57 (0 missing), inkcheck
     7/0 failing, **textcover 621 shown, 170 waived, 0 failing**. Sheets regenerated; both manifests re-initialised
     with `--build`: 721 of 727 tour sheets and 13 of 57 gfx shots need new verdicts.
-  - **Next:** codex verdicts running: `tools/qa_codex.py work/qa/final/gfx/chunks4/chunk_*.txt --verdicts
-    work/qa/final/gfx/verdicts --brief work/qa/final/gfx/brief.md --prefix gd_`, then `tools/qa_codex.py
-    work/qa/chunks4/chunk_*.txt --jobs 2 --prefix d_` (logs `work/qa/codex_gfx4.log`, `work/qa/codex_d.log`; done
-    chunks are skipped on a rerun). Then both `qa_gate.py check` exit 0, then `python -X utf8 tools/release.py`.
+  - Codex verdicts on the re-tour (`work/qa/chunks4`, prefix `d_`; gfx `gd_`): see part 2.
 - **Session 2026-11-15 (l): phase 8 done.**
   - Codex verdicts on the last chunks (`work/qa/chunks2` 006..013): 222 ok, 1 issue: `tour_adv/clear_1_2/sheet_2`
     frame f3720 = green stripes of garbage tiles (first frames of the points screen, scene 6 sub 1, palette fade-in).
