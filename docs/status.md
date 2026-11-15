@@ -2,8 +2,22 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 8. QA in the emulator: in progress, only Codex verdicts on 223 sheets left (phase 7 done 2026-11-15). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 **a2ecdeb4...**, check ok (67 tests), smoke ok.
-- **Session 2026-11-15 (k), part 2, read first:**
+- **Phase:** 9. Release: not started (phase 8 done 2026-11-15, session (l)). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 **a2ecdeb4...**, check ok (67 tests), smoke ok.
+- **Session 2026-11-15 (l), read first: phase 8 done.**
+  - Codex verdicts on the last chunks (`work/qa/chunks2` 006..013): 222 ok, 1 issue: `tour_adv/clear_1_2/sheet_2`
+    frame f3720 = green stripes of garbage tiles (first frames of the points screen, scene 6 sub 1, palette fade-in).
+    **Not reproducible**: the same warp with the same options (and with a shot every frame, on both ROMs) shows a
+    clean green fade-in on that frame, identical in the original (the green flash itself is the game's own). It was a
+    one-off capture of the memory-starved tour run. Old output kept in `work/qa/old_glitch/clear_1_2`; the scene's
+    output replaced by the rerun, its sheets regenerated, manifest re-initialised with `--build`, 3 sheets re-verdicted
+    by Codex (`work/qa/chunks3`, prefix `b_`): ok.
+  - **Gates on a2ecdeb4**: `qa_gate.py check work/qa/manifest.tsv work/qa/verdicts` exit 0 (713 sheets ok);
+    gfx gate exit 0 (57 ok); inkcheck 7/0 failing and textcover 0 failing (session (k)); check ok, smoke ok.
+  - **Next (phase 9, `references/pipeline.md` §Release):** write `docs/style-reference.md` (phase 6 review Minor 3,
+    see the Next line below), story-pass verdict per chapter (`work/qa/story/manifest.tsv`, `references/translation.md`
+    §Review), tick or close every line of `docs/polish.md`, `jp_left.py`/romcheck on the release build, debug tool
+    off, README with base ROM hashes, `tools/release.py` (patch + verify, zip). Never `gh release create`.
+- **Session 2026-11-15 (k), part 2:**
   - **Re-tour complete on a2ecdeb4**: tour 87/87 + tour_adv 59/59 + msgview (default, s01/s03) + gfxshots (57 shots,
     0 missing) + inkcheck (7 rows, 0 failing) + textcover (621 shown, 170 waived, 0 failing). Most of it ran on
     b9034870; the build then changed only 18[641] (status), 4[6] (intertitle) and 17[601] (top menu), and the scenes
