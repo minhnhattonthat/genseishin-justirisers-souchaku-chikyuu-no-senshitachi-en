@@ -1,0 +1,9 @@
+# Attract-mode title intro in English (tools/attract.py; docs/re/graphics.md §Attract title). gfx/bg.tsv columns:
+# layer	rect x,y,w,h	text	font	ink	shadow	bg	align	note
+# 247 = subtitle (8bpp indices of 18[247]: 57/52/47/44/38/34 light yellow -> orange, 21 dark green; 0 transparent).
+# Rows above y 102 go to map 20[247], the rest to 20[248]: the two lines slide in from opposite sides, like 装着 and
+# 地球の戦士たち. 245 = stars/Earth backdrop with the copyright: bg rows clear to black, ink rows draw white.
+247	0,73,240,29	Souchaku!	normal*2	57/52/47/44/38/34	o21	-	cb	subtitle 装着! (D8: kept as Souchaku!; same size and place as on the title 5[20])
+247	0,102,240,20	Warriors of Earth	normal	57/52/47/44/38/34	o21	-	cb	subtitle 地球の戦士たち
+245	34,138,160,10		small	15	-	0	l	clear ジャスティライザープロジェクト・テレビ東京 (©2004 kept)
+245	36,139,158,8	Justiriser Project / TV Tokyo	small	15	-	-	l	copyright line 1 (line 2 is English already)

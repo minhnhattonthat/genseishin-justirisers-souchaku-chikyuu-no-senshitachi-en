@@ -5,6 +5,8 @@
 # and per-screen runs (work/qa/res/<scene>), docs/status.md session (d) list.
 601	600	char select stat radar
 602	600	char select weapon / special name atlas
+603	600	char select arrows, pressed highlight (both arrows; loaded on a switch: work/qa/cs_res, f953 for 604; found phase 9)
+604	600	char select arrows, pressed highlight (both arrows; 20[604] at f953 of char_select_gant; found phase 9)
 609	608	stage map header + lives bar
 616	622	stage HUD gauge atlas
 617	622	stage HUD gauge atlas

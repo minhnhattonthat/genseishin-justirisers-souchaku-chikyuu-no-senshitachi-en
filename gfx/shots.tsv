@@ -58,3 +58,4 @@ card_2	battle_1_win	f005580	0,8,240,104	2	card:209,card:210	area card "Area 2" /
 card_3	battle_2_win	f004200	0,8,240,104	2	card:211,card:212	area card "Area 3" / "Pursuit! Race Across the Wasteland!"
 card_4	battle_3_win	f003780	0,8,240,104	2	card:213,card:214	area card "Area 4" / "Menace! The Bewitching Cyber Knight"
 card_5	battle_4_win	f003960	0,8,240,104	2	card:215,card:216	area card "Area 5" / "Showdown! Secret Underground Base"
+attract_title	attract_story	f001140	-	2	attract:245,attract:247	attract-mode title intro (after the story clip, before the real title): subtitle "Souchaku!" / "Warriors of Earth" under the logo, copyright line "© 2004 Justiriser Project / TV Tokyo"; the logo stays Japanese (D5)

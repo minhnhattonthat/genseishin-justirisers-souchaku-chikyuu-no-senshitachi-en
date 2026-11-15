@@ -184,6 +184,28 @@ area too, palette-ish). Loader 0x0801E1D2..0x0801E206 (the credits one):
 - Checked in the emulator on the en build: `work/qa/cards_en` (story_intro f4260, battle_1_win f5580, battle_2_win
   f4200, battle_3_win f3780, battle_4_win f3960).
 
+## Attract title (found phase 9; writer `tools/attract.py`, rows `gfx/attract.tsv`, `tests/test_attract.py`)
+
+After the attract story clip (scene 17; warp `attract_story`) the game builds the title in BG layers before the real
+title picture 5[20] loads (f1263): the phase 6-8 survey had these only as "title variants, keep logo", but they also
+carry the subtitle and the copyright, still Japanese until phase 9. Same metatile format as the area cards:
+- 18/19/20[245] (4bpp, 578 tiles, every metatile used once): stars + Earth + both copyright lines. Line 1 (pixel
+  rows 139-146) is redrawn over the picture: its tiles re-encoded in their own banks (black clear, white small font).
+- 18/19/20[246] (8bpp): the logo, kept (D5).
+- 18[247] (8bpp, 112 tiles) + 19[247] (N 149): the subtitle, drawn by **two maps**: 20[247] = top half and 20[248] =
+  bottom half (with the ruby); the halves slide in from opposite sides, then rest at scroll 0. 18[248] is never
+  loaded. English: "Souchaku!" (2x, as on 5[20]) in map 247 and "Warriors of Earth" in map 248 (rows split at y 102),
+  96 of 112 tiles, 47 of 150 metatiles. Checked: `work/qa/attract_en` (slide-in and rest, f960-f1280).
+
+## Char-select arrow highlights (fixed phase 9)
+
+20[603] / 20[604] are the pressed left/right arrows, drawn with the char-select tileset 18[600] when the player
+switches hero (20[604] loads at f953 of `char_select_gant`). They were missing from `gfx/bg_pairs.tsv`, so the
+redraw of 18[600] recycled their tiles into letters (white fragments between the hero and the radar for a few frames).
+Listed now (18[600] 476 of 496 tiles). `tools/pairsweep.py` draws every nearby map with each redrawn tileset on both
+ROMs to find such gaps; the reslog-based check (every map loaded in a scene whose own tileset never loads must be
+listed) found no other one.
+
 ## Credits (scene 11) format (solved 2026-11-15 (g); writer `tools/credits.py`, rows `gfx/credits.tsv`)
 
 Five rolls, 700..704, each tileset 18[n] + roll 19[n] (16[n] palette-ish, 20[n] is only a linear 0..599 map, `B2`
@@ -244,6 +266,7 @@ Routes: `tools/routes/boot.txt` + menu routes in `tools/routes/survey_*.txt`; ma
 | Continue | コンティニュー | OBJ 17.0646, 17.0648, 17.0662 | translate |
 | Unlock message | 「げんせいしん ケンライザーが つかえるように なりました」 + "Congratulations" | BG screens s0629, s0648-s0651 | translate |
 | Title variants | 幻星神ジャスティライザー logo | BG screens s0234, s0235, s0246, s0247 | keep logo (D5) |
+| Attract title | subtitle 装着!地球の戦士たち + copyright ジャスティライザープロジェクト・テレビ東京 | BG 18[247] maps 20[247]/20[248], 18[245] | done phase 9: "Souchaku!" / "Warriors of Earth", "Justiriser Project / TV Tokyo" (§Attract title) |
 | Credits | staff roll (ディレクター, サウンド, サブプログラム, キャラクターグラフィック, デバッグ, スペシャルサンクス, names) | BG screens s0675, s0701-s0705 | translate to English (D3) |
 | Unknown | ジャスティライザー fragments / small katakana | BG screens s0207-s0216, s0670-s0673 | identify by warp in phase 2 |
 | Stage backgrounds | shop signs with small Japanese lettering (sweep: 9.0008, 9.0021, 9.0022, 9.0024, 9.0030, 9.0036, 9.0037; "CRASH" sign 9.0003 English) | BG, group 9 LZ | decide per sign (scenery; low priority) |

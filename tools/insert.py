@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 import asmpatch  # noqa: E402
 import bgtext  # noqa: E402
+import attract  # noqa: E402
 import cards  # noqa: E402
 import credits  # noqa: E402
 import objtext  # noqa: E402
@@ -284,5 +285,6 @@ def build(orig, mode="en", qa=None):
         writes += log_writes(orig, rom, credits.apply(rom, orig), "credits")   # staff roll (gfx/credits.tsv)
         writes += log_writes(orig, rom, objtext.apply(rom, orig), "objtext")   # OBJ sprites + yes/no (gfx/obj.tsv)
         writes += log_writes(orig, rom, cards.apply(rom, orig), "cards")   # area chapter cards (gfx/cards.tsv)
+        writes += log_writes(orig, rom, attract.apply(rom, orig), "attract")   # attract title (gfx/attract.tsv)
     return bytes(rom), writes, {"replaced": len(texts), "addresses": addresses(model, FREE, ids), "model": model,
                                 "ids": ids, "texts": texts, "table": et}
