@@ -12,8 +12,11 @@ Updated at the end of every session. Keep it to what the next session needs; his
     `work/qa/**/manifest.tsv` except `old_*`, textcover, polish, README placeholders, debug off, BPS, re-apply, zip in
     `release/v1.0/`).
   - The text changes moved string addresses, so the phase 8 tour logs no longer prove textcover: old tour output moved
-    to `work/qa/old_v2/`, full `bash tools/final_tour.sh` rerun on 050ac249 (log `work/qa/final_tour_run.log`).
-  - **Next:** when it ends (ALLDONE): textcover 0 failing; `qa_gate.py init` both manifests with `--build`
+    to `work/qa/old_v2/`, full `bash tools/final_tour.sh` started on 050ac249 (log `work/qa/final_tour_run.log`).
+    **Claude Code stopped it for low system memory** during step `tour` (~81 of 87 scenes; tour_adv, msgview, gfx,
+    inkcheck and sheets not run); orphans killed. Free memory was ~1-1.5 GB with other projects' emulators running.
+  - **Next:** `rm -rf work/qa/final/tour` and `bash tools/final_tour.sh` again (full, all steps) when the machine has
+    memory free; when it ends (ALLDONE): textcover 0 failing; `qa_gate.py init` both manifests with `--build`
     (`work/qa/manifest.tsv` over work/qa/final `*sheet*.png`; `work/qa/final/gfx/manifest.tsv` over the gfx shots, see
     final_sheets.sh header); `qa_gate.py todo --out-dir work/qa/chunks4`, `tools/qa_codex.py ... --prefix d_` on the
     changed sheets; both gates exit 0; then `python -X utf8 tools/release.py`.
