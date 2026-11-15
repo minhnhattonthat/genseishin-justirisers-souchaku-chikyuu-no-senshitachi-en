@@ -72,13 +72,13 @@ def main():
         if os.path.exists(jp):
             cmd += ['--compare', jp]
         subprocess.run(cmd, check=True, capture_output=True)
-        brief.append('- `gfx/%s` (%s %s): %s' % (sid, scene, frame, expect))
+        brief.append('- `%s` (%s %s): %s' % (sid, scene, frame, expect))
     missing = sorted(gfx_keys() - covered)
     for k in missing:
         print('NO SHOT for', k)
     with open(os.path.join(ROOT, 'docs', 'visual-qa-brief.md'), encoding='utf-8') as f:
         text = f.read()
-    text += ('\n## Graphics-row shots (ids starting `gfx/`)\n'
+    text += ('\n## Graphics-row shots (the ids listed below; manifest OUT/manifest.tsv, verdicts OUT/verdicts/)\n'
              'Each image is one zoomed frame: the English build on the left, the original ROM at the same frame on '
              'the right when there is one (a missing right half = no original run for that warp). Judge the left '
              'half: the listed English must be there, legible, inside its frame or button, with no Japanese left '
@@ -87,7 +87,7 @@ def main():
     with open(os.path.join(ROOT, a.out, 'brief.md'), 'w', encoding='utf-8') as f:
         f.write(text)
     print('%d shots in %s, %d gfx keys, %d without a shot, %d missing frames' % (
-        len(shots) - bad, a.out, len(gfx_keys()), len(missing), bad))
+        len(brief), a.out, len(gfx_keys()), len(missing), bad))
     return 1 if missing or bad else 0
 
 
