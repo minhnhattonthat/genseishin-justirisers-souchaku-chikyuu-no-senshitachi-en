@@ -1,0 +1,20 @@
+# Area chapter cards in English (tools/cards.py; docs/re/graphics.md §Area cards). gfx/bg.tsv columns:
+# screen(layer)	rect x,y,w,h	text	font	ink	shadow	bg	align	note
+# Header layers 207/209/211/213/215 (cells x 80-159, y 16-47), title layers 208/210/216 (x 16-223, y 48-111) and
+# 212/214 (x 0-239, y 48-111). Ink 2 = white, 1 = the dark outline (as the Japanese). Rects sit on the 8 px grid
+# with h 16 so each line stays on two tile rows (tile budgets: header 16, titles 98-125).
+207	80,24,80,16	Area 1	normal	2	o1	-	cb	エリア1
+208	16,56,208,16	"Here Come the	normal	2	o1	-	lb	「ジャスティライザー
+208	16,80,208,16	Justirisers!"	normal	2	o1	-	rb	とうじょう!」
+209	80,24,80,16	Area 2	normal	2	o1	-	cb	エリア2
+210	16,56,208,16	"Infiltrate!	normal	2	o1	-	lb	「せんにゅう!
+210	16,80,208,16	The Den of Schemes"	normal	2	o1	-	rb	いんぼうの そうくつ」
+211	80,24,80,16	Area 3	normal	2	o1	-	cb	エリア3
+212	8,56,224,16	"Pursuit!	normal	2	o1	-	lb	「ついせき!
+212	8,80,224,16	Race Across the Wasteland!"	normal	2	o1	-	rb	こうやを かけぬけろ!」
+213	80,24,80,16	Area 4	normal	2	o1	-	cb	エリア4
+214	8,56,224,16	"Menace!	normal	2	o1	-	lb	「きょうい! (脅威)
+214	8,80,224,16	The Bewitching Cyber Knight"	normal	2	o1	-	rb	げんわくの サイバーナイト」 (幻惑: Gardias' mind control)
+215	80,24,80,16	Area 5	normal	2	o1	-	cb	エリア5
+216	16,56,208,16	"Showdown!	normal	2	o1	-	lb	「けっせん!
+216	16,80,208,16	Secret Underground Base"	normal	2	o1	-	rb	ちか ひみつ きち」 (Zora's base)

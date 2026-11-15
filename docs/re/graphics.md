@@ -166,6 +166,24 @@ no pixel changes outside the rects, other screens on the same tileset unchanged.
   (`work/qa/gfx/budget_check.png`, `work/qa/smoke/final.png`). `bgtext.py ink ROM N rect IDX` prints the ink bands of a rect (where to place the English); bg `cN` clears each
   row to column N's colour (gradient banners). おまけモード = "Bonus Mode".
 
+## Area cards (solved 2026-11-15 (j); writer `tools/cards.py`, rows `gfx/cards.tsv`)
+
+The エリアN + chapter-title card (scene 2 sub 4, also at the end of story_intro and battle_1..4_win) is three BG
+layers (VRAM dump `work/qa/cardvram`, story_intro f3700 on the original): BG0 8bpp hero picture 18/19/20[206]
+(screen 0xE000), BG1 header (screen 0xE800, tiles at char 0x8000 + 174), BG2 title (screen 0xF000, tiles right
+after the header's). Areas 1-5 = layers 207/208, 209/210, 211/212, 213/214, 215/216 (group 16[207..211] is per
+area too, palette-ish). Loader 0x0801E1D2..0x0801E206 (the credits one):
+- **20[n]**: `B2`, w, h in **metatiles** (15 x 10 = the screen), then w*h u16 metatile numbers (0 = none).
+- **19[n]**: `a2`, u16 N (metatile count), then `(N + 2) & ~1` attribute bytes (all 0 here), then metatiles 0..N of
+  4 u16 tile numbers (TL, TR, BL, BR); metatile 0 is blank. Each metatile is used once.
+- The staff roll is the same format: `credits.py` reads its 600 attribute bytes (N = 599) as 75 transparent
+  metatiles of lead-in, which happens to work because they are zero.
+- English: each layer redrawn from blank (white 2, outline 1, bold normal font), metatile contents re-tiled with
+  dedup and padded to the original tile count; 18/19 written in place, 20 and the attribute bytes untouched.
+  Headers use 14-16 of 16 tiles, titles 53-71 of 98-125. 18/19/20[217] (clear_1_4, event_3_26) is another picture.
+- Checked in the emulator on the en build: `work/qa/cards_en` (story_intro f4260, battle_1_win f5580, battle_2_win
+  f4200, battle_3_win f3780, battle_4_win f3960).
+
 ## Credits (scene 11) format (solved 2026-11-15 (g); writer `tools/credits.py`, rows `gfx/credits.tsv`)
 
 Five rolls, 700..704, each tileset 18[n] + roll 19[n] (16[n] palette-ish, 20[n] is only a linear 0..599 map, `B2`

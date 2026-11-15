@@ -26,4 +26,6 @@ D23570-EFFFFF   free space (0xFF fill, trap-tested): relocated script block
 5F87C4-5FCB19   OBJ 17[646] name plates, save-card badges, Zakoul plates, in place (tools/objtext.py)
 5FCB74-5FD2B1   OBJ 17[648] Zakoul plates, in place (tools/objtext.py)
 5FD2C0-5FD9FD   OBJ 17[662] Zakoul plates, in place (tools/objtext.py)
+628B4C-62DE8F   area card tilesets 18[207..216] (エリアN headers + chapter titles), in place (tools/cards.py)
+72B048-72BC53   area card metatile sets 19[207..216], in place (tools/cards.py)
 2C15F4-2CB12F   title picture 5[20] (subtitle + copyright line 1), rewritten in place (tools/objtext.py)
