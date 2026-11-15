@@ -35,7 +35,7 @@ id	slots	jp	en	notes
 1E9EC3	268	データをけしています	Erasing data...	
 1E9ECF	269	データをけせませんでした	Could not erase data.	
 1E9EDD	270	データをけしました	Data erased.	
-1E9EE8	271-272	２しゅうめをあそぶには{n}クリアデータをロードする{n}ひつよう が あります	To play round two,{n}you must first load{n}your clear data.	
+1E9EE8	271-272	２しゅうめをあそぶには{n}クリアデータをロードする{n}ひつよう が あります	To replay the game,{n}you must first load{n}your clear data.	
 1E9F0F	273	クリアデータを{n}セーブしますか？{n}	Save your{n}clear data?{n}	
 1E9F24	274	ここまでのプレイを{n}セーブしますか？{n}	Save your progress{n}so far?{n}	
 1E9F3A	275	  つぎのステージへすすむ{n}  セーブする	  Go to the next stage{n}  Save	
