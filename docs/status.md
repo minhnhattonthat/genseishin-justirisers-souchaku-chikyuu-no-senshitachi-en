@@ -2,8 +2,22 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 9. Release: not started (phase 8 done 2026-11-15, session (l)). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 **a2ecdeb4...**, check ok (67 tests), smoke ok.
-- **Session 2026-11-15 (l), read first: phase 8 done.**
+- **Phase:** 9. Release in progress: story pass and polish done, re-tour on the new build running. Last build: 2026-11-15 `build/justirisers_en.gba` sha1 **050ac249...**, check ok (67 tests).
+- **Session 2026-11-15 (m), read first: phase 9.**
+  - Done: `docs/style-reference.md`; story pass (`tools/pairs.py --chapters work/qa/story/chapters`, 8 chapters,
+    `tools/story_codex.py` = read-only codex per chapter, brief `docs/story-reviewer-brief.md`, reports
+    `work/qa/story/reports/{a,b,c}_*.md`): one Important (1F0FC6) fixed, Minors fixed or waived; `qa_gate.py check
+    work/qa/story/manifest.tsv work/qa/story/verdicts` exit 0. `docs/polish.md` all ticked. README filled (hashes).
+    **`tools/release.py`** written (build --verify, check, smoke, romcheck jp-left, qa_gate on every
+    `work/qa/**/manifest.tsv` except `old_*`, textcover, polish, README placeholders, debug off, BPS, re-apply, zip in
+    `release/v1.0/`).
+  - The text changes moved string addresses, so the phase 8 tour logs no longer prove textcover: old tour output moved
+    to `work/qa/old_v2/`, full `bash tools/final_tour.sh` rerun on 050ac249 (log `work/qa/final_tour_run.log`).
+  - **Next:** when it ends (ALLDONE): textcover 0 failing; `qa_gate.py init` both manifests with `--build`
+    (`work/qa/manifest.tsv` over work/qa/final `*sheet*.png`; `work/qa/final/gfx/manifest.tsv` over the gfx shots, see
+    final_sheets.sh header); `qa_gate.py todo --out-dir work/qa/chunks4`, `tools/qa_codex.py ... --prefix d_` on the
+    changed sheets; both gates exit 0; then `python -X utf8 tools/release.py`.
+- **Session 2026-11-15 (l): phase 8 done.**
   - Codex verdicts on the last chunks (`work/qa/chunks2` 006..013): 222 ok, 1 issue: `tour_adv/clear_1_2/sheet_2`
     frame f3720 = green stripes of garbage tiles (first frames of the points screen, scene 6 sub 1, palette fade-in).
     **Not reproducible**: the same warp with the same options (and with a shot every frame, on both ROMs) shows a
