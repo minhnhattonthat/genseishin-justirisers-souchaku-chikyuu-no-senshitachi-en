@@ -2,9 +2,12 @@
 
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
-- **Phase:** 9. Release done: v1.0 zip built and verified (`release/v1.0/Genseishin_Justirisers_EN_v1.0.zip`,
-  patch sha1 4cd30fb2..., patched ROM CRC32 1879B614 / sha1 **08de8273...**). Publishing (`gh release create`, repo
-  visibility) is the user's call. Last build: 2026-11-15 `build/justirisers_en.gba` sha1 08de8273, check ok (70 tests),
+- **Phase:** 9. Released: **v1.0 published 2026-11-15** at the user's request
+  (https://github.com/minhnhattonthat/genseishin-justirisers-souchaku-chikyuu-no-senshitachi-en/releases/tag/v1.0,
+  notes `release/v1.0/notes.md`), repo now **public**, description set to the real title. Zip
+  `release/v1.0/Genseishin_Justirisers_EN_v1.0.zip` (the download matches it), patch sha1 4cd30fb2..., patched ROM
+  CRC32 1879B614 / sha1 **08de8273...**. Archived QA rounds moved to `work/qa_old/` (the publish guard checks every
+  `work/qa/**/manifest.tsv`). Next: player bug reports (GitHub issues, AGENTS.md). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 08de8273, check ok (70 tests),
   smoke ok, `tools/release.py` exit 0 (every gate: visual 717, gfx 58, story 8, textcover 0 failing, polish, README).
 - **Session 2026-11-15 (m), part 2:** codex verdicts on the re-tour found two real graphics bugs, both fixed:
   - **Attract-mode title** (after the story clip, before the real title 5[20]) still showed 装着!地球の戦士たち and
