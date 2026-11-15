@@ -3,7 +3,18 @@
 Updated at the end of every session. Keep it to what the next session needs; history is in git.
 
 - **Phase:** 8. QA in the emulator: in progress (phase 7 done 2026-11-15). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 b9034870... (text + BG lettering + staff roll + OBJ sprites + title + **area chapter cards**), check ok. Session (j) fixed every graphics issue of session (i); what is left is the re-tour on this build and its verdicts (Next below).
-- **Session 2026-11-15 (j), read first:**
+- **Session 2026-11-15 (k), read first:** build b9034870 rebuilt and unchanged, check ok (66 tests), smoke ok.
+  - An orphaned `final_tour.sh` of session (j) was still running and failing every scene (exit 0xC0000142 =
+    MesenCE could not start for low memory): killed. Other projects' agents keep ~6 MesenCE instances (~4 GB) on the
+    machine, free memory ~1-3 GB of 16.
+  - `tools/final_tour.sh` now reruns FAIL scenes one at a time (twice; `LOG.retry` = last retry) and resumes from a
+    step: `bash tools/final_tour.sh [tour|adv|mv|gfx]`.
+  - **Re-tour: step `tour` done, 87/87 ok** (`work/qa/final/tour`, `work/states/` regenerated on this build). Claude
+    Code then stopped the run again for low system memory during `tour_adv` (25 of 59 scenes; orphans killed).
+    **Next:** `rm -rf work/qa/final/tour_adv` and `bash tools/final_tour.sh adv` (adv + msgview + gfxshots +
+    inkcheck) when the machine has memory free (fewer other emulators); then textcover, `qa_gate.py init` both
+    manifests with `--build`, Codex verdicts, `qa_gate.py check` (Next below, step (c)).
+- **Session 2026-11-15 (j):**
   - **Area chapter cards done** (`tools/cards.py`, rows `gfx/cards.tsv`, `tests/test_cards.py`, docs/re/graphics.md
     §Area cards). Format solved from the loader: 20[n] = metatile map (15 x 10), 19[n] = `a2`, N, N attribute
     bytes, metatiles 0..N. Layers 207-216 (header + title per area), redrawn in place (white bold, dark outline).
