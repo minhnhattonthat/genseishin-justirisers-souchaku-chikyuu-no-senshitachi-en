@@ -35,4 +35,5 @@ if [ $STEP != gfx ]; then
 fi
 python -X utf8 tools/gfxshots.py > work/qa/final_gfx.log 2>&1
 python -X utf8 tools/inkcheck.py > work/qa/final_ink.log 2>&1
+bash tools/final_sheets.sh > work/qa/final_sheets.log 2>&1
 echo ALLDONE

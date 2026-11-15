@@ -5,8 +5,8 @@
 # from frame F. ink/shadow/bg are hex palette indices; shadow oN,M,.. = outline N then rings M..; align l/c/r, b bold, -1 tracking.
 601	2	0,0,63,16	New Game	small	9/A/B/B/A/9/9	o8	0	cb	(63 wide: the menu window shows the left item's column 63 at x 88, keep it empty) top menuはじめから
 601	3	0,0,63,16	-	glow:2	-	-	0	c	top menuはじめから backing
-601	4	0,0,64,16	Continue	small	9/A/B/B/A/9/9	o8	0	cb	top menu つづきから
-601	5	0,0,64,16	-	glow:4	-	-	0	c	top menu つづきから backing
+601	4	0,0,62,16	Continue	small	9/A/B/B/A/9/9	o8	0	cb	(62 wide: centred between the carousel arrows, the sprite sits at x 89) top menu つづきから
+601	5	0,0,62,16	-	glow:4	-	-	0	c	top menu つづきから backing
 545	0	0,0,80,24		small	-	-	0	c	clear the whole plate (no OBJ over its corners)
 545	0	8,0,64,24	Riser Glen	normal	7/6/6/4	o3,2,1	0	c-1	name plate ライザーグレン
 545	1	0,0,80,24	Riser Kageri	normal	A/9/9/8	o3,2,1	0	c-1	name plate ライザーカゲリ
