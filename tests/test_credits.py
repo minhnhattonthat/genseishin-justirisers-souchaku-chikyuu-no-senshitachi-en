@@ -44,6 +44,26 @@ class CreditsTest(unittest.TestCase):
             self.assertEqual([k for k, e in enumerate(a) if e == clear], [k for k, e in enumerate(b) if e == clear], n)
             self.assertNotEqual(a, b, n)
 
+    def test_lines_inside_one_page(self):
+        """Scene 11 shows rolls 700-704 as four still pages (roll y 80-239, 240-399, 400-559, 560-719, measured in
+        the emulator): a line whose ink crosses a page edge is cut in half on both pages (issue #1)."""
+        import credits
+        import font
+        fonts = font.load_all()
+        edges = (240, 400, 560)
+        for r in self.rows:
+            if r["font"] == "keep" or r["roll"] == 705:
+                continue
+            lo, hi = credits.ink_band(fonts[r["font"]])
+            top = r["y"] - (lo + hi + 1) // 2
+            if "g" in r["align"]:
+                top = (top + 4) // 8 * 8
+            a, b = top + lo, top + hi
+            self.assertGreaterEqual(a, 80, r)
+            self.assertLess(b, 720, r)
+            for e in edges:
+                self.assertFalse(a < e <= b, f"{r['roll']} {r['text']!r}: ink {a}..{b} crosses page edge {e}")
+
     def test_writes_inside_resources(self):
         import credits
         spans = [credits.resource(self.orig, g, n) for g in (18, 19) for n in credits.ROLLS]

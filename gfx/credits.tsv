@@ -9,26 +9,29 @@
 700	153	16	l	normal	Justiriser Project / TV Tokyo	ジャスティライザープロジェクト・テレビ東京
 700	169	16	l	normal	Based on the TV series	テレビ番組「幻星神ジャスティライザー」より
 700	185	16	l	normal	"Genseishin Justirisers"	
-700	217	16	l	normal	- Cast -	-キャスト- (stacked role / name like the staff: one line each was too wide)
-700	241	16	l	normal	Riser Glen	ライザーグレン
-700	257	80	l	normal	Tatsuya Isaka	伊阪 達也
-700	273	16	l	normal	Riser Gant	ライザーガント
-700	289	80	l	normal	Shunya Isaka	井坂 俊哉
-700	305	16	l	normal	Riser Kageri	ライザーカゲリ
-700	321	80	l	normal	Shiori Kanzaki	神崎 詩織
-700	337	16	l	normal	Zauras	ザウラス
-700	353	80	l	normal	Atsushi Seri	芹 アツシ
-700	369	16	l	normal	Gildoros/Gardias	ギルドロス/ガーディアス
-700	385	80	l	normal	Kosuke Takaguchi	高口 公介
-700	401	16	l	normal	Armor Gunner	アーマーガンナー
-700	417	80	l	normal	Tadashi Wakabayashi	若林 正
-700	433	16	l	normal	Doctor Zora	ドクター・ゾラ
-700	449	80	l	normal	Rei Igarashi	五十嵐 麗
-700	465	16	l	normal	System Voice	システムボイス
-700	481	80	l	normal	Masashi Yabe	矢部 雅史
-700	513	16	l	normal	- Staff -	-スタッフ-
-700	545	16	l	normal	Executive Producer	エグゼクティブプロデューサー
-700	561	80	l	normal	Motoyuki Yoshioka	吉岡 基行
+# The game shows each roll as four still pages, roll y 80-239, 240-399, 400-559, 560-719 (fade between them):
+# a line's ink must sit inside one page (tests/test_credits.py checks; issue #1: lines on y 241/401/561 were cut).
+# The stacked cast needs two pages (the Japanese fits it on one), so the staff block moves to page 4.
+700	253	16	l	normal	- Cast -	-キャスト- (stacked role / name like the staff: one line each was too wide)
+700	273	16	l	normal	Riser Glen	ライザーグレン
+700	289	80	l	normal	Tatsuya Isaka	伊阪 達也
+700	305	16	l	normal	Riser Gant	ライザーガント
+700	321	80	l	normal	Shunya Isaka	井坂 俊哉
+700	337	16	l	normal	Riser Kageri	ライザーカゲリ
+700	353	80	l	normal	Shiori Kanzaki	神崎 詩織
+700	369	16	l	normal	Zauras	ザウラス
+700	385	80	l	normal	Atsushi Seri	芹 アツシ
+700	433	16	l	normal	Gildoros/Gardias	ギルドロス/ガーディアス
+700	449	80	l	normal	Kosuke Takaguchi	高口 公介
+700	465	16	l	normal	Armor Gunner	アーマーガンナー
+700	481	80	l	normal	Tadashi Wakabayashi	若林 正
+700	497	16	l	normal	Doctor Zora	ドクター・ゾラ
+700	513	80	l	normal	Rei Igarashi	五十嵐 麗
+700	529	16	l	normal	System Voice	システムボイス
+700	545	80	l	normal	Masashi Yabe	矢部 雅史
+700	573	16	l	normal	- Staff -	-スタッフ-
+700	593	16	l	normal	Executive Producer	エグゼクティブプロデューサー
+700	609	80	l	normal	Motoyuki Yoshioka	吉岡 基行
 700	641	16	l	normal	Producers	プロデューサー
 700	657	80	l	normal	Takashi Shitamichi	下道 隆
 700	673	80	l	normal	Hirotaka Reizei	冷泉 弘隆
