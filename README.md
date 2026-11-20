@@ -32,7 +32,7 @@ Known issues: none known; see [Issues](../../issues).
 | MD5 | 8905016d29e691975ebb176dec1dce4e |
 | SHA-1 | 54de19108f2b8411ff2e52f7b5bf8e68bb19ae6d |
 
-Tested in MesenCE 2.2.1 with the official GBA BIOS. Start from a cold boot (no savestates from the Japanese game).
+Tested in MesenCE 2.2 with the official GBA BIOS. Start from a cold boot (no savestates from the Japanese game).
 
 ## What's here
 

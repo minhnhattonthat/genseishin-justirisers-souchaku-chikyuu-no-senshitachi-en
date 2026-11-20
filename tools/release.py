@@ -81,7 +81,7 @@ How to patch
 
 Play
 ----
-Tested in MesenCE 2.2.1 with the official GBA BIOS; any accurate GBA emulator or a flash cart should work.
+Tested in MesenCE 2.2 with the official GBA BIOS; any accurate GBA emulator or a flash cart should work.
 Start from a cold boot: do not load savestates made with the Japanese ROM. In-game saves carry over.
 
 Known issues: none known. Report bugs (a savestate helps most):

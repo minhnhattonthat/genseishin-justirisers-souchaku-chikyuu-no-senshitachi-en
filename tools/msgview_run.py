@@ -78,6 +78,8 @@ def run(name, pairs, a):
            '--frames', str(frames), '--shot-every', '20', '--timeout', '900',
            '--script', os.path.join(ROOT, 'tools', 'debug', 'warp.lua'), '--var', "SCENE='stage_1_1'",
            '--var', 'ADVANCE=40', '--var', 'GOD=1',
+           # emu.py runs a copy of warp.lua from the output dir, so its relative default scenes path misses
+           '--var', 'SCENES=[[%s]]' % os.path.join(ROOT, 'tools', 'debug', 'scenes.gba.txt').replace('\\', '/'),
            '--script', os.path.join(ROOT, 'tools', 'lua', 'msgview.lua'),
            '--var', "MSGS='%s'" % ','.join('%d:%d' % p for _, p in pairs),
            '--script', os.path.join(SKILL, 'scripts', 'lua', 'probes', 'textcover.lua'), '--var', "RANGES='%s'" % RANGES]

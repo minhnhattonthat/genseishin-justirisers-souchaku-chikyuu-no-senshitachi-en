@@ -9,6 +9,10 @@ Updated at the end of every session. Keep it to what the next session needs; his
   CRC32 1879B614 / sha1 **08de8273...**. Archived QA rounds moved to `work/qa_old/` (the publish guard checks every
   `work/qa/**/manifest.tsv`). Next: player bug reports (GitHub issues, AGENTS.md). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 08de8273, check ok (70 tests),
   smoke ok, `tools/release.py` exit 0 (every gate: visual 717, gfx 58, story 8, textcover 0 failing, polish, README).
+- **v1.1 published 2026-11-21** (zip `release/v1.1/Genseishin_Justirisers_EN_v1.1.zip`, notes `release/v1.1/notes.md`,
+  patch sha1 2a054177..., patched ROM CRC32 84DC9575 / sha1 **c9bd62f8...**). `tools/release.py` exit 0: visual 718,
+  gfx 58, story 8, textcover 0 failing. The full coverage tour was skipped at the owner's request (D13): run
+  `JOBS=1 bash work/cover_v1.1.sh` before the next release. `tools/msgview_run.py` got the same SCENES path fix.
 - **Session 2026-11-21: v1.1 (issue #1 fixes merged, PR #2).** Emulator switched to the **MesenCE QA fork** (qa-1,
   `fetch_emu.py mesen`): upstream 2.2.1 held ~1.1 GB per run and the re-tour was killed twice for low memory; the
   fork gives identical frames. `tools/debug/warp_all.py` now passes `SCENES=[[abs path]]` (emu.py runs a copy of
