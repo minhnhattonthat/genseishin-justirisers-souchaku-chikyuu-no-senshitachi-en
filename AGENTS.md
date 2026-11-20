@@ -11,7 +11,7 @@ Skill: translate-retro-game (Claude Code: plugin, enabled in .claude/settings.js
 - Clean:    `python -X utf8 tools/clean.py` (published projects: lists rebuildable/downloadable files; `--yes` deletes)
 
 ## Paths
-- Original ROM: `rom/Genseishin Justirisers - Souchaku Chikyuu no Senshitachi (Japan).gba` (gitignored; SHA-1 in `rom.sha1`, checked by `tools/check_rom.py`); `work/orig.gba` is a space-free copy for emulator runs. Emulator: this repo's own MesenCE in `tools/mesen/` (release 2.2.1, https://github.com/nesdev-org/MesenCE/releases/download/2.2.1/Mesen_2.2.1_Windows.zip; gitignored; BIOS `tools/mesen/Firmware/gba_bios.bin`, SHA-1 300c20df...; settings in `tools/emu-config/`). Savestates: `work/states/`.
+- Original ROM: `rom/Genseishin Justirisers - Souchaku Chikyuu no Senshitachi (Japan).gba` (gitignored; SHA-1 in `rom.sha1`, checked by `tools/check_rom.py`); `work/orig.gba` is a space-free copy for emulator runs. Emulator: this repo's own MesenCE in `tools/mesen/` (MesenCE QA fork qa-1, `python $SKILL/scripts/fetch_emu.py mesen --dest tools --force`; upstream 2.2.1 held ~1.1 GB per run under Lua and ran the machine out of memory on tours; gitignored; BIOS `tools/mesen/Firmware/gba_bios.bin`, SHA-1 300c20df...; settings in `tools/emu-config/`). Savestates: `work/states/`.
 - Text: `script/` (TSV, one per sub-table; `python -X utf8 tools/script.py dump|check|find ROM`, dump never overwrites without `--force` and keeps `en`). Tables: `tbl/`. Glossary: `glossary.md`. RE notes index: `docs/re/README.md`. Fonts and their licences: `docs/fonts.md`.
 
 ## Rulings

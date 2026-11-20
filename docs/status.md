@@ -9,6 +9,23 @@ Updated at the end of every session. Keep it to what the next session needs; his
   CRC32 1879B614 / sha1 **08de8273...**. Archived QA rounds moved to `work/qa_old/` (the publish guard checks every
   `work/qa/**/manifest.tsv`). Next: player bug reports (GitHub issues, AGENTS.md). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 08de8273, check ok (70 tests),
   smoke ok, `tools/release.py` exit 0 (every gate: visual 717, gfx 58, story 8, textcover 0 failing, polish, README).
+- **Session 2026-11-21: v1.1 (issue #1 fixes merged, PR #2).** Emulator switched to the **MesenCE QA fork** (qa-1,
+  `fetch_emu.py mesen`): upstream 2.2.1 held ~1.1 GB per run and the re-tour was killed twice for low memory; the
+  fork gives identical frames. `tools/debug/warp_all.py` now passes `SCENES=[[abs path]]` (emu.py runs a copy of
+  the script from the output dir, so warp.lua's relative default failed every scene). Re-tour of the touched
+  scenes only (`work/retour_v1.1.sh`: data_save*, battle_choice, battle_5_win_r2, ending_save, credits, clear_*,
+  plus tour_adv), sheets, gfxshots; Codex was out of credits, so the verdicts came from Claude reviewer agents with
+  `docs/visual-qa-brief.md` (`work/qa/verdicts/v11_*`, `gv11_*`, `v11b_*`).
+  - Found by that QA: **save-card plate "Riser Kageri" 646[1]** sat 1 px above Glen/Gant (the g's descender moves
+    the centred line up), and the overwrite prompt hid the R's top ("Kiser"). Rect now 0,1,72,23 plus a
+    full-plate clear row (`gfx/obj.tsv`). Pre-existing since v1.0; only visible when the warp catches the prompt.
+  - Manifests: stale ids (sheet pages the shorter reruns no longer make) dropped; `changed` times rebuilt (v1.0
+    time where the hash is unchanged, else the v1.1 init time when the scene's frames predate the verdicts);
+    `manifest.tsv.v10` = the v1.0 copies.
+  - **Open (owner's call):** char-select Kageri names (`gfx/bg.tsv` 600:602) at tracking -1: "Phantom Crush" C/r
+    touch (reads "Orush"), "Kageri Striker" word gap ~1 px. Since v1.0; tracking 0 doesn't fit the 88 px rect
+    (94/98 px). Needs shorter names or pair kerning. Controller verdict `work/qa/verdicts/v11_controller.tsv`.
+  - Reporter's wording wishes (roll call as Kenzan/Sanjou/Suisan) still open, see the issue #1 entry below.
 - **Session 2026-11-20: issue #1 (branch fix/issue-1, PR pending review, no release).** Reproduced by warping on
   both ROMs (the reporter's save is a RetroArch mGBA state; not needed). Build **66142040**, check ok (71 tests), smoke ok.
   - Save menu 1E9F3A (`data_save`): the cursor covered the first letter (English text began at x 47, the original's

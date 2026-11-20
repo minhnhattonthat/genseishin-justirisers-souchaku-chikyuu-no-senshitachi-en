@@ -43,7 +43,9 @@ def run(entry, a):
     cmd = [sys.executable, '-X', 'utf8', os.path.join(SKILL, 'scripts', 'emu.py'), a.rom, '--out', out,
            '--frames', str(frames), '--shot-every', str(a.every),
            '--script', os.path.join(ROOT, 'tools', 'debug', 'warp.lua'),
-           '--var', "SCENE='%s'" % entry['name'], '--timeout', '900']
+           '--var', "SCENE='%s'" % entry['name'], '--timeout', '900',
+           # emu.py runs a copy of the script from the output dir, so warp.lua's relative default path misses
+           '--var', 'SCENES=[[%s]]' % LIST.replace('\\', '/')]
     if a.states:
         cmd += ['--state-out', os.path.join(ROOT, 'work', 'states', entry['name'] + '.mss')]
     for v in a.var or []:
