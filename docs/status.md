@@ -9,6 +9,19 @@ Updated at the end of every session. Keep it to what the next session needs; his
   CRC32 1879B614 / sha1 **08de8273...**. Archived QA rounds moved to `work/qa_old/` (the publish guard checks every
   `work/qa/**/manifest.tsv`). Next: player bug reports (GitHub issues, AGENTS.md). Last build: 2026-11-15 `build/justirisers_en.gba` sha1 08de8273, check ok (70 tests),
   smoke ok, `tools/release.py` exit 0 (every gate: visual 717, gfx 58, story 8, textcover 0 failing, polish, README).
+- **Session 2026-11-20: issue #1 (branch fix/issue-1, PR pending review, no release).** Reproduced by warping on
+  both ROMs (the reporter's save is a RetroArch mGBA state; not needed). Build **66142040**, check ok (71 tests), smoke ok.
+  - Save menu 1E9F3A (`data_save`): the cursor covered the first letter (English text began at x 47, the original's
+    at x 55, cursor tip x 54): indent 2 -> 5 spaces, text at x 59.
+  - Round-2 choice card 18[629] (`battle_choice`): 4 px of the old ケ outline (x 48-51, y 117) sat outside both
+    rects: prefix rects now 0,112,52,24 and 122,112,52,24 (same centre, text unmoved).
+  - Credits roll 700: pages are fixed 160 px windows (docs/re/graphics.md §Credits); Riser Glen / Armor Gunner /
+    Motoyuki Yoshioka straddled page edges and were cut. Cast now on pages 2-3, staff on page 4; new test.
+  - Not done (wording preferences from the report, for the owner): roll-call shouts けんざん/さんじょう/すいさん as
+    romaji (Kenzan/Sanjou/Suisan) instead of "Here I come!!" / "On the scene!!" / "Reporting for battle!!".
+    Raizeros is already spelled as the reporter prefers.
+  - Release gates not rerun: the visual manifests need fresh verdicts for data_save, battle_choice, credits before
+    a v1.1 `tools/release.py`.
 - **Session 2026-11-15 (m), part 2:** codex verdicts on the re-tour found two real graphics bugs, both fixed:
   - **Attract-mode title** (after the story clip, before the real title 5[20]) still showed 装着!地球の戦士たち and
     the Japanese copyright: BG layers 18[247] (maps 20[247]/20[248]) and 18[245], new writer `tools/attract.py` +

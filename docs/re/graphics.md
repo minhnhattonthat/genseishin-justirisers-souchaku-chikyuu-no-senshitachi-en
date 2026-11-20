@@ -231,6 +231,10 @@ Five rolls, 700..704, each tileset 18[n] + roll 19[n] (16[n] palette-ish, 20[n] 
 - Gotcha: roll 700 with its first line on rows 12-13 showed stale copies of that line's tiles in screen columns 0-1
   at the top of the screen (f1050-1200); starting on row 16 (the Japanese starts on 15) it is clean, and
   `credits.py` refuses roll-700 lines above y 137. Rolls 701-703 start on rows 12-14 without it.
+- **Pages**: rolls 700-704 are not a smooth scroll; scene 11 shows each as four still pages (fades between them), roll
+  y 80-239, 240-399, 400-559, 560-719 (measured by matching warp shots to the rolls, f1140/1440/1740/2040 for 700).
+  A line whose ink crosses y 240/400/560 is cut in half on both pages (issue #1: the stacked cast ran over three
+  edges). `tests/test_credits.py` checks every line sits in one page; the stacked cast takes pages 2-3 of 700.
 - Checked in the emulator on the en build: `work/qa/credits_en` (warp `credits`, 7200 frames).
 
 ## Graphics-text survey (tour)

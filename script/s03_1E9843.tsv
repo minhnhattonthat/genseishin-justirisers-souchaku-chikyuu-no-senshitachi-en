@@ -38,7 +38,7 @@ id	slots	jp	en	notes
 1E9EE8	271-272	２しゅうめをあそぶには{n}クリアデータをロードする{n}ひつよう が あります	For a second run,{n}you must first load{n}your clear data.	
 1E9F0F	273	クリアデータを{n}セーブしますか？{n}	Save your{n}clear data?{n}	
 1E9F24	274	ここまでのプレイを{n}セーブしますか？{n}	Save your progress{n}so far?{n}	
-1E9F3A	275	  つぎのステージへすすむ{n}  セーブする	  Go to the next stage{n}  Save	
+1E9F3A	275	  つぎのステージへすすむ{n}  セーブする	     Go to the next stage{n}     Save	cursor menu: 5-space indent clears the cursor (issue #1)
 1E9F52	276-288	リタイアしますか？	Retire from{n}this stage?	
 1E9F5D	289	ふつうの モードです	This is Normal mode.	
 1E9F69	290	むずかしい モードです	This is Hard mode.	

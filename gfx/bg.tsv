@@ -126,8 +126,8 @@
 656:626	154,146,86,12	Use Skill	small	5	4	2	l	in-stage bar as Kageri (18[656]; its palette swaps 4/5: 5 = grey ink, 4 = dark): L+R = ひっさつわざをつかう
 657:627	154,146,86,12	Use Skill	small	5	4	2	l	in-stage bar as Gant (18[657]; 5 = grey ink, 4 = dark, as 656): L+R = ひっさつわざをつかう
 651	32,120,192,32	Genseishin Kenriser|is now available!	normal	7	8	0	c	unlock message げんせいしん ケンライザーが|つかえるように なりました ("Congratulations" is English)
-629	0,118,52,12	Genseishin	small	3/4/5	o1	0	r	choice card prefix げんせいしん (small, as the kana)
+629	0,112,52,24	Genseishin	small	3/4/5	o1	0	r	choice card prefix げんせいしん (small, as the kana; rect as tall as the name's so the ケ outline at x 48-51 y 117 is cleared, issue #1)
 629	52,112,66,24	Kenriser	normal	2/3/4/5	o1	0	lb	choice card ケンライザー
-629:630	122,118,52,12	Genseijuu	small	3/4/5	o1	0	r	choice card prefix げんせいじゅう
+629:630	122,112,52,24	Genseijuu	small	3/4/5	o1	0	r	choice card prefix げんせいじゅう
 629:630	174,112,66,24	Raizeros	normal	2/3/4/5	o1	0	lb	choice card ライゼロス
 629:631	50,137,140,14	Which will you use?	normal	8	9	7	c	choice prompt どちらを つかいますか?
